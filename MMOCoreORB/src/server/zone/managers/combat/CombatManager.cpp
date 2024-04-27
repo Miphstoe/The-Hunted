@@ -1766,7 +1766,7 @@ bool CombatManager::applySpecialAttackCost(CreatureObject* attacker, WeaponObjec
 	if (attacker->isAiAgent() || data.isForceAttack())
 		return true;
 
-	float force = weapon->getForceCost() * data.getForceCostMultiplier();
+	float force = weapon->getForceCost() * data.getForceCostMultiplier() / 2;
 
 	if (force > 0) { // Need Force check first otherwise it can be spammed.
 		ManagedReference<PlayerObject*> playerObject = attacker->getPlayerObject();
@@ -1785,9 +1785,9 @@ bool CombatManager::applySpecialAttackCost(CreatureObject* attacker, WeaponObjec
 	float action = weapon->getActionAttackCost() * data.getActionCostMultiplier();
 	float mind = weapon->getMindAttackCost() * data.getMindCostMultiplier();
 
-	health = attacker->calculateCostAdjustment(CreatureAttribute::STRENGTH, health);
-	action = attacker->calculateCostAdjustment(CreatureAttribute::QUICKNESS, action);
-	mind = attacker->calculateCostAdjustment(CreatureAttribute::FOCUS, mind);
+	health = attacker->calculateCostAdjustment(CreatureAttribute::STRENGTH, health) / 2;
+	action = attacker->calculateCostAdjustment(CreatureAttribute::QUICKNESS, action) / 2;
+	mind = attacker->calculateCostAdjustment(CreatureAttribute::FOCUS, mind) / 2;
 
 	if (attacker->getHAM(CreatureAttribute::HEALTH) <= health)
 		return false;

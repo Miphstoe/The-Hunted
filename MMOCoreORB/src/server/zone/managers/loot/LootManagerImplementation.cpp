@@ -374,6 +374,8 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 		}
 
 		if (subtitle == "useCount" || subtitle == "quantity" || subtitle == "charges" || subtitle == "uses" || subtitle == "charge") {
+			craftingValues->setMinValue(subtitle, min * 3);
+			craftingValues->setMaxValue(subtitle, max * 3);
 			continue;
 		}
 
@@ -645,8 +647,8 @@ bool LootManagerImplementation::createLootFromCollection(TransactionLog& trx, Sc
 		const LootGroupCollectionEntry* entry = lootCollection->get(i);
 		int lootChance = entry->getLootChance();
 
-		if (lootChance <= 0)
-			continue;
+		//if (lootChance <= 0)
+		//	continue;
 
 		int roll = System::random(10000000);
 
