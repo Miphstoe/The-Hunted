@@ -304,7 +304,9 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 
 	//float adjustment = floor((float)(((level > 50) ? level : 50) - 50) / 10.f + 0.5);
 
-	if (System::random(legendaryChance) >= legendaryChance) { // - adjustment) {
+	bool yellow = false;
+
+	if (System::random(legendaryChance) >= legendaryChance) { // - adjustment) { //legendaryChance
 		UnicodeString newName = prototype->getDisplayedName() + " (Legendary)";
 		prototype->setCustomObjectName(newName, false);
 
@@ -313,7 +315,7 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 		prototype->addMagicBit(false);
 
 		legendaryLooted.increment();
-	} else if (System::random(exceptionalChance) >= exceptionalChance) { // - adjustment) {
+	} else if (System::random(exceptionalChance) >= exceptionalChance) { // - adjustment) { //exceptionalChance
 		UnicodeString newName = prototype->getDisplayedName() + " (Exceptional)";
 		prototype->setCustomObjectName(newName, false);
 
@@ -322,6 +324,12 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 		prototype->addMagicBit(false);
 
 		exceptionalLooted.increment();
+	} else if (System::random(yellowChance) >= yellowChance) {
+			excMod = yellowModifier;
+
+			prototype->addMagicBit(false);
+
+			yellowLooted.increment();
 	}
 
 	if (prototype->isLightsaberCrystalObject()) {
@@ -332,7 +340,6 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 	}
 
 	String subtitle;
-	bool yellow = false;
 
 	for (int i = 0; i < craftingValues->getExperimentalPropertySubtitleSize(); ++i) {
 		subtitle = craftingValues->getExperimentalPropertySubtitle(i);
@@ -347,21 +354,29 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 		if (min == max)
 			continue;
 
-		float percentage = System::random(10000) / 10000.f;
+		float percentage = System::random(level * 1000) / 300000.f; //System::random(10000) / 10000.f;
 
 		// If the attribute is represented by an integer (useCount, maxDamage,
 		// range mods, etc), we need to base the percentage on a random roll
 		// of possible values (min -> max), otherwise only an exact roll of
 		// 10000 will result in the top of the range being chosen.
 		// (Mantis #7869)
+
 		int precision = craftingValues->getPrecision(subtitle);
+
+//		if (subtitle == "attackspeed" && prototype->isWeaponObject()) {
+//			precision = 1;
+//		}
+
 		if (precision == (int)ValuesMap::VALUENOTFOUND) {
 			error ("No precision found for " + subtitle);
-		} else if (precision == 0) {
-			int range = abs(max-min);
-			int randomValue = System::random(range);
-			percentage = (float)randomValue / (float)(range);
 		}
+
+//		if (precision == 0) {//i think this is for weapon SAC and range mods
+//			int range = abs(max-min);
+//			int randomValue = System::random(range);
+//			percentage = (float)randomValue / (float)(range);
+//		}
 
 		craftingValues->setCurrentPercentage(subtitle, percentage);
 
@@ -371,6 +386,24 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 
 		if (subtitle == "midrangemod" && !prototype->isComponent()) {
 			continue;
+		}
+
+		if ((subtitle == "attackhealthcost" || subtitle == "attackactioncost" || subtitle == "attackmindcost" || subtitle == "woundchance") && prototype->isWeaponObject()) {
+			continue;
+		}
+
+		if (subtitle == "attackspeed" && prototype->isWeaponObject()) {
+			//min *= .5;
+			//max = min * .5;
+			//max = max * .1;
+
+			//craftingValues->setMinValue(subtitle, min);
+
+			craftingValues->setMaxValue(subtitle, min);
+
+			//continue;//this makes it random
+
+			//excMod = 1.0;
 		}
 
 		if (subtitle == "useCount" || subtitle == "quantity" || subtitle == "charges" || subtitle == "uses" || subtitle == "charge") {
@@ -387,9 +420,9 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 		if (prototype->isArmorObject()) {
 
 			if (subtitle == "armor_health_encumbrance" || subtitle == "armor_action_encumbrance" || subtitle == "armor_mind_encumbrance") {
+//				craftingValues->setMinValue(subtitle, min * 2);
+//				craftingValues->setMaxValue(subtitle, max * 2);
 				continue;
-//				craftingValues->setMinValue(subtitle, min * 10);
-//				craftingValues->setMaxValue(subtitle, max * 10);
 			}
 
 //			if (subtitle == "armor_effectiveness") {
@@ -398,84 +431,113 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 //			}
 
 			min *= 1.75;
-			max *= 1.0;
+			max *= 1.25;
 
 		}
 
-		float minMod = (max > min) ? 300.f : -300.f;
-		float maxMod = (max > min) ? 300.f : -300.f;
+		//using the exc mod as the randomizer so it doesnt affect the legendary tiers overlap
+		excMod *= .75 + (System::random(50000) * .00001);
+
+//		float randomizer = .75 + (System::random(2500) * .0001);
+//
+//		min *= randomizer;
+//		max *= randomizer;
+
+
+//		float minMod = (max > min) ? 300.f : -300.f;
+//		float maxMod = (max > min) ? 300.f : -300.f;
 
 		if (max > min && min >= 0) { // Both max and min non-negative, max is higher
-			min = ((min * level / minMod) + min) * excMod;
-			max = ((max * level / maxMod) + max) * excMod;
+			//min = ((min * level / minMod) + min) * excMod;
+			//max = ((max * level / maxMod) + max) * excMod;
+
+			min *= excMod;
+			max *= excMod;
 
 		} else if (max > min && max <= 0) { // Both max and min are non-positive, max is higher
-			minMod *= -1;
-			maxMod *= -1;
-			min = ((min * level / minMod) + min) / excMod;
-			max = ((max * level / maxMod) + max) / excMod;
+//			minMod *= -1;
+//			maxMod *= -1;
+//			min = ((min * level / minMod) + min) / excMod;
+//			max = ((max * level / maxMod) + max) / excMod;
+
+			min /= excMod;
+			max /= excMod;
 
 		} else if (max > min) { // max is positive, min is negative
-			minMod *= -1;
-			min = ((min * level / minMod) + min) / excMod;
-			max = ((max * level / maxMod) + max) * excMod;
+//			minMod *= -1;
+//			min = ((min * level / minMod) + min) / excMod;
+//			max = ((max * level / maxMod) + max) * excMod;
+
+			min /= excMod;
+			max *= excMod;
 
 		} else if (max < min && max >= 0) { // Both max and min are non-negative, min is higher
-			min = ((min * level / minMod) + min) / excMod;
-			max = ((max * level / maxMod) + max) / excMod;
+//			min = ((min * level / minMod) + min) / excMod;
+//			max = ((max * level / maxMod) + max) / excMod;
+
+			min /= excMod;
+			max /= excMod;
 
 		} else if (max < min && min <= 0) { // Both max and min are non-positive, min is higher
-			minMod *= -1;
-			maxMod *= -1;
-			min = ((min * level / minMod) + min) * excMod;
-			max = ((max * level / maxMod) + max) * excMod;
+//			minMod *= -1;
+//			maxMod *= -1;
+//			min = ((min * level / minMod) + min) * excMod;
+//			max = ((max * level / maxMod) + max) * excMod;
+
+			min *= excMod;
+			max *= excMod;
 
 		} else { // max is negative, min is positive
-			maxMod *= -1;
-			min = ((min * level / minMod) + min) / excMod;
-			max = ((max * level / maxMod) + max) * excMod;
+//			maxMod *= -1;
+//			min = ((min * level / minMod) + min) / excMod;
+//			max = ((max * level / maxMod) + max) * excMod;
+
+			min /= excMod;
+			max *= excMod;
 		}
 
-		if (excMod == 1.0 && (yellowChance == 0 || System::random(yellowChance) == 0)) {
-			if (max > min && min >= 0) {
-				min *= yellowModifier;
-				max *= yellowModifier;
-			} else if (max > min && max <= 0) {
-				min /= yellowModifier;
-				max /= yellowModifier;
-			} else if (max > min) {
-				min /= yellowModifier;
-				max *= yellowModifier;
-			} else if (max < min && max >= 0) {
-				min /= yellowModifier;
-				max /= yellowModifier;
-			} else if (max < min && min <= 0) {
-				min *= yellowModifier;
-				max *= yellowModifier;
-			} else {
-				min /= yellowModifier;
-				max *= yellowModifier;
-			}
-
-			yellow = true;
-
-			yellowLooted.increment();
-		}
+//		if (excMod == 1.0 && (yellowChance == 0 || System::random(yellowChance) == 0)) {
+//			if (max > min && min >= 0) {
+//				min *= yellowModifier;
+//				max *= yellowModifier;
+//			} else if (max > min && max <= 0) {
+//				min /= yellowModifier;
+//				max /= yellowModifier;
+//			} else if (max > min) {
+//				min /= yellowModifier;
+//				max *= yellowModifier;
+//			} else if (max < min && max >= 0) {
+//				min /= yellowModifier;
+//				max /= yellowModifier;
+//			} else if (max < min && min <= 0) {
+//				min *= yellowModifier;
+//				max *= yellowModifier;
+//			} else {
+//				min /= yellowModifier;
+//				max *= yellowModifier;
+//			}
+//
+//			yellow = true;
+//
+//			yellowLooted.increment();
+//		}
 
 		craftingValues->setMinValue(subtitle, min);
 		craftingValues->setMaxValue(subtitle, max);
 	}
 
-	if (yellow) {
-		prototype->addMagicBit(false);
-		prototype->setJunkValue((int)(fJunkValue * 1.25));
-	} else {
-		if (excMod == 1.0) {
-			prototype->setJunkValue((int)(fJunkValue));
-		} else {
-			prototype->setJunkValue((int)(fJunkValue * (excMod/2)));
-		}
-	}
+//	if (yellow) {
+//		prototype->addMagicBit(false);
+//		prototype->setJunkValue((int)(fJunkValue * 1.25));
+//	} else {
+//		if (excMod == 1.0) {
+//			prototype->setJunkValue((int)(fJunkValue));
+//		} else {
+//			prototype->setJunkValue((int)(fJunkValue * (excMod)));
+//		}
+//	}
+
+	prototype->setJunkValue((int)(fJunkValue * excMod));
 
 	// Use percentages to recalculate the values
 	craftingValues->recalculateValues(false);
@@ -500,9 +562,10 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 	addStaticDots(prototype, templateObject, level);
 	addRandomDots(prototype, templateObject, level, excMod);
 
-	setSkillMods(prototype, templateObject, level, excMod);
+	//setSkillMods(prototype, templateObject, level, excMod);
 
-	setSockets(prototype, craftingValues);
+	if (System::random(5) == 5)// || prototype->isRobeObject())
+		setSockets(prototype, craftingValues);
 
 	// Update the Tano with new values
 	prototype->updateCraftingValues(craftingValues, true);
@@ -649,10 +712,16 @@ String LootManagerImplementation::getRandomLootableMod( unsigned int sceneObject
 }
 
 void LootManagerImplementation::setSockets(TangibleObject* object, CraftingValues* craftingValues) {
-	if (object->isWearableObject() && craftingValues->hasProperty("sockets")) {
+	if (object->isWearableObject()) { // && craftingValues->hasProperty("sockets")
 		ManagedReference<WearableObject*> wearableObject = cast<WearableObject*>(object);
+
+	//	int level = craftingValues->getMaxValue("creatureLevel");
 		// Round number of sockets to closes integer.
-		wearableObject->setMaxSockets(craftingValues->getCurrentValue("sockets") + 0.5);
+
+//		if (object->isRobeObject())
+//			wearableObject->setMaxSockets(8);
+//		else
+		wearableObject->setMaxSockets(System::random(3) + 1);// craftingValues->getCurrentValue("sockets") + 0.5);
 	}
 }
 

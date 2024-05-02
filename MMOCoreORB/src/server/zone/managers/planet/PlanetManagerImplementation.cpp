@@ -148,7 +148,7 @@ void PlanetManagerImplementation::loadLuaConfig() {
 		planetTravelPointList->readLuaObject(&planetTravelPointsTable);
 		planetTravelPointsTable.pop();
 
-		loadSnapshotObjects();
+		loadSnapshotObjects(); //this makes no npc spawn in cities and stuff, takes 10 sec of load time
 
 		LuaObject planetObjectsTable = luaObject.getObjectField("planetObjects");
 		loadPlanetObjects(&planetObjectsTable);

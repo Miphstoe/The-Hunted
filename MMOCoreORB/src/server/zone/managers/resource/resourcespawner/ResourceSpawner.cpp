@@ -174,7 +174,7 @@ void ResourceSpawner::loadResourceSpawns() {
 
 		resourceMap->add(resourceSpawn->getName(), resourceSpawn);
 
-		if (!resourceSpawn->inShift()) {
+		if (!resourceSpawn->inShift()) { //bingo bango, remove the if to force despawn of all mats? // works
 			despawn(resourceSpawn);
 			continue;
 		}
@@ -301,7 +301,7 @@ bool ResourceSpawner::writeAllSpawnsToScript() {
 	try {
 
 		File* file = new File("scripts/managers/resource_manager_spawns.lua");
-		//if(!file->exists()) {
+		//if(!file->exists()) { // this looks powerful!
 		//	delete file;
 		//	return;
 		//}
@@ -602,42 +602,37 @@ int ResourceSpawner::randomizeValue(int min, int max) {
 	if (min > lowerGateOverride)
 		min = lowerGateOverride;
 
-	int randomStat = System::random(max - min) + min;
+//	int randomStat = System::random(max - min) + min;
 
-	if (spawnThrottling < 90) {
-		int breakpoint = ((spawnThrottling * (max - min)) / 100) + min;
-		bool aboveBreakpoint = System::random(9) == 7;
-
-		if ((aboveBreakpoint && randomStat < breakpoint) || (!aboveBreakpoint && randomStat > breakpoint)) {
-			if (aboveBreakpoint) {
-				while (randomStat < breakpoint)
-					randomStat = System::random(max - min) + min;
-			} else {
-				while (randomStat > breakpoint)
-					randomStat = System::random(max - min) + min;
-			}
-		}
-	}
+//	if (spawnThrottling < 90) {
+//		int breakpoint = ((spawnThrottling * (max - min)) / 100) + min;
+//		bool aboveBreakpoint = System::random(9) == 7;
+//
+//		if ((aboveBreakpoint && randomStat < breakpoint) || (!aboveBreakpoint && randomStat > breakpoint)) {
+//			if (aboveBreakpoint) {
+//				while (randomStat < breakpoint)
+//					randomStat = System::random(max - min) + min;
+//			} else {
+//				while (randomStat > breakpoint)
+//					randomStat = System::random(max - min) + min;
+//			}
+//		}
+//	}
 	
-	if (randomStat < (max - min) / 2) {
-		randomStat = System::random(max / 4) + ((max - min) / 2);
-	}
+	int newranstat = System::random(500) + 500;
 	
-	if (randomStat > max)
-		randomStat = max;
-	
-	return randomStat;
+	return newranstat; //randomStat;
 }
 
 long ResourceSpawner::getRandomExpirationTime(const ResourceTreeEntry* resourceEntry) {
-	if (resourceEntry->isOrganic())
-		return getRandomUnixTimestamp(6, 22);
-
-	else if (resourceEntry->isJTL())
-		return getRandomUnixTimestamp(13, 22);
-
-	else
-		return getRandomUnixTimestamp(6, 11);
+//	if (resourceEntry->isOrganic())
+//		return getRandomUnixTimestamp(6, 22);
+//
+//	else if (resourceEntry->isJTL())
+//		return getRandomUnixTimestamp(13, 22);
+//
+//	else
+		return getRandomUnixTimestamp(72, 144);// this is the timer multiplier currently in HOURS, vanilla is days 6, 11//just so everything has the same rotate timer
 }
 
 long ResourceSpawner::getRandomUnixTimestamp(int min, int max) const {
