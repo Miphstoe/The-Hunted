@@ -192,8 +192,8 @@ function JediTrials:unlockJediKnight(pPlayer)
 	PlayerObject(pGhost):setJediState(jediState)
 	PlayerObject(pGhost):setFrsCouncil(councilType)
 	PlayerObject(pGhost):setFrsRank(0)
-	CreatureObject(pPlayer):setFactionStatus(2) -- Overt
-	CreatureObject(pPlayer):setFaction(setFactionVal)
+	--CreatureObject(pPlayer):setFactionStatus(2) -- Overt
+	--CreatureObject(pPlayer):setFaction(setFactionVal)
 
 	local sui = SuiMessageBox.new("JediTrials", "emptyCallback") -- No callback
 	sui.setTitle("@jedi_trials:knight_trials_title")

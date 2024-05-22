@@ -433,6 +433,12 @@ bool SkillManager::surrenderSkill(const String& skillName, CreatureObject* creat
 	if (skillName.beginsWith("force_") && !(JediManager::instance()->canSurrenderSkill(creature, skillName)))
 		return false;
 
+	//this prevents learning both frs trees
+	if ((skill->getSkillName() == "force_title_jedi_rank_03") && (creature->hasSkill("force_rank_light_novice") || creature->hasSkill("force_rank_dark_novice"))){
+		creature->sendSystemMessage("You must first surrender all FRS skill boxes before you can surrender this box.");
+		return false;
+	}
+
 	removeSkillRelatedMissions(creature, skill);
 
 	creature->removeSkill(skill, notifyClient);

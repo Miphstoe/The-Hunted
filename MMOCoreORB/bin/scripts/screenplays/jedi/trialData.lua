@@ -187,27 +187,27 @@ knightTrialQuests = {
 		trialName = "light_or_dark",
 		trialType = TRIAL_COUNCIL
 	},
-	{
-		trialName = "enemy_soldier",
-		trialType = TRIAL_HUNT_FACTION,
-		rebelTarget = "storm_commando",
-		imperialTarget = "rebel_commando",
-		huntGoal = 1
-	},
-	{
-		trialName = "high_general",
-		trialType = TRIAL_HUNT_FACTION,
-		rebelTarget = "imperial_surface_marshal;imperial_high_general;imperial_general",
-		imperialTarget = "rebel_high_general;rebel_surface_marshal;rebel_general",
-		huntGoal = 1
-	},
-	{
-		trialName = "corvette_officer",
-		trialType = TRIAL_HUNT_FACTION,
-		rebelTarget = "stormtrooper_novatrooper_elite_commander",
-		imperialTarget = "corvette_rebel_rear_admiral",
-		huntGoal = 1
-	},
+--	{
+--		trialName = "enemy_soldier",
+--		trialType = TRIAL_HUNT_FACTION,
+--		rebelTarget = "storm_commando",
+--		imperialTarget = "rebel_commando",
+--		huntGoal = 1
+--	},
+--	{
+--		trialName = "high_general",
+--		trialType = TRIAL_HUNT_FACTION,
+--		rebelTarget = "imperial_surface_marshal;imperial_high_general;imperial_general",
+--		imperialTarget = "rebel_high_general;rebel_surface_marshal;rebel_general",
+--		huntGoal = 1
+--	},
+--	{
+--		trialName = "corvette_officer",
+--		trialType = TRIAL_HUNT_FACTION,
+--		rebelTarget = "stormtrooper_novatrooper_elite_commander",
+--		imperialTarget = "corvette_rebel_rear_admiral",
+--		huntGoal = 1
+--	},
 	{
 		trialName = "geonosian_bunker_acklay",
 		trialType = TRIAL_HUNT,

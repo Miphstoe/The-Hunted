@@ -262,8 +262,24 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 	if(level < 1)
 		level = 1;
 
-	if(level > 300)
-		level = 300;
+	if(level > 350)	//vanilla 300
+		level = 350;
+
+	//level += System::random(350 - level);
+
+//	int diff = 350 - level;
+//
+//	if (System::random(1) >= 1)	{
+//		level += System::random(diff);
+//	}
+
+//	int randombonus = System::random(350);
+//	int randomcreature = System::random(level);
+//
+//	level = (randombonus + randomcreature) / 2;
+//
+//	if (level < level / 2)	//min lvl is half the creature lvl
+//		level = level / 2;
 
 	const String& directTemplateObject = templateObject->getDirectObjectTemplate();
 
@@ -308,30 +324,50 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 
 	bool yellow = false;
 
-	if (System::random(legendaryChance) >= legendaryChance) { // - adjustment) { //legendaryChance
-		UnicodeString newName = prototype->getDisplayedName() + " (Legendary)";
-		prototype->setCustomObjectName(newName, false);
 
-		excMod = legendaryModifier;
+	if (prototype->isComponent() || prototype->isWeaponObject() || prototype->isArmorObject()) {
 
-		prototype->addMagicBit(false);
+		if (System::random(legendaryChance) >= legendaryChance) { // - adjustment) { //legendaryChance
+			UnicodeString newName = prototype->getDisplayedName() + " (Legendary)";
+			prototype->setCustomObjectName(newName, false);
 
-		legendaryLooted.increment();
-	} else if (System::random(exceptionalChance) >= exceptionalChance) { // - adjustment) { //exceptionalChance
-		UnicodeString newName = prototype->getDisplayedName() + " (Exceptional)";
-		prototype->setCustomObjectName(newName, false);
+			excMod = legendaryModifier;
 
-		excMod = exceptionalModifier;
+			level += System::random(350);
 
-		prototype->addMagicBit(false);
-
-		exceptionalLooted.increment();
-	} else if (System::random(yellowChance) >= yellowChance) {
-			excMod = yellowModifier;
+			if(level > 350)	//vanilla 300
+				level = 350;
 
 			prototype->addMagicBit(false);
 
-			yellowLooted.increment();
+			legendaryLooted.increment();
+		} else if (System::random(exceptionalChance) >= exceptionalChance) { // - adjustment) { //exceptionalChance
+			UnicodeString newName = prototype->getDisplayedName() + " (Exceptional)";
+			prototype->setCustomObjectName(newName, false);
+
+			excMod = exceptionalModifier;
+
+			level += System::random(350);
+
+			if(level > 350)	//vanilla 300
+				level = 350;
+
+			prototype->addMagicBit(false);
+
+			exceptionalLooted.increment();
+		} else if (System::random(yellowChance) >= yellowChance) {
+				excMod = yellowModifier;
+
+				prototype->addMagicBit(false);
+
+				level += System::random(350);
+
+				if(level > 350)	//vanilla 300
+					level = 350;
+
+				yellowLooted.increment();
+		}
+
 	}
 
 	if (prototype->isLightsaberCrystalObject()) {

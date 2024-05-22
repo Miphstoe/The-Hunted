@@ -791,8 +791,8 @@ int CombatManager::getDefenderDefenseModifier(CreatureObject* defender, WeaponOb
 	debug() << "Base target defense is " << targetDefense;
 
 	// defense hardcap
-	if (targetDefense > 125)
-		targetDefense = 125;
+//	if (targetDefense > 125)
+//		targetDefense = 125;
 
 	if (attacker->isPlayerCreature())
 		targetDefense += defender->getSkillMod("private_defense");
@@ -826,8 +826,8 @@ int CombatManager::getDefenderSecondaryDefenseModifier(CreatureObject* defender)
 		targetDefense += defender->getSkillMod("private_" + mod);
 	}
 
-	if (targetDefense > 125)
-		targetDefense = 125;
+//	if (targetDefense > 125)
+//		targetDefense = 125;
 
 	return targetDefense;
 }
@@ -1639,7 +1639,7 @@ int CombatManager::getHitChance(TangibleObject* attacker, CreatureObject* target
 		// saber block is special because it's just a % chance to block based on the skillmod
 		if (def == "saber_block") {
 			int newsb = targetCreature->getSkillMod(def);
-			if (newsb > 99) newsb = 99;
+			//if (newsb > 99) newsb = 99;
 			if (!(attacker->isTurret() || weapon->isThrownWeapon()) && ((weapon->isHeavyWeapon() || weapon->isSpecialHeavyWeapon() || (weapon->getAttackType() == SharedWeaponObjectTemplate::RANGEDATTACK)) && ((System::random(100)) < newsb)))
 				return RICOCHET;
 			else return HIT;
