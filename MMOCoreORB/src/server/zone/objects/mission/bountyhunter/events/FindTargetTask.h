@@ -192,9 +192,9 @@ class FindTargetTask : public Task, public Logger {
 //			if (skillMod < 1) {
 //				skillMod = 1;
 //			}
-//			if (skillMod > 135) {
-//				skillMod = 135;
-//			}
+			if (skillMod > 135) {
+				skillMod = 135;
+			}
 
 		int time = 150 - skillMod;	//150 - checkedSkillMod;
 
@@ -202,7 +202,7 @@ class FindTargetTask : public Task, public Logger {
 			time = 1;
 		}
 
-		return time + System::random(time / 2);
+		return time;// + System::random(time / 2);
 	}
 
 	int getTargetLevel(CreatureObject* player, BountyMissionObjective* objective) {
