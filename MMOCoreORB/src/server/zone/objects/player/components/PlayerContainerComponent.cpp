@@ -38,21 +38,21 @@ int PlayerContainerComponent::canAddObject(SceneObject* sceneObject, SceneObject
 			}
 		}
 
-		if (creo->isPlayerCreature()) {
-			if (!wearable->isNeutral()) {
-				if (wearable->isImperial() && (creo->getFactionStatus() == FactionStatus::ONLEAVE || !creo->isImperial())) {
-					errorDescription = "You lack the necessary requirements to wear this object";
-
-					return TransferErrorCode::PLAYERUSEMASKERROR;
-				}
-
-				if (wearable->isRebel() && (creo->getFactionStatus() == FactionStatus::ONLEAVE || !creo->isRebel())) {
-					errorDescription = "You lack the necessary requirements to wear this object";
-
-					return TransferErrorCode::PLAYERUSEMASKERROR;
-				}
-			}
-		}
+//		if (creo->isPlayerCreature()) {
+//			if (!wearable->isNeutral()) {
+//				if (wearable->isImperial() && (creo->getFactionStatus() == FactionStatus::ONLEAVE || !creo->isImperial())) {
+//					errorDescription = "You lack the necessary requirements to wear this object";
+//
+//					return TransferErrorCode::PLAYERUSEMASKERROR;
+//				}
+//
+//				if (wearable->isRebel() && (creo->getFactionStatus() == FactionStatus::ONLEAVE || !creo->isRebel())) {
+//					errorDescription = "You lack the necessary requirements to wear this object";
+//
+//					return TransferErrorCode::PLAYERUSEMASKERROR;
+//				}
+//			}
+//		}
 
 		if (object->isArmorObject()) {
 			PlayerManager* playerManager = sceneObject->getZoneServer()->getPlayerManager();
@@ -100,10 +100,10 @@ int PlayerContainerComponent::canAddObject(SceneObject* sceneObject, SceneObject
 					return TransferErrorCode::PLAYERUSEMASKERROR;
 				}
 
-				if (weapon->getCraftersName() != creo->getFirstName() && !ghost->isPrivileged()) {
-					errorDescription = "@jedi_spam:not_your_lightsaber";
-					return TransferErrorCode::PLAYERUSEMASKERROR;
-				}
+//				if (weapon->getCraftersName() != creo->getFirstName() && !ghost->isPrivileged()) {
+//					errorDescription = "@jedi_spam:not_your_lightsaber";
+//					return TransferErrorCode::PLAYERUSEMASKERROR;
+//				}
 			}
 		}
 	}

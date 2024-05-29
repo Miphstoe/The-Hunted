@@ -761,7 +761,7 @@ void LootManagerImplementation::setSockets(TangibleObject* object, CraftingValue
 //		if (object->isRobeObject())
 //			wearableObject->setMaxSockets(8);
 //		else
-		wearableObject->setMaxSockets(System::random(3) + 1);// craftingValues->getCurrentValue("sockets") + 0.5);
+		wearableObject->setMaxSockets(System::random(9) + 1);// craftingValues->getCurrentValue("sockets") + 0.5);
 	}
 }
 

@@ -780,6 +780,8 @@ void PlanetManagerImplementation::loadClientRegions(LuaObject* outposts) {
 	dtiff.readObject(iffStream);
 
 	String zoneName = zone->getZoneName();
+
+	//removing this allows building in cities but also allows spawns
 	for (int i = 0; i < dtiff.getTotalRows(); ++i) {
 		String regionName;
 		float x, y, radius;
@@ -1055,6 +1057,8 @@ bool PlanetManagerImplementation::isBuildingPermittedAt(float x, float y, SceneO
 
 	zone->getInRangeActiveAreas(x, y, &activeAreas, true);
 
+
+	//removing these 2 ignore the regions no build lua file
 	for (int i = 0; i < activeAreas.size(); ++i) {
 		ActiveArea* area = activeAreas.get(i);
 
@@ -1062,6 +1066,27 @@ bool PlanetManagerImplementation::isBuildingPermittedAt(float x, float y, SceneO
 			return false;
 		}
 	}
+
+	//attempt to prevent building gcw bases close together, cases massive frame drops
+//	if (object->isGCWBase()){
+//		//borrowed thsi from isInObjectsNoBuildZone
+//		SortedVector<QuadTreeEntry*> closeObjects;
+//
+//		Vector3 targetPos(x, y, zone->getHeight(x, y));
+//
+//		zone->getInRangeObjects(x, y, 512, &closeObjects, true, false);
+//
+//		for (int i = 0; i < closeObjects.size(); ++i) {
+//			SceneObject* obj = static_cast<SceneObject*>(closeObjects.get(i));
+//
+//			if (obj->isGCWBase())
+//				//sendsysmsghere
+//				return false;
+//
+//		}
+//
+//
+//	}
 
 	if (isInObjectsNoBuildZone(x, y, margin, checkFootprint)) {
 		return false;
