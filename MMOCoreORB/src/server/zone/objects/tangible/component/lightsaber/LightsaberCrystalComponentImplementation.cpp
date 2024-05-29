@@ -457,6 +457,25 @@ void LightsaberCrystalComponentImplementation::updateCraftingValues(CraftingValu
 		updateCrystal(31);
 	}
 
+	if (colorMax != 31) {
+
+		int finalColor = System::random(6);// red,green,blue
+
+		if (System::random(9) >= 9){
+		finalColor = System::random(6) + 6;// 1/10 color crystals will be yellow,purp,orange
+		}
+
+		if (System::random(99) >= 99){
+		finalColor = System::random(18) + 12;// 1/100 color crystals will be special named colors
+		}
+
+		setColor(finalColor);
+		updateCrystal(finalColor);
+	} else {
+		setColor(31);
+		updateCrystal(31);
+	}
+
 	generateCrystalStats();
 
 	ComponentImplementation::updateCraftingValues(values, firstUpdate);

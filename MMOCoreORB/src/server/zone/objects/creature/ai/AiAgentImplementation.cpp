@@ -182,7 +182,7 @@ void AiAgentImplementation::loadTemplateData(CreatureTemplate* templateData) {
 
 		ManagedReference<WeaponObject*> weao = (getZoneServer()->createObject(crc, getPersistenceLevel())).castTo<WeaponObject*>();
 
-		if (weao != nullptr) {
+		if (readyWeapon == nullptr) {
 			float mod = 1 - 0.1*weao->getArmorPiercing();
 			weao->setMinDamage(minDmg * mod);
 			weao->setMaxDamage(maxDmg * mod);
@@ -194,10 +194,41 @@ void AiAgentImplementation::loadTemplateData(CreatureTemplate* templateData) {
 				weao->setAttackSpeed(petDeed->getAttackSpeed());
 			}
 
+
+//npc random saber colors... YOURE WELCOME, VEASEOMAT IS THE BEST BOI. MOD THE GALAXY VIRGINS ETERNALLY BTFO, VEASEOMAT STILL THE JEDI KING
+			Locker locker(weao);
+			if (weao->isJediWeapon()) {
+
+				int finalColor = System::random(6);// red,green,blue
+
+				String factionString = npcTemplate->getFaction();
+
+				if (System::random(9) <= 3 && factionString == "imperial") {//gives 1/3 imp jedi red
+					finalColor = System::random(2);
+				}
+
+				if (System::random(9) <= 3 && factionString == "rebel") {// 1/3 reb jedi blue/green
+					finalColor = System::random(4) + 2;
+				}
+
+
+				if (System::random(5) >= 5){
+				finalColor = System::random(6) + 6;// 1/10 color crystals will be yellow,purp,orange
+				}
+
+				if (System::random(20) >= 20){
+				finalColor = System::random(18) + 12;// 1/100 color crystals will be special named colors
+				}
+
+			//int color = System::random(11);
+			weao->setBladeColor(finalColor);
+			weao->setCustomizationVariable("/private/index_color_blade", finalColor, true);
+			}
+
 			readyWeapon = weao;
 		} else {
 			readyWeapon = nullptr;
-			error("could not create weapon " + weaponToUse);
+			//error("could not create weapon " + weaponToUse);
 		}
 	} else {
 		readyWeapon = nullptr;
@@ -505,6 +536,7 @@ void AiAgentImplementation::notifyPositionUpdate(QuadTreeEntry* entry) {
 
 void AiAgentImplementation::runStartAwarenessInterrupt(SceneObject* pObject) {
 	AiAgent* thisAgent = asAiAgent();
+	CreatureObject* thisCreO = asCreatureObject();
 
 	if (thisAgent == pObject) return;
 
@@ -520,7 +552,21 @@ void AiAgentImplementation::runStartAwarenessInterrupt(SceneObject* pObject) {
 
 	if (isInCombat()) return;
 
-	//PlayerObjectImplementation::checkForNewSpawns(); //cant call member function without object
+//	PlayerObjectImplementation::checkForNewSpawns(); //cant call member function without object
+//
+//	PlayerObject* checkForNewSpawns = asPlayerObject()->checkForNewSpawns();
+//
+//	ManagedReference<AiAgent*> ai = pObject->asPlayerObject();
+//
+//	PlayerObject* ghost = getPlayerObject();
+//
+//
+//
+//	PlayerObject* pGhost = creoObject->getPlayerObject();
+
+//	Reference<PlayerObject*> ghost = thisCreO->getPlayerObject();
+//
+//	ghost->checkForNewSpawns(); //r: 'class server::zone::objects::player::PlayerObject' has no member named 'checkForNewSpawns'
 
 //	if (cooldownTimerMap->isPast("spawnCheckTimer")) {
 //

@@ -422,13 +422,13 @@ void FrsManagerImplementation::validatePlayerData(CreatureObject* player) {
 	verifyRoomAccess(player, realPlayerRank);
 
 	if (realPlayerRank >= 0 && (councilType == COUNCIL_LIGHT || councilType == COUNCIL_DARK)) {
-		if (councilType == COUNCIL_LIGHT && player->getFaction() != Factions::FACTIONREBEL)
-			player->setFaction(Factions::FACTIONREBEL);
-		else if (councilType == COUNCIL_DARK && player->getFaction() != Factions::FACTIONIMPERIAL)
-			player->setFaction(Factions::FACTIONIMPERIAL);
-
-		if (player->getFactionStatus() != FactionStatus::OVERT)
-			player->setFactionStatus(FactionStatus::OVERT);
+//		if (councilType == COUNCIL_LIGHT && player->getFaction() != Factions::FACTIONREBEL)
+//			player->setFaction(Factions::FACTIONREBEL);
+//		else if (councilType == COUNCIL_DARK && player->getFaction() != Factions::FACTIONIMPERIAL)
+//			player->setFaction(Factions::FACTIONIMPERIAL);
+//
+//		if (player->getFactionStatus() != FactionStatus::OVERT)
+//			player->setFactionStatus(FactionStatus::OVERT);
 
 		if (realPlayerRank >= 4 && !player->hasSkill("force_title_jedi_rank_04"))
 			player->addSkill("force_title_jedi_rank_04", true);

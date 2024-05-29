@@ -11,15 +11,15 @@ myswg_vendor_first_screen = ConvoScreen:new {
     stopConversation = "false",
     options = { 
         {"DOC/ENT BUFFS", "newbuff1"},
-       --{"Weapons", "weaps1"},
-        --{"Armor", "armor1"},
-        --{"Loot", "loot1"},
+        {"Weapons", "weaps1"},
+        {"Armor", "armor1"},
+        {"Loot", "loot1"},
         {"Artisan", "art1"},
         {"Architect", "arch1"},
-        --{"Chef", "chef1"},        
+        {"Chef", "chef1"},        
         {"Medic", "doc1"},
         {"Droids", "droid1"},
-         --{"Tailor", "tailor1"},
+       -- {"Tailor", "tailor1"},--needs work
                 
 			--	{"No thank you.", "deny_quest"},--not needed
     }
@@ -29,7 +29,7 @@ myswg_vendor_conv:addScreen(myswg_vendor_first_screen);
 weaps1 = ConvoScreen:new {    
     id = "weaps1",
     leftDialog = "",
-    customDialogText = "Selling random loot weapons and high end weapons.",
+    customDialogText = "Selling weapons.",
     stopConversation = "false",
     options = { 
 --        {"Proton Grenades (150damage, 4.4speed) - 100k", "option11"},
@@ -60,21 +60,21 @@ myswg_vendor_conv:addScreen(weaps1);
 armor1 = ConvoScreen:new {    
     id = "armor1",
     leftDialog = "",
-    customDialogText = "Selling Chitin Armor 65% kinetic, 25% base eff\n\nUbese armor with 80% kinetic and 50% base eff.\n\nComposite with 80%kinetic/electic and 65% base 0% stun",
+    customDialogText = "typical blue frog armor 80%sp/65%eff/25%stun.",
     stopConversation = "false",
     options = { 
-        {"Chitin Leggings - 25k", "option16"},
-        {"Chitin Chest Plate - 25k", "option17"},
-        {"Chitin Helmet - 25k", "option18"},
-        {"Chitin left Bracer - 25k", "option19"},
-        {"Ubese Leggings - 100k", "option12"},
-        {"Ubese Chest Plate - 100k", "option13"},
-        {"Ubese Helmet - 100k", "option14"},
-        {"Ubese Left Bracer - 100k", "option15"},
-        {"Composite Leggings - 250k", "option20"},
-        {"Composite Chest Plate - 250k", "option21"},
-        {"Composite Helmet - 250k", "option22"},
-        {"Composite Left Bracer - 250k", "option23"},                               
+        {"Composite Leggings - 100k", "option12"},
+        {"Composite Chest Plate - 100k", "option13"},
+        {"Composite Helmet - 100k", "option14"},
+        {"Composite Right Bracer - 100k", "option15"},
+        {"Wookie hunting leggings - 100k", "option16"},
+        {"Wookie hunting chest plate - 100k", "option17"},
+        {"Wookie hunting right bracer - 100k", "option18"},
+        {"Wookie hunting left bracer - 100k", "option19"},
+        {"Ithorian sentinel leggings - 100k", "option20"},
+        {"Ithorian sentinel chest plate - 100k", "option21"},
+        {"Ithorian sentinel helmet - 100k", "option22"},
+        {"Ithorian sentinel right bicep - 100k", "option23"},                               
         {"Main menu.", "first_screen"},
     }
 }
@@ -96,10 +96,10 @@ art1 = ConvoScreen:new {
         {"Armor Upgrade Kit - 10k", "option69"},  
         {"Speederbike (regular, not swoop) - 15k", "option28"},     
         
---        {"Medium Mineral Harvester Deed - 50k", "option29"},
---        {"Medium Flora Harvester Deed - 50k", "option30"},
---        {"Medium Gas Harvester Deed - 50k", "option31"},
---        {"Medium Chemical Harvester Deed - 50k", "option32"},
+  --      {"Medium Mineral Harvester Deed - 50k", "option29"}, --needs work
+	--      {"Medium Flora Harvester Deed - 50k", "option30"},
+ --       {"Medium Gas Harvester Deed - 50k", "option31"},
+ --       {"Medium Chemical Harvester Deed - 50k", "option32"},
 --        {"Medium Moisture Harvester Deed - 50k", "option33"},
         {"Main menu.", "first_screen"},
     }
@@ -161,9 +161,9 @@ loot1 = ConvoScreen:new {
 --				{"Random lvl 50 Hvy Weapons (flame/acid/LLC) - 15k", "option63"},  
 				              
   --      {"Random lvl 300 Clothing Loot - 100k", "option47"},
-        {"Random lvl 100 Armor Loot - 100k", "option48"},
-        {"Random lvl 100 Weapon Loot - 100k", "option49"},
-       	--{"Jedi Holocron - 10mil", "option5"},
+        {"Random max lvl Armor Loot - 100k", "option48"},
+        {"Random max lvl Weapon Loot - 100k", "option49"},
+       	--{"Jedi Holocron - 10mil", "option5"},--was never added?
         {"Main menu.", "first_screen"},
     }
 }

@@ -38,12 +38,12 @@ void SpawnAreaImplementation::buildSpawnList(Vector<uint32>* groupCRCs) {
 Vector3 SpawnAreaImplementation::getRandomPosition(SceneObject* player) {
 	Vector3 position;
 	bool positionFound = false;
-	int retries = 10;//decrease this and use multiple spawn attempts instead
+	int retries = 20;//decrease this and use multiple spawn attempts instead
 
 	const auto worldPosition = player->getWorldPosition();
 
 	while (!positionFound && retries-- > 0) {
-		position = areaShape->getRandomPosition(worldPosition, 128, 192); //spawn ring
+		position = areaShape->getRandomPosition(worldPosition, 128, 192); //spawn ring //128, 192 good settings //van 64 256
 
 		positionFound = true;
 
@@ -96,7 +96,7 @@ int SpawnAreaImplementation::notifyObserverEvent(unsigned int eventType, Observa
 
 			Locker locker(area);
 
-			area->setRadius(32);//lair radius 64
+			area->setRadius(64);//lair radius 64
 			area->setNoSpawnArea(true);
 			area->initializePosition(sceno->getPositionX(), sceno->getPositionZ(), sceno->getPositionY());
 
@@ -123,8 +123,8 @@ void SpawnAreaImplementation::tryToSpawn(SceneObject* object) {
 	if (totalSpawnCount >= maxSpawnLimit)
 		return;
 
-	if (lastSpawn.miliDifference() < MINSPAWNINTERVAL)
-		return;
+//	if (lastSpawn.miliDifference() < MINSPAWNINTERVAL)
+//		return;
 
 	int choice = System::random(totalWeighting - 1);
 	int counter = 0;
@@ -166,7 +166,7 @@ void SpawnAreaImplementation::tryToSpawn(SceneObject* object) {
 	//	return;
 
 	// Check the spot to see if spawning is allowed
-	if (!planetManager->isSpawningPermittedAt(randomPosition.getX(), randomPosition.getY(), finalSpawn->getSize() + 32)) {	//finalSpawn->getSize() + 64.f
+	if (!planetManager->isSpawningPermittedAt(randomPosition.getX(), randomPosition.getY(), finalSpawn->getSize())) {	//finalSpawn->getSize() + 64.f
 		return;
 	}
 

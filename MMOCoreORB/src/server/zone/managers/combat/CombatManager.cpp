@@ -367,7 +367,7 @@ int CombatManager::doTargetCombatAction(CreatureObject* attacker, WeaponObject* 
 		break;
 	case BLOCK:
 		doBlock(attacker, weapon, defender, damage);
-		damageMultiplier = 0.5f;
+		damageMultiplier = 0.0f;
 		break;
 	case DODGE:
 		doDodge(attacker, weapon, defender, damage);
@@ -732,7 +732,10 @@ int CombatManager::getAttackerAccuracyModifier(TangibleObject* attacker, Creatur
 		}
 	}
 
-	if (attackerAccuracy == 0) attackerAccuracy = -15; // unskilled penalty, TODO: this might be -50 or -125, do research
+	//if (attackerAccuracy == 0) attackerAccuracy = -15; // unskilled penalty, TODO: this might be -50 or -125, do research
+
+	if (attacker->isPlayerCreature())
+		attackerAccuracy += System::random(25);
 
 	attackerAccuracy += creoAttacker->getSkillMod("attack_accuracy") + creoAttacker->getSkillMod("dead_eye");
 
@@ -970,6 +973,9 @@ int CombatManager::getSpeedModifier(CreatureObject* attacker, WeaponObject* weap
 		speedMods += attacker->getSkillMod("private_ranged_speed_bonus");
 		speedMods += attacker->getSkillMod("ranged_speed");
 	}
+
+	if (attacker->isPlayerCreature())
+		speedMods += 25;
 
 	return speedMods;
 }
@@ -1224,9 +1230,12 @@ int CombatManager::getArmorReduction(TangibleObject* attacker, WeaponObject* wea
 		}
 
 		// inflict condition damage
-		Locker alocker(armor);
 
-		armor->inflictDamage(armor, 0, damage * 0.2, true, true);
+		if (System::random(4) >= 4) {
+			Locker alocker(armor);
+
+			armor->inflictDamage(armor, 0, 1, true, true);
+		}
 	}
 
 	return damage;
@@ -1437,6 +1446,9 @@ void CombatManager::getFrsModifiedForceAttackDamage(CreatureObject* attacker, fl
 	}
 
 	if (powerModifier > 0) {
+
+		powerModifier += 25;
+
 		if (minMod > 0)
 			minDmg += (int)((powerModifier * minMod) + 0.5);
 
@@ -1471,6 +1483,50 @@ float CombatManager::calculateDamage(CreatureObject* attacker, WeaponObject* wea
 
 	if (diff > 0)
 		damage += System::random(diff);
+
+//// mySWG balancing the profs based on highest dmg weapon and special for that class
+	if (attacker->isPlayerCreature() && !data.isForceAttack()) {
+		if (weapon->isPistolWeapon())
+		damage *= 1.9;//4.040;//1.82f;//half correct/fullcorrect/old correct
+		if (weapon->isCarbineWeapon())
+		damage *= 1.2;//2.925;//1.24f;
+		if (weapon->isRifleWeapon())
+		damage *= .8;//1.594;//0.6f;
+//			if (weapon->isRangedWeapon())
+//			damage *= 1.03f;
+		if (weapon->isUnarmedWeapon())
+		damage *= .6;//1.536;//1.51f;
+		if (weapon->isOneHandMeleeWeapon() && !weapon->isJediWeapon())
+		damage *= 1.2;//2.112;//1.26f;
+		if (weapon->isTwoHandMeleeWeapon() && !weapon->isJediWeapon())
+		damage *= .8;//1.721;//0.73f;
+		if (weapon->isPolearmWeaponObject() && !weapon->isJediWeapon())
+		damage *= .9;//1.771;//0.83f;
+//			if (weapon->isMeleeWeapon())
+//			damage *= 0.96f;
+		if (weapon->isLightningRifle())
+		damage *= 1.2;//.706 * 2;//1.38f;
+		if (weapon->isFlameThrower())
+		damage *= .8;//.392 * 4;//0.8f;
+		if (weapon->isHeavyAcidRifle())
+		damage *= .9;//.458 * 4;//0.96f;
+//			if (weapon->isHeavyWeapon())
+//			damage *= 1.0f;
+//			if (weapon->isThrownWeapon())
+//			damage *= .9;//.892 * 2;//1.0f;
+//			if (weapon->isSpecialHeavyWeapon())//this is rocket launcher
+//			damage *= .8;//.623 * 4;//1.0f;
+//		if (weapon->isMineWeapon())
+//		damage *= 1.0f;
+		if (weapon->isJediOneHandedWeapon())
+		damage *= 1.1;//1.336;//1.18f;
+		if (weapon->isJediTwoHandedWeapon())
+		damage *= 1.0;//1.094;//0.96f;
+		if (weapon->isJediPolearmWeapon())
+		damage *= .9;//1.009;//0.89f;
+		if (weapon->isJediWeapon())
+		damage *= .9f;//jedi does almost exactly 2x damage as lvl 300 weaps normies
+	}
 
 	if (attacker->isPlayerCreature() && data.isForceAttack()) //force powers damage bonus cuz it sucks
 		damage *= 3;
@@ -1666,6 +1722,9 @@ int CombatManager::getHitChance(TangibleObject* attacker, CreatureObject* target
 		debug() << "Center of Being mod is " << cobMod;
 
 		targetDefense += cobMod;
+
+		targetDefense += System::random(25);
+
 		debug() << "Final modified secondary defense is " << targetDefense;
 
 		if (targetDefense > 50 + attackerAccuracy + weaponAccuracy + accuracyBonus + postureAccuracy + bonusAccuracy + attackerRoll) { // successful secondary defense, return type of defense

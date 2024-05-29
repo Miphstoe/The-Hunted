@@ -1863,15 +1863,11 @@ void PlayerObjectImplementation::doRecovery(int latency) {
 	}
 
 	checkForNewSpawns();
+
 	checkForNewSpawns();
+
 	checkForNewSpawns();
-	checkForNewSpawns();
-	checkForNewSpawns();
-	checkForNewSpawns();
-	checkForNewSpawns();
-	checkForNewSpawns();
-	checkForNewSpawns();
-	checkForNewSpawns();
+
 
 	creature->activateHAMRegeneration(latency);
 	creature->activateStateRecovery();
@@ -1893,14 +1889,9 @@ void PlayerObjectImplementation::doRecovery(int latency) {
 	}
 
 	checkForNewSpawns();
+
 	checkForNewSpawns();
-	checkForNewSpawns();
-	checkForNewSpawns();
-	checkForNewSpawns();
-	checkForNewSpawns();
-	checkForNewSpawns();
-	checkForNewSpawns();
-	checkForNewSpawns();
+
 	checkForNewSpawns();
 
 	if (isOnline()) {
@@ -1949,15 +1940,11 @@ void PlayerObjectImplementation::doRecovery(int latency) {
 //	}
 
 	checkForNewSpawns();
+
 	checkForNewSpawns();
+
 	checkForNewSpawns();
-	checkForNewSpawns();
-	checkForNewSpawns();
-	checkForNewSpawns();
-	checkForNewSpawns();
-	checkForNewSpawns();
-	checkForNewSpawns();
-	checkForNewSpawns();
+
 
 	activateRecovery();
 }
