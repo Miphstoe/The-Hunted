@@ -205,6 +205,9 @@ function HologrindJediManager:onPlayerLoggedIn(pCreatureObject)
 		
 	end
 	
+--		suiManager:sendMessageBox(pCreatureObject, pCreatureObject, "WARNING", "all SLICED lightsabers will be destroyed if used in combat! you can still remove the crystals. This will be your only warning.", "@ok", "HologrindJediManager", "notifyOkPressed")
+--	didnt work
+	
 end
 
 -- Get the profession name from the badge number.

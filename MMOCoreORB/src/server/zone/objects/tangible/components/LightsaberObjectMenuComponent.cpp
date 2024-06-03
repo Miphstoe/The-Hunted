@@ -74,10 +74,19 @@ int LightsaberObjectMenuComponent::handleObjectMenuSelect(SceneObject* sceneObje
 	}
 
 	if (selectedID == 69 && player->hasSkill("combat_smuggler_slicing_02")) {
+
+		player->sendSystemMessage("saber slicing is currently disabled for testing");
+		return 0;
+
 		if (weapon->isSliced()) {
 			player->sendSystemMessage("@slicing/slicing:already_sliced");
 			return 0;
 		}
+
+//		if (sceneObject->getContainerObjectsSize() > 0){
+//			player->sendSystemMessage("the lightsaber must be empty to slice");
+//			return 0;
+//		}
 
 		ManagedReference<Facade*> facade = player->getActiveSession(SessionFacadeType::SLICING);
 		ManagedReference<SlicingSession*> session = dynamic_cast<SlicingSession*>(facade.get());
