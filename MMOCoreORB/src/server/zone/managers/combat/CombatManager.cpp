@@ -69,43 +69,43 @@ bool CombatManager::startCombat(CreatureObject* attacker, TangibleObject* defend
 	//CreatureObject *creoatt = defender->asCreatureObject();
 	ManagedReference<WeaponObject*> weapon = creo->getWeapon();
 
-	if (weapon != nullptr && weapon->isJediWeapon()){
-
-		float minDamage = weapon->getMinDamage(), maxDamage = weapon->getMaxDamage();
-
-		if (weapon->asTangibleObject()->isSliced() ||
-		minDamage > 2000 ||	minDamage < 1 ||
-			maxDamage > 4000 || maxDamage < 1)
-		{
-
-//			Locker wlocker(weapon);
-//			weapon->destroyObjectFromWorld( true );
-//			weapon->destroyObjectFromDatabase( true );
-
-			weapon->setMinDamage(1);//these work but introduce new problems
-			weapon->setMaxDamage(1);
-
-//			notifyObjectDestructionObservers(attacker, newConditionDamage, isCombatAction);
-//			notifyObservers(ObserverEventType::OBJECTDISABLED, attacker);
-
-
-			//weapon->setDisabled(true);
-
-			//ManagedReference<TangibleObject*> obj = cast<TangibleObject*>(weapon);
-
-			Locker wlocker(weapon);//works but causes problems
-			weapon->inflictDamage(weapon, 0, weapon->getMaxCondition(), true, true);
-
-
-			creo->sendSystemMessage("All sliced lightsabers have been hacked by the empire and DESTROYED!");
-
-			return false;
-		}
-
-//		if (weapon->isSliced){
+//	if (weapon != nullptr && weapon->isJediWeapon()){
 //
+//		float minDamage = weapon->getMinDamage(), maxDamage = weapon->getMaxDamage();
+//
+//		if (weapon->asTangibleObject()->isSliced() ||
+//		minDamage > 2000 ||	minDamage < 1 ||
+//			maxDamage > 4000 || maxDamage < 1)
+//		{
+//
+////			Locker wlocker(weapon);
+////			weapon->destroyObjectFromWorld( true );
+////			weapon->destroyObjectFromDatabase( true );
+//
+//			weapon->setMinDamage(1);//these work but introduce new problems
+//			weapon->setMaxDamage(1);
+//
+////			notifyObjectDestructionObservers(attacker, newConditionDamage, isCombatAction);
+////			notifyObservers(ObserverEventType::OBJECTDISABLED, attacker);
+//
+//
+//			//weapon->setDisabled(true);
+//
+//			//ManagedReference<TangibleObject*> obj = cast<TangibleObject*>(weapon);
+//
+//			Locker wlocker(weapon);//works but causes problems
+//			weapon->inflictDamage(weapon, 0, weapon->getMaxCondition(), true, true);
+//
+//
+//			creo->sendSystemMessage("All sliced lightsabers have been hacked by the empire and DESTROYED!");
+//
+//			//return false;
 //		}
-	}
+//
+////		if (weapon->isSliced){
+////
+////		}
+//	}
 
 	attacker->clearState(CreatureState::PEACE);
 

@@ -445,6 +445,16 @@ void WeaponObjectImplementation::fillAttributeList(AttributeListMessage* alm, Cr
 	if (sliced == 1)
 		alm->insertAttribute("wpn_attr", "@obj_attr_n:hacked1");
 
+	if (sliced == 1 && isJediWeapon()){
+		setMinDamage(1);//these work but introduce new problems
+		setMaxDamage(1);
+		inflictDamage(_this.getReferenceUnsafeStaticCast(), 0, getMaxCondition(), true, true);
+
+	}
+//	minDamage > 2000 ||	minDamage < 1 ||
+//		maxDamage > 4000 || maxDamage < 1)
+
+
 }
 
 int WeaponObjectImplementation::getPointBlankAccuracy(bool withPup) const {
