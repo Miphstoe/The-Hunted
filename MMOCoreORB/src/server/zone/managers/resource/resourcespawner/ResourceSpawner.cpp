@@ -175,8 +175,8 @@ void ResourceSpawner::loadResourceSpawns() {
 		resourceMap->add(resourceSpawn->getName(), resourceSpawn);
 
 //		if (!resourceSpawn->inShift()) { //bingo bango, remove the if to force despawn of all mats? // works
-//			despawn(resourceSpawn);
-//			continue;
+			despawn(resourceSpawn);
+			continue;
 //		}
 
 		if (resourceSpawn->getSpawnPool() != 0) {
@@ -365,14 +365,13 @@ bool ResourceSpawner::writeAllSpawnsToScript() {
 }
 
 void ResourceSpawner::shiftResources() {
-	//disable shifting?
-//	randomPool->update();
-//	fixedPool->update();
-//	nativePool->update();
-//	minimumPool->update();
-//	manualPool->update();
-//
-//	dumpResources();
+	randomPool->update();
+	fixedPool->update();
+	nativePool->update();
+	minimumPool->update();
+	manualPool->update();
+
+	dumpResources();
 }
 
 ResourceSpawn* ResourceSpawner::createRecycledResourceSpawn(const ResourceTreeEntry* entry) const {

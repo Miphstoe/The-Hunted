@@ -300,10 +300,10 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 		prototype->setSerialNumber(serial);
 	}
 
-	prototype->setJunkDealerNeeded(templateObject->getJunkDealerTypeNeeded());
+	prototype->setJunkDealerNeeded(1);//templateObject->getJunkDealerTypeNeeded());
 	float junkMinValue = templateObject->getJunkMinValue() * junkValueModifier;
 	float junkMaxValue = templateObject->getJunkMaxValue() * junkValueModifier;
-	float fJunkValue = junkMinValue+System::random(junkMaxValue-junkMinValue);
+	float fJunkValue = junkMinValue+System::random(junkMaxValue-junkMinValue) * 2;
 
 	if (level>0 && templateObject->getJunkDealerTypeNeeded()>1){
 		fJunkValue = fJunkValue + (fJunkValue * ((float)level / 100)) * 2; // This is the loot value calculation if the item has a level
@@ -324,10 +324,14 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 
 	bool yellow = false;
 
+	int newlegendaryChance = 9;
+	int newexceptionalChance = 4;
+	int newyellowChance = 1;
+
 
 	if (prototype->isComponent() || prototype->isWeaponObject() || prototype->isArmorObject()) {
 
-		if (System::random(legendaryChance) >= legendaryChance) { // - adjustment) { //legendaryChance
+		if (System::random(newlegendaryChance) >= newlegendaryChance) { // - adjustment) { //legendaryChance
 			UnicodeString newName = prototype->getDisplayedName() + " (Legendary)";
 			prototype->setCustomObjectName(newName, false);
 
@@ -341,7 +345,7 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 			prototype->addMagicBit(false);
 
 			legendaryLooted.increment();
-		} else if (System::random(exceptionalChance) >= exceptionalChance) { // - adjustment) { //exceptionalChance
+		} else if (System::random(newexceptionalChance) >= newexceptionalChance) { // - adjustment) { //exceptionalChance
 			UnicodeString newName = prototype->getDisplayedName() + " (Exceptional)";
 			prototype->setCustomObjectName(newName, false);
 
@@ -355,7 +359,7 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 			prototype->addMagicBit(false);
 
 			exceptionalLooted.increment();
-		} else if (System::random(yellowChance) >= yellowChance) {
+		} else if (System::random(newyellowChance) >= newyellowChance) {
 				excMod = yellowModifier;
 
 				prototype->addMagicBit(false);
@@ -392,7 +396,7 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 		if (min == max)
 			continue;
 
-		float percentage = System::random(level * 1000) / 300000.f; //System::random(10000) / 10000.f;
+		float percentage = level / 350 * 80 +(System::random(350) / 350 * 20); //System::random(level * 1000) / 20000.f; //System::random(10000) / 10000.f;
 
 		// If the attribute is represented by an integer (useCount, maxDamage,
 		// range mods, etc), we need to base the percentage on a random roll
@@ -476,7 +480,7 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 		}
 
 		//using the exc mod as the randomizer so it doesnt affect the legendary tiers overlap
-		excMod *= .75 + (System::random(50000) * .00001);
+		excMod *= 1.25 + (System::random(25000) * .00001);
 
 //		float randomizer = .75 + (System::random(2500) * .0001);
 //
@@ -790,8 +794,11 @@ bool LootManagerImplementation::createLootFromCollection(TransactionLog& trx, Sc
 //		if (roll > lootChance)
 //			continue;
 
+		if (System::random(1) == 0)//50% no loot and improve stats
+			continue;
+
 		//random holocron creation (only drops on mobs that have loot lists)
-		int holochance = 5000;
+		int holochance = 999;
 		if (System::random(holochance) >= holochance) {
 			createLoot(trx, container, "jedi_holocron_light", level);
 		}
@@ -808,15 +815,15 @@ bool LootManagerImplementation::createLootFromCollection(TransactionLog& trx, Sc
 		for (int i = 0; i < lootGroups->count(); ++i) {
 			const LootGroupEntry* entry = lootGroups->get(i);
 
-			tempChance += 1;//entry->getLootChance();
+//			tempChance += 1;//entry->getLootChance();
 
 			//Is this entry lower than the roll? If yes, then we want to try the next entry.
-			if (tempChance < roll)
-				continue;
+//			if (tempChance < roll)
+//				continue;
 
 			createLoot(trx, container, entry->getLootGroupName(), level);
 
-			break;
+			//break;
 		}
 	}
 

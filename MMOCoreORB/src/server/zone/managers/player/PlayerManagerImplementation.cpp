@@ -2167,11 +2167,11 @@ void PlayerManagerImplementation::handleAddItemToTradeWindow(CreatureObject* pla
 		return;
 	}
 
-	if (objectToTrade->isNoTrade()) {
-		player->sendSystemMessage("@container_error_message:container26");
-		handleAbortTradeMessage(player);
-		return;
-	}
+//	if (objectToTrade->isNoTrade()) {
+//		player->sendSystemMessage("@container_error_message:container26");
+//		handleAbortTradeMessage(player);
+//		return;
+//	}
 
 	// Containers containing notrade items...
 	if (objectToTrade->containsNoTradeObjectRecursive()) {
@@ -2310,8 +2310,8 @@ bool PlayerManagerImplementation::checkTradeItems(CreatureObject* player, Creatu
 	for (int i = 0; i < tradeContainer->getTradeSize(); ++i) {
 		ManagedReference<SceneObject*> scene = tradeContainer->getTradeItem(i);
 
-		if (scene->isNoTrade())
-			return false;
+//		if (scene->isNoTrade())
+//			return false;
 
 		if (scene->isTangibleObject()) {
 
@@ -2378,8 +2378,8 @@ bool PlayerManagerImplementation::checkTradeItems(CreatureObject* player, Creatu
 	for (int i = 0; i < receiverContainer->getTradeSize(); ++i) {
 		ManagedReference<SceneObject*> scene = receiverContainer->getTradeItem(i);
 
-		if (scene->isNoTrade())
-			return false;
+//		if (scene->isNoTrade())
+//			return false;
 
 		if (scene->isTangibleObject()) {
 

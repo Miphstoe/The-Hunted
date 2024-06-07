@@ -1153,11 +1153,11 @@ class SceneObject extends QuadTreeEntry implements Logger, Metrics {
 //		if (containerVolumeLimit == 80)
 //			newcontainerVolumeLimit = 1000;
 		
-//		if (containerVolumeLimit == 50)
-//			newcontainerVolumeLimit = 1000;
+		if (containerVolumeLimit == 50)
+			newcontainerVolumeLimit = 1000;
 
-//		if (containerVolumeLimit == 100)
-//			newcontainerVolumeLimit = 1000;
+		if (containerVolumeLimit == 100)
+			newcontainerVolumeLimit = 1000;
 		
 		return newcontainerVolumeLimit;//containerVolumeLimit;
 	}
@@ -1468,12 +1468,12 @@ class SceneObject extends QuadTreeEntry implements Logger, Metrics {
 
 	@read
 	public abstract boolean isNoTrade() {
-		return forceNoTrade || templateObject.isNoTrade();
+		return false;//forceNoTrade || templateObject.isNoTrade();
 	}
 
 	@read
 	public boolean isForceNoTrade() {
-		return forceNoTrade;
+		return false;//forceNoTrade;
 	}
 
 	@read

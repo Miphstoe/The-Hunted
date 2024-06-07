@@ -39,17 +39,17 @@ MissionObject* InformantMissionScreenHandler::getBountyMissionObject(CreatureObj
 
 ConversationScreen* InformantMissionScreenHandler::handleScreen(CreatureObject* conversingPlayer, CreatureObject* conversingNPC, int selectedOption, ConversationScreen* conversationScreen) {
 	//Get informant level.
-	int informantLevel = 4;
-//	if (conversationScreen->getOptionLink(0) == "1") {
-//		informantLevel = 1;
-//	} else if (conversationScreen->getOptionLink(0) == "2") {
-//		informantLevel = 2;
-//	} else if (conversationScreen->getOptionLink(0) == "3") {
-//		informantLevel = 3;
-//	} else {
-//		error("Informant level incorrect.");
-//		return nullptr;
-//	}
+	int informantLevel;
+	if (conversationScreen->getOptionLink(0) == "1") {
+		informantLevel = 1;
+	} else if (conversationScreen->getOptionLink(0) == "2") {
+		informantLevel = 2;
+	} else if (conversationScreen->getOptionLink(0) == "3") {
+		informantLevel = 3;
+	} else {
+		error("Informant level incorrect.");
+		return nullptr;
+	}
 
 	//Check if player is bounty hunter.
 //	if (!conversingPlayer->hasSkill("combat_bountyhunter_novice")) {

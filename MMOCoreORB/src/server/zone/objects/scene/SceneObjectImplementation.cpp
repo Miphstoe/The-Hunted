@@ -1587,17 +1587,17 @@ bool SceneObjectImplementation::isInWater() const {
 }
 
 bool SceneObjectImplementation::containsNoTradeObjectRecursive() {
-	for (int i = 0; i < containerObjects.size(); ++i) {
-		ManagedReference<SceneObject*> obj = containerObjects.get(i);
-
-		if (obj->isNoTrade()){
-			return true;
-		}
-
-		if (obj->containsNoTradeObjectRecursive()) {
-			return true;
-		}
-	}
+//	for (int i = 0; i < containerObjects.size(); ++i) {
+//		ManagedReference<SceneObject*> obj = containerObjects.get(i);
+//
+//		if (obj->isNoTrade()){
+//			return true;
+//		}
+//
+//		if (obj->containsNoTradeObjectRecursive()) {
+//			return true;
+//		}
+//	}
 
 	return false;
 }

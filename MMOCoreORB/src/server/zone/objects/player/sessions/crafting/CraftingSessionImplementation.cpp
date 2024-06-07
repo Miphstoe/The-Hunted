@@ -737,6 +737,9 @@ void CraftingSessionImplementation::initialAssembly(int clientCounter) {
 	// Update the prototype with new values
 	prototype->updateCraftingValues(craftingValues, true);
 
+	prototype->setJunkDealerNeeded(1);
+	prototype->setJunkValue((manufactureSchematic->getComplexity() * manufactureSchematic->getComplexity()) / 2);
+
 	addSkillMods();
 
 	addWeaponDots();

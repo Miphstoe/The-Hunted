@@ -178,7 +178,7 @@ void SharedObjectTemplate::parseVariableData(const String& varName, LuaObject* t
 	} else if (varName == "inheritPermissionsFromParent") {
 		inheritPermissionsFromParent = Lua::getBooleanParameter(state);
 	} else if (varName == "noTrade") {
-		noTrade = (bool) Lua::getByteParameter(state);
+		noTrade = false;//(bool) Lua::getByteParameter(state);
 	} else if (varName == "groupPermissions") {
 		groupPermissions.removeAll();
 

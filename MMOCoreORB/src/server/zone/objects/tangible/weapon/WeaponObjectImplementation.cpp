@@ -113,6 +113,19 @@ void WeaponObjectImplementation::sendContainerTo(CreatureObject* player) {
 		}
 
 	}
+//	else if (!isJediWeapon()) {
+//
+//		ManagedReference<SceneObject*> saberInv = getSlottedObject("saber_inv");
+//
+//		if (saberInv != nullptr) {
+//			saberInv->sendDestroyTo(player);
+//			//saberInv->closeContainerTo(player, true);
+//
+//			saberInv->sendWithoutContainerObjectsTo(player);
+//			saberInv->openContainerTo(player);
+//		}
+//
+//	}
 }
 
 void WeaponObjectImplementation::createChildObjects() {
