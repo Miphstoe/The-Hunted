@@ -622,12 +622,18 @@ void CombatManager::applyDots(CreatureObject* attacker, CreatureObject* defender
 		debug() << "entering addDotState with dotType:" << dotType;
 
 		float damMod = 1.0;//attacker->isAiAgent() ? cast<AiAgent*>(attacker)->getSpecialDamageMult() : 1.f;
+		uint32 dotstr = effect.getDotStrength();
+
+		if (dotstr > 125)
+			dotstr /= 2;
+		if (dotstr > 250)
+			dotstr /= 5;
 		defender->addDotState(attacker, dotType, data.getCommand()->getNameCRC(),
 				effect.isDotDamageofHit() ? damageToApply * effect.getPrimaryPercent() / 100.0f
-					: effect.getDotStrength() * damMod,
+					: dotstr,
 				pool, effect.getDotDuration(), potency, resist,
 				effect.isDotDamageofHit() ? damageToApply * effect.getSecondaryPercent() / 100.0f
-					: effect.getDotStrength() * damMod);
+					: dotstr);
 	}
 }
 
@@ -635,8 +641,8 @@ void CombatManager::applyWeaponDots(CreatureObject* attacker, CreatureObject* de
 	if (defender->isInvulnerable())
 		return;
 
-	if (!weapon->isCertifiedFor(attacker))
-		return;
+//	if (!weapon->isCertifiedFor(attacker))
+//		return;
 
 	for (int i = 0; i < weapon->getNumberOfDots(); i++) {
 		if (weapon->getDotUses(i) <= 0)
@@ -960,6 +966,108 @@ int CombatManager::calculateDamageRange(TangibleObject* attacker, CreatureObject
 	int damageMitigation = 0;
 	float minDamage = weapon->getMinDamage(), maxDamage = weapon->getMaxDamage();
 
+	if (attacker->isPlayerCreature()) {
+		//this is an initial nerf to ALL weapons over these stats, they are multiplicative after
+		if (maxDamage > 500)	maxDamage = ((maxDamage - 500) / 2) + 500;//all stats over this are worth half
+		if (minDamage > 250)	minDamage = ((minDamage - 250) / 2) + 250;
+
+		//these individual weapon stats are worth 1 fifth of their value, multiplicative 1/10th
+		if (weapon->isPistolWeapon()){
+			if (maxDamage > 750)	maxDamage = ((maxDamage - 750) / 5) + 750;
+			if (minDamage > 375)	minDamage = ((minDamage - 375) / 5) + 375;
+		}
+		if (weapon->isCarbineWeapon()){
+			if (maxDamage > 1000)	maxDamage = ((maxDamage - 1000) / 5) + 1000;
+			if (minDamage > 500)	minDamage = ((minDamage - 500) / 5) + 500;
+		}
+		if (weapon->isRifleWeapon()){
+			if (maxDamage > 1500)	maxDamage = ((maxDamage - 1500) / 5) + 1500;
+			if (minDamage > 750)	minDamage = ((minDamage - 750) / 5) + 750;
+		}
+		if (weapon->isUnarmedWeapon()) { //unarmed is fukt b.c of 10k dmg crafted vk
+			if (maxDamage > 350)	maxDamage = ((maxDamage - 350) / 5) + 350;
+			if (minDamage > 175)	minDamage = ((minDamage - 175) / 5) + 175;
+		}
+
+		if (weapon->isOneHandMeleeWeapon() && !weapon->isJediWeapon()){
+			if (maxDamage > 750)	maxDamage = ((maxDamage - 750) / 5) + 750;
+			if (minDamage > 375)	minDamage = ((minDamage - 375) / 5) + 375;
+		}
+		if (weapon->isTwoHandMeleeWeapon() && !weapon->isJediWeapon()){
+			if (maxDamage > 1000)	maxDamage = ((maxDamage - 1000) / 5) + 1000;
+			if (minDamage > 500)	minDamage = ((minDamage - 500) / 5) + 500;
+		}
+		if (weapon->isPolearmWeaponObject() && !weapon->isJediWeapon()){
+			if (maxDamage > 1500)	maxDamage = ((maxDamage - 1500) / 5) + 1500;
+			if (minDamage > 750)	minDamage = ((minDamage - 750) / 5) + 750;
+		}
+
+		if (weapon->isHeavyWeapon()) {
+			if (maxDamage > 2000)	maxDamage = ((maxDamage - 2000) / 5) + 2000;
+			if (minDamage > 1000)	minDamage = ((minDamage - 1000) / 5) + 1000;
+		}
+		if (weapon->isSpecialHeavyWeapon()){
+			if (maxDamage > 2000)	maxDamage = ((maxDamage - 2000) / 5) + 2000;
+			if (minDamage > 1000)	minDamage = ((minDamage - 1000) / 5) + 1000;
+		}
+		if (weapon->isJediWeapon()){
+			if (maxDamage > 1000)	maxDamage = ((maxDamage - 1000) / 5) + 1000;
+			if (minDamage > 500)	minDamage = ((minDamage - 500) / 5) + 500;
+		}
+
+		//catch all for any crazy dmg palyer weaps also multiplicative with above
+		if (maxDamage > 3000)	maxDamage = ((maxDamage - 3000) / 10) + 3000;
+		if (minDamage > 1500)	minDamage = ((minDamage - 1500) / 10) + 1500;
+	}
+
+
+//	//// mySWG balancing the profs based on highest dmg weapon and special for that class
+//		if (attacker->isPlayerCreature() && !data.isForceAttack()) {
+//			if (weapon->isPistolWeapon())
+//			damage *= 1.5;//4.040;//1.82f;//half correct/fullcorrect/old correct
+//			if (weapon->isCarbineWeapon())
+//			damage *= 1.2;//2.925;//1.24f;
+//			if (weapon->isRifleWeapon())
+//			damage *= .9;//1.594;//0.6f;
+//	//			if (weapon->isRangedWeapon())
+//	//			damage *= 1.03f;
+//			if (weapon->isUnarmedWeapon()){//unarmed is fukt b.c of 10k dmg crafted vk
+//				//float minDamage = weapon->getMinDamage(), maxDamage = weapon->getMaxDamage();
+//				damage *= .6;//1.536;//1.51f;
+//				//if (maxDamage > 2000)
+//			}
+//			if (weapon->isOneHandMeleeWeapon() && !weapon->isJediWeapon())
+//			damage *= 1.4;//2.112;//1.26f;
+//			if (weapon->isTwoHandMeleeWeapon() && !weapon->isJediWeapon())
+//			damage *= .7;//1.721;//0.73f;
+//			if (weapon->isPolearmWeaponObject() && !weapon->isJediWeapon())
+//			damage *= .8;//1.771;//0.83f;
+//	//			if (weapon->isMeleeWeapon())
+//	//			damage *= 0.96f;
+//			if (weapon->isLightningRifle())
+//			damage *= .6;//.706 * 2;//1.38f;
+//			if (weapon->isFlameThrower())
+//			damage *= .4;//.392 * 4;//0.8f;
+//			if (weapon->isHeavyAcidRifle())
+//			damage *= .5;//.458 * 4;//0.96f;
+//	//			if (weapon->isHeavyWeapon())
+//	//			damage *= 1.0f;
+//	//			if (weapon->isThrownWeapon())
+//	//			damage *= .9;//.892 * 2;//1.0f;
+//	//			if (weapon->isSpecialHeavyWeapon())//this is rocket launcher
+//	//			damage *= .8;//.623 * 4;//1.0f;
+//	//		if (weapon->isMineWeapon())
+//	//		damage *= 1.0f;
+//	//		if (weapon->isJediOneHandedWeapon())
+//	//		damage *= 1.2;//1.336;//1.18f;
+//	//		if (weapon->isJediTwoHandedWeapon())
+//	//		damage *= 1.1;//1.094;//0.96f;
+//	//		if (weapon->isJediPolearmWeapon())
+//	//		damage *= .9;//1.009;//0.89f;
+//			if (weapon->isJediWeapon())
+//			damage *= .8;//jedi does almost exactly 2x damage as lvl 300 weaps normies
+//		}
+
 	// restrict damage if a player is not certified (don't worry about mobs)
 	if (attacker->isPlayerCreature() && !weapon->isCertifiedFor(cast<CreatureObject*>(attacker))) {
 		minDamage = 5;
@@ -1231,7 +1339,7 @@ int CombatManager::getArmorReduction(TangibleObject* attacker, WeaponObject* wea
 		int forceArmor = defender->getSkillMod("force_armor");
 		if (forceArmor > 90)
 			forceArmor = 90;
-		if (forceArmor > 0) {
+		if (forceArmor > 0 && (defender->hasBuff(BuffCRC::JEDI_FORCE_ARMOR_1) || defender->hasBuff(BuffCRC::JEDI_FORCE_ARMOR_2)) ) {
 			float dmgAbsorbed = rawDamage - (damage *= 1.f - (forceArmor / 100.f));
 			defender->notifyObservers(ObserverEventType::FORCEARMOR, attacker, dmgAbsorbed);
 			sendMitigationCombatSpam(defender, nullptr, (int)dmgAbsorbed, FORCEARMOR);
@@ -1244,7 +1352,7 @@ int CombatManager::getArmorReduction(TangibleObject* attacker, WeaponObject* wea
 		int forceShield = defender->getSkillMod("force_shield");
 		if (forceShield > 90)
 			forceShield = 90;
-		if (forceShield > 0) {
+		if (forceShield > 0 && (defender->hasBuff(BuffCRC::JEDI_FORCE_SHIELD_1) || defender->hasBuff(BuffCRC::JEDI_FORCE_SHIELD_2)) ) {
 			jediBuffDamage = rawDamage - (damage *= 1.f - (forceShield / 100.f));
 			defender->notifyObservers(ObserverEventType::FORCESHIELD, attacker, jediBuffDamage);
 			sendMitigationCombatSpam(defender, nullptr, (int)jediBuffDamage, FORCESHIELD);
@@ -1274,7 +1382,7 @@ int CombatManager::getArmorReduction(TangibleObject* attacker, WeaponObject* wea
 		}
 
 		// Force Absorb
-		if (defender->getSkillMod("force_absorb") > 0 && defender->isPlayerCreature()) {
+		if (defender->getSkillMod("force_absorb") > 0 && defender->isPlayerCreature()&& (defender->hasBuff(BuffCRC::JEDI_FORCE_ABSORB_1) || defender->hasBuff(BuffCRC::JEDI_FORCE_ABSORB_2))) {
 			defender->notifyObservers(ObserverEventType::FORCEABSORB, attacker, data.getForceCost());
 		}
 	}
@@ -1588,8 +1696,11 @@ float CombatManager::calculateDamage(CreatureObject* attacker, WeaponObject* wea
 		damage *= .9;//1.594;//0.6f;
 //			if (weapon->isRangedWeapon())
 //			damage *= 1.03f;
-		if (weapon->isUnarmedWeapon())//unarmed needs a retarded nerf because of the legendary vibro motors vk craft to liek 2-3k dmg
-		damage *= .6;//1.536;//1.51f;
+		if (weapon->isUnarmedWeapon()){//unarmed is fukt b.c of 10k dmg crafted vk
+			//float minDamage = weapon->getMinDamage(), maxDamage = weapon->getMaxDamage();
+			damage *= .6;//1.536;//1.51f;
+			//if (maxDamage > 2000)
+		}
 		if (weapon->isOneHandMeleeWeapon() && !weapon->isJediWeapon())
 		damage *= 1.4;//2.112;//1.26f;
 		if (weapon->isTwoHandMeleeWeapon() && !weapon->isJediWeapon())
@@ -1714,7 +1825,7 @@ float CombatManager::calculateDamage(CreatureObject* attacker, WeaponObject* wea
 
 	//EvP dmg
 	if (!attacker->isPlayerCreature() && defender->isPlayerCreature())
-		damage *= 0.4;
+		damage *= 0.3;
 
 	if (damage < 1) damage = 1;
 

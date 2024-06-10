@@ -8,6 +8,11 @@ death_watch_bunker_lieutenants = {
 		{itemTemplate = "de10_pistol_barrel", weight = 4000000},
 		{itemTemplate = "mandalorian_wine_schematic", weight = 4000000},
 		{itemTemplate = "alum_mineral", weight = 2000000},
+				{itemTemplate = "passkey_storage", weight = 10000000},
+				{itemTemplate = "passkey_mine", weight = 10000000},
+				{itemTemplate = "passkey_hall", weight = 10000000}
+				
+				
 	}
 }
 

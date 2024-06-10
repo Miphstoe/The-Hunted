@@ -403,6 +403,7 @@ void LightsaberCrystalComponentImplementation::tuneCrystal(CreatureObject* playe
 	}
 
 	if (getColor() == 31) {
+		generateCrystalStats();
 		ManagedReference<PlayerObject*> ghost = player->getPlayerObject();
 
 		if (ghost == nullptr)

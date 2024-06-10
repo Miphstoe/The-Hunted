@@ -37,7 +37,7 @@ function RecruiterConvoHandler:runScreenHandlers(pConvTemplate, pPlayer, pNpc, s
 	elseif (screenID == "accepted_go_overt") then
 		CreatureObject(pPlayer):setFutureFactionStatus(2)
 		writeData(CreatureObject(pPlayer):getObjectID() .. ":changingFactionStatus", 1)
-		createEvent(30000, "recruiterScreenplay", "handleGoOvert", pPlayer, "")
+		createEvent(1000 * 15, "recruiterScreenplay", "handleGoOvert", pPlayer, "")
 	elseif (screenID == "accepted_go_covert") then
 --		if (CreatureObject(pPlayer):hasSkill("force_rank_light_novice") or CreatureObject(pPlayer):hasSkill("force_rank_dark_novice")) then
 --			CreatureObject(pPlayer):sendSystemMessage("@faction_recruiter:jedi_cant_go_covert")
@@ -46,7 +46,7 @@ function RecruiterConvoHandler:runScreenHandlers(pConvTemplate, pPlayer, pNpc, s
 
 		CreatureObject(pPlayer):setFutureFactionStatus(1)
 		writeData(CreatureObject(pPlayer):getObjectID() .. ":changingFactionStatus", 1)
-		createEvent(300000, "recruiterScreenplay", "handleGoCovert", pPlayer, "")
+		createEvent(1000 * 30, "recruiterScreenplay", "handleGoCovert", pPlayer, "")
 	elseif (screenID == "accepted_go_on_leave") then
 --		if (CreatureObject(pPlayer):hasSkill("force_rank_light_novice") or CreatureObject(pPlayer):hasSkill("force_rank_dark_novice")) then
 --			CreatureObject(pPlayer):sendSystemMessage("@faction_recruiter:jedi_cant_go_covert")
@@ -55,7 +55,7 @@ function RecruiterConvoHandler:runScreenHandlers(pConvTemplate, pPlayer, pNpc, s
 
 		CreatureObject(pPlayer):setFutureFactionStatus(0)
 		writeData(CreatureObject(pPlayer):getObjectID() .. ":changingFactionStatus", 1)
-		createEvent(300000, "recruiterScreenplay", "handleGoOnLeave", pPlayer, "")
+		createEvent(1000 * 30, "recruiterScreenplay", "handleGoOnLeave", pPlayer, "")
 
 	elseif (screenID == "accepted_resign") then
 --		if (CreatureObject(pPlayer):hasSkill("force_rank_light_novice") or CreatureObject(pPlayer):hasSkill("force_rank_dark_novice")) then
@@ -66,14 +66,14 @@ function RecruiterConvoHandler:runScreenHandlers(pConvTemplate, pPlayer, pNpc, s
 		if (CreatureObject(pPlayer):isOvert()) then
 			CreatureObject(pPlayer):setFutureFactionStatus(0)
 			writeData(CreatureObject(pPlayer):getObjectID() .. ":changingFactionStatus", 1)
-			createEvent(300000, "recruiterScreenplay", "handleResign", pPlayer, "")
+			createEvent(1000 * 30, "recruiterScreenplay", "handleResign", pPlayer, "")
 			return pConvScreen
 		end
 		recruiterScreenplay:handleResign(pPlayer)
 
 	elseif (screenID == "accepted_resume_duties") then
 		CreatureObject(pPlayer):setFutureFactionStatus(1)
-		createEvent(30000, "recruiterScreenplay", "handleGoCovert", pPlayer, "")
+		createEvent(1000 * 5, "recruiterScreenplay", "handleGoCovert", pPlayer, "")
 		writeData(CreatureObject(pPlayer):getObjectID() .. ":changingFactionStatus", 1)
 
 	elseif (screenID == "confirm_promotion") then
@@ -172,17 +172,17 @@ end
 
 function RecruiterConvoHandler:addJoinMilitaryOption(faction, screen, playerObject, pNpc)
 	if (faction == "rebel") then
-		if (playerObject:getFactionStanding(recruiterScreenplay:getRecruiterFaction(pNpc)) < recruiterScreenplay.minimumFactionStanding) then
-			screen:addOption("@conversation/faction_recruiter_rebel:s_580", "neutral_need_more_points")
-		else
+--		if (playerObject:getFactionStanding(recruiterScreenplay:getRecruiterFaction(pNpc)) < recruiterScreenplay.minimumFactionStanding) then
+--			screen:addOption("@conversation/faction_recruiter_rebel:s_580", "neutral_need_more_points")
+--		else
 			screen:addOption("@conversation/faction_recruiter_rebel:s_580", "join_military")
-		end
+--		end
 	elseif (faction == "imperial") then
-		if (playerObject:getFactionStanding(recruiterScreenplay:getRecruiterFaction(pNpc)) < recruiterScreenplay.minimumFactionStanding) then
-			screen:addOption("@conversation/faction_recruiter_imperial:s_428", "neutral_need_more_points")
-		else
+--		if (playerObject:getFactionStanding(recruiterScreenplay:getRecruiterFaction(pNpc)) < recruiterScreenplay.minimumFactionStanding) then
+--			screen:addOption("@conversation/faction_recruiter_imperial:s_428", "neutral_need_more_points")
+--		else
 			screen:addOption("@conversation/faction_recruiter_imperial:s_428", "join_military")
-		end
+--		end
 	end
 end
 

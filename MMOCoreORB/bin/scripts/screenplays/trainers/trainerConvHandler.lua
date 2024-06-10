@@ -260,8 +260,8 @@ function trainerConvHandler:handleConfirmLearnScreen(pConvTemplate, pPlayer, pNp
 		clonedConversation:setDialogTextStringId(stringTable .. "msg3_2")
 
 		local pGhost = CreatureObject(pPlayer):getPlayerObject()
-
-		if (pGhost ~= nil and PlayerObject(pGhost):isJediTrainer(pNpc) and not CreatureObject(pPlayer):hasSkill("force_title_jedi_rank_03") and not JediTrials:isOnKnightTrials(pPlayer) and JediTrials:isEligibleForKnightTrials(pPlayer)) then
+--and PlayerObject(pGhost):isJediTrainer(pNpc)
+		if (pGhost ~= nil and not CreatureObject(pPlayer):hasSkill("force_title_jedi_rank_03") and not JediTrials:isOnKnightTrials(pPlayer) and JediTrials:isEligibleForKnightTrials(pPlayer)) then
 			KnightTrials:startKnightTrials(pPlayer)
 		end
 	else

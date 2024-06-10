@@ -46,6 +46,7 @@ includeFile("items/viewscreen_printer.lua")
 includeFile("items/viewscreen_reader.lua")
 
 --armor sub-folder
+includeFile("items/armor/ns_armguard.lua")
 includeFile("items/armor/bh_armor_belt.lua")
 includeFile("items/armor/bh_armor_bicep_l.lua")
 includeFile("items/armor/bh_armor_bicep_r.lua")
