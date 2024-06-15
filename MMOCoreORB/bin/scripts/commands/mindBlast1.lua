@@ -91,7 +91,7 @@ MindBlast1Command = {
 	poolsToDamage = MIND_ATTRIBUTE,
 
 	forceAttack = true,
-	damageType = STUN_DAMAGE,
+	damageType = LIGHTSABER_DAMAGE,
 
 	frsLightMinDamageModifier = 1,
 	frsLightMaxDamageModifier = 2,

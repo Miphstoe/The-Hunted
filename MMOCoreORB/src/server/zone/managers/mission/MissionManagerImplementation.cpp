@@ -1065,17 +1065,22 @@ void MissionManagerImplementation::randomizeGenericBountyMission(CreatureObject*
 			mission->setMissionNumber(randTexts);
 
 			UnicodeString possibleCreatorName = StringIdManager::instance()->getStringId(String::hashCode("@" + stfFile + "m" + String::valueOf(randTexts) + "o"));
-			String creatorName = "";
+			String creatorName = "a Concerned Citizen";//"";
 
 
-			if (!possibleCreatorName.isEmpty()) {
-				creatorName = possibleCreatorName.toString();
-			} else {
-				creatorName = nm->makeCreatureName();
-			}
+//			if (!possibleCreatorName.isEmpty()) {
+//				creatorName = possibleCreatorName.toString();
+//			} else {
+//				creatorName = nm->makeCreatureName();
+//			}
 
 			mission->setCreatorName(creatorName);
-			mission->setMissionTitle(stfFile, "m" + String::valueOf(randTexts) + "t");
+
+			mission->setMissionTitle("", "\\#FFFF00***PLAYER JEDI***");
+			if (creature->getFaction() == Factions::FACTIONIMPERIAL)	mission->setMissionTitle("", "\\#0000FF***IMPERIAL PLAYER JEDI***");
+			if (creature->getFaction() == Factions::FACTIONREBEL)	mission->setMissionTitle("", "\\#FF0000***REBEL PLAYER JEDI***");
+			if (creature->getFaction() == Factions::FACTIONNEUTRAL)		mission->setMissionTitle("", "\\#FFFF00***NEUTRAL PLAYER JEDI***");
+//			mission->setMissionTitle(stfFile, "m" + String::valueOf(randTexts) + "t");
 			mission->setMissionDescription(stfFile, "m" + String::valueOf(randTexts) + "d");
 		}
 	} else {

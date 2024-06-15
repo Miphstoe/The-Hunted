@@ -624,10 +624,30 @@ void CombatManager::applyDots(CreatureObject* attacker, CreatureObject* defender
 		float damMod = 1.0;//attacker->isAiAgent() ? cast<AiAgent*>(attacker)->getSpecialDamageMult() : 1.f;
 		uint32 dotstr = effect.getDotStrength();
 
-		if (dotstr > 125)
-			dotstr /= 2;
-		if (dotstr > 250)
-			dotstr /= 5;
+		if (defender->isPlayerCreature() && attacker->isPlayerCreature()) {
+
+//			attacker->setDefender(defender);
+//			defender->setDefender(attacker);
+//			defender->addDefender(attacker);
+//			attacker->addDefender(defender);
+//
+//			defender->inflictDamage(attacker, CreatureAttribute::HEALTH, 1, true, "medical", true, true);
+
+			if (dotstr > 125)
+				dotstr = ((dotstr - 125) / 2) + 125;
+			if (dotstr > 250)
+				dotstr = ((dotstr - 250) / 5) + 250;
+			if (dotstr > 350)
+				dotstr = ((dotstr - 350) / 10) + 350;
+		}
+
+		//CreatureObject *dtano = defenderObject->asCreatureObject();
+		TangibleObject* tano = defender->asTangibleObject();
+
+		//startCombat(attacker, tano, true, true);//didnt work
+
+		//defender->executeObjectControllerAction(STRING_HASHCODE("attack"), attacker->getObjectID(), "");
+
 		defender->addDotState(attacker, dotType, data.getCommand()->getNameCRC(),
 				effect.isDotDamageofHit() ? damageToApply * effect.getPrimaryPercent() / 100.0f
 					: dotstr,
@@ -677,8 +697,17 @@ void CombatManager::applyWeaponDots(CreatureObject* attacker, CreatureObject* de
 		if (defender->hasDotImmunity(type))
 			continue;
 
+		int weapdotstr = weapon->getDotStrength(i);
+
+		if (weapdotstr > 125)
+			weapdotstr = ((weapdotstr - 125) / 2) + 125;
+		if (weapdotstr > 250)
+			weapdotstr = ((weapdotstr - 250) / 5) + 250;
+		if (weapdotstr > 350)
+			weapdotstr = ((weapdotstr - 350) / 10) + 350;
+
 		if (weapon->getDotPotency(i)*(1.f-resist/100.f) > System::random(100) &&
-			defender->addDotState(attacker, type, weapon->getObjectID(), weapon->getDotStrength(i), weapon->getDotAttribute(i), weapon->getDotDuration(i), -1, 0, (int)(weapon->getDotStrength(i)/5.f)) > 0)
+			defender->addDotState(attacker, type, weapon->getObjectID(), weapdotstr, weapon->getDotAttribute(i), weapon->getDotDuration(i), -1, 0, (int)(weapon->getDotStrength(i)/5.f)) > 0)
 			if (weapon->getDotUses(i) > 0)
 				weapon->setDotUses(weapon->getDotUses(i) - 1, i); // Unresisted despite mod, reduce use count.
 	}
@@ -811,6 +840,9 @@ int CombatManager::getAttackerAccuracyModifier(TangibleObject* attacker, Creatur
 	//if (attackerAccuracy == 0) attackerAccuracy = -15; // unskilled penalty, TODO: this might be -50 or -125, do research
 
 	if (attacker->isPlayerCreature())//boost player accuracy
+		attackerAccuracy += System::random(50);
+
+	if (weapon->isJediWeapon())
 		attackerAccuracy += System::random(50);
 
 	attackerAccuracy += creoAttacker->getSkillMod("attack_accuracy") + creoAttacker->getSkillMod("dead_eye");
@@ -1730,11 +1762,11 @@ float CombatManager::calculateDamage(CreatureObject* attacker, WeaponObject* wea
 //		if (weapon->isJediPolearmWeapon())
 //		damage *= .9;//1.009;//0.89f;
 		if (weapon->isJediWeapon())
-		damage *= .8;//jedi does almost exactly 2x damage as lvl 300 weaps normies
+		damage *= .8;//
 	}
 
 	if (attacker->isPlayerCreature() && data.isForceAttack()) //force powers damage bonus cuz it sucks
-		damage *= 3;
+		damage *= 5;
 
 	if (!attacker->isPlayerCreature() && data.isForceAttack()) {	//cap npc max force pwoer dmg.
 		damage /= 3;						//this prevents npc from doing 3k dmg force lightning
@@ -1744,15 +1776,15 @@ float CombatManager::calculateDamage(CreatureObject* attacker, WeaponObject* wea
 
 	damage += defender->getSkillMod("private_damage_susceptibility");
 
-	if (attacker->isPlayerCreature()) {
-		if (data.isForceAttack() && !defender->isPlayerCreature())
-			damage *= 2 + System::random(1);
-		else if (!data.isForceAttack())
-			damage *= 1.5;
-	}
+//	if (attacker->isPlayerCreature()) {
+//		if (data.isForceAttack() && !defender->isPlayerCreature())
+//			damage *= 2 + System::random(1);
+//		else if (!data.isForceAttack())
+//			damage *= 1.5;
+//	}
 
-	if (!data.isForceAttack() && weapon->getAttackType() == SharedWeaponObjectTemplate::MELEEATTACK)
-		damage *= 1.25;
+//	if (!data.isForceAttack() && weapon->getAttackType() == SharedWeaponObjectTemplate::MELEEATTACK)
+//		damage *= 1.25;
 
 	if (defender->isKnockedDown()) {
 		damage *= 1.5f;
@@ -1815,17 +1847,24 @@ float CombatManager::calculateDamage(CreatureObject* attacker, WeaponObject* wea
 //			damage *= (defenderLvl / 500);
 //	}
 
+	ManagedReference<WeaponObject*> defweapon = defender->getWeapon();
+	int DefAvgDmg = (defweapon->getMinDamage() + defweapon->getMaxDamage()) / 2;
+
 	// PvP Damage Reduction.
 	if (attacker->isPlayerCreature() && defender->isPlayerCreature() && !data.isForceAttack())
 		damage *= 0.25;
 
 	//PvE dmg
 	if (attacker->isPlayerCreature() && !defender->isPlayerCreature())
-		damage *= .6;
+		damage *= .5;
 
 	//EvP dmg
-	if (!attacker->isPlayerCreature() && defender->isPlayerCreature())
+	if (!attacker->isPlayerCreature() && defender->isPlayerCreature())	{
+		damage += DefAvgDmg;//this adds player avg dmg to npc attack
+
 		damage *= 0.3;
+
+	}
 
 	if (damage < 1) damage = 1;
 

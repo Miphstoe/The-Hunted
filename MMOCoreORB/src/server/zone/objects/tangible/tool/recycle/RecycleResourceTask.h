@@ -32,6 +32,9 @@ public:
 	}
 
 	void run() {
+		//player->sendSystemMessage("recycle tool disabled due to causing a crash"); //causes crash
+		return;
+
 		ManagedReference<SceneObject* > sceno = recycler->getParentRecursively(SceneObjectType::PLAYERCREATURE);
 		if (!sceno->isPlayerCreature() || sceno == nullptr) {
 			return;

@@ -19,6 +19,7 @@ armor_component = {
 		{itemTemplate = "armorcomponent12", weight = 500000},--
 		{itemTemplate = "armorcomponent13", weight = 500000},--
 		{itemTemplate = "armorcomponent14", weight = 500000},--
+				{itemTemplate = "armorcomponent15", weight = 500000},--
 	},
 }
 
