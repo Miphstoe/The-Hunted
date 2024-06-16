@@ -1,4 +1,4 @@
-endor_blurrg_crimson_neutral_small = Lair:new {
+endor_blurrg_crimson_neutral_small2 = Lair:new {
 	mobiles = {{"blurrg_raptor",1}},
 	spawnLimit = 15,
 	buildingsVeryEasy = {"object/tangible/lair/base/poi_all_lair_bones_fog_red.iff"},
@@ -8,4 +8,4 @@ endor_blurrg_crimson_neutral_small = Lair:new {
 	buildingsVeryHard = {"object/tangible/lair/base/poi_all_lair_bones_fog_red.iff"},
 }
 
-addLairTemplate("endor_blurrg_crimson_neutral_small", endor_blurrg_crimson_neutral_small)
+addLairTemplate("endor_blurrg_crimson_neutral_small2", endor_blurrg_crimson_neutral_small2)

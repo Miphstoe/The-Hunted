@@ -1,6 +1,6 @@
 dantooine_graul_mauler_lair_neutral_large_boss_2 = Lair:new {
 	mobiles = {{"graul_mauler",1}},
-	bossMobiles = {{"graul_marauder",2}},
+	bossMobiles = {{"graul_marauder",1}},
 	spawnLimit = 15,
 	buildingsVeryEasy = {"object/tangible/lair/base/poi_all_lair_rocks_large.iff"},
 	buildingsEasy = {"object/tangible/lair/base/poi_all_lair_rocks_large.iff"},

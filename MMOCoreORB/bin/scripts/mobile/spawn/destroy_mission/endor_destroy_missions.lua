@@ -260,12 +260,12 @@ endor_destroy_missions = {
 			maxDifficulty = 99,
 			size = 25,
 		},
-		{
-			lairTemplateName = "endor_blurrg_crimson_neutral_small",
-			minDifficulty = 95,
-			maxDifficulty = 99,
-			size = 25,
-		},
+--		{
+--			lairTemplateName = "endor_blurrg_crimson_neutral_small",
+--			minDifficulty = 95,
+--			maxDifficulty = 99,
+--			size = 25,
+--		},
 		{
 			lairTemplateName = "endor_blurrg_crimson_neutral_small2",
 			minDifficulty = 95,

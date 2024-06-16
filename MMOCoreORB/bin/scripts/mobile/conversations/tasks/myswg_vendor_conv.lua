@@ -232,8 +232,8 @@ newbuff1 = ConvoScreen:new {
         {"2500 Doctor Buffs 8hr - 25k", "buff2"},
         {"3500 Doctor Buffs 8hr - 50k", "buff3"},
         
-        {"125% Entertainer Buffs 4hr - free", "buff4"},
-        {"250% Entertainer Buffs 6hr - 20k", "buff5"},
+        {"125% Entertainer Buffs 8hr - free", "buff4"},
+        {"250% Entertainer Buffs 8hr - 20k", "buff5"},
  
       	{"Main menu.", "first_screen"},
     }

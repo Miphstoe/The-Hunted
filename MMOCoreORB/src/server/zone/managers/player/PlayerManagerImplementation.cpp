@@ -5650,7 +5650,7 @@ void PlayerManagerImplementation::enhanceCharacterDocBuff(CreatureObject* player
 
 	bool message = true;
 //selfbuff
-	int selfMedBuff = 2000;//
+	int selfMedBuff = 2500;//
 	int selfStrengthMind = player->getBaseHAM(CreatureAttribute::MIND) * 1.25;//25% is half of vanilla 50%
 	int selfStrengthFocus = player->getBaseHAM(CreatureAttribute::FOCUS) * 1.25;//.625 is half of 125
 	int selfStrengthWill = player->getBaseHAM(CreatureAttribute::WILLPOWER) * 1.25;
@@ -5677,7 +5677,7 @@ void PlayerManagerImplementation::enhanceCharacterDocBuffTHREE(CreatureObject* p
 
 	bool message = true;
 //selfbuff
-	int selfMedBuff = 2500;//
+	int selfMedBuff = 3500;//
 	int selfStrengthMind = player->getBaseHAM(CreatureAttribute::MIND) * 1.25;//25% is half of vanilla 50%
 	int selfStrengthFocus = player->getBaseHAM(CreatureAttribute::FOCUS) * 1.25;//.625 is half of 125
 	int selfStrengthWill = player->getBaseHAM(CreatureAttribute::WILLPOWER) * 1.25;

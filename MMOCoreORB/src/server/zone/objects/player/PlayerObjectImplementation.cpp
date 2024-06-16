@@ -2065,6 +2065,11 @@ void PlayerObjectImplementation::activateForcePowerRegen() {
 	if(regen == 0.0f)
 		return;
 
+	if (creature->isInCombat())//combat regen disabled
+		regen /= 5;
+	else
+		regen *= 5;//out of combat regen buff
+
 	if (forceRegenerationEvent == nullptr) {
 		forceRegenerationEvent = new ForceRegenerationEvent(asPlayerObject());
 	}
@@ -2093,11 +2098,6 @@ void PlayerObjectImplementation::activateForcePowerRegen() {
 
 		float timer = regen / 5.f;
 
-
-		if (creature->isInCombat())//combat regen disabled
-			regen /= 5;
-		else
-			regen *= 5;//out of combat regen buff
 
 		float scheduledTime = 10 / timer;
 		uint64 miliTime = static_cast<uint64>(scheduledTime * 1000.f);

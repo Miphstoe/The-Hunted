@@ -188,14 +188,14 @@ dantooine_destroy_missions = {
 			maxDifficulty = 99,
 			size = 25,
 		},
+--		{
+--			lairTemplateName = "dantooine_graul_mauler_lair_neutral_large_boss_01",
+--			minDifficulty = 95,
+--			maxDifficulty = 99,
+--			size = 25,
+--		},
 		{
-			lairTemplateName = "dantooine_graul_mauler_lair_neutral_large_boss_01.lua",
-			minDifficulty = 95,
-			maxDifficulty = 99,
-			size = 25,
-		},
-		{
-			lairTemplateName = "dantooine_graul_mauler_lair_neutral_large_boss_2.lua",
+			lairTemplateName = "dantooine_graul_mauler_lair_neutral_large_boss_2",
 			minDifficulty = 95,
 			maxDifficulty = 99,
 			size = 25,
