@@ -229,7 +229,7 @@ bool LairObserverImplementation::checkForNewSpawns(TangibleObject* lair, Tangibl
 			}
 			break;
 		case 3:
-			if (lairTemplate->hasBossMobs() && conditionDamage > ((maxCondition * .75))) {//* 9) / 10)) {
+			if (lairTemplate->hasBossMobs() && conditionDamage > ((maxCondition * 9) / 10)) {
 				spawnNumber.increment();
 			} else {
 				return false;
@@ -244,52 +244,41 @@ bool LairObserverImplementation::checkForNewSpawns(TangibleObject* lair, Tangibl
 	VectorMap<String, int> objectsToSpawn; // String mobileTemplate, int number to spawn
 
 	if (spawnNumber == 4) {
-		return false;
 //		if (System::random(100) > 9)
 //			return false;
-//
-//		const VectorMap<String, int>* mobs = lairTemplate->getBossMobiles();
-//
-//		for (int i = 0; i < mobs->size(); i++) {
-//			objectsToSpawn.put(mobs->elementAt(i).getKey(), mobs->elementAt(i).getValue());
-//		}
+
+		const VectorMap<String, int>* mobs = lairTemplate->getBossMobiles();
+
+		for (int i = 0; i < mobs->size(); i++) {
+			objectsToSpawn.put(mobs->elementAt(i).getKey(), mobs->elementAt(i).getValue());
+		}
 
 	} else {
 		const Vector<String>* mobiles = lairTemplate->getWeightedMobiles();
-		int amountToSpawn = System::random(lairTemplate->getSpawnLimit() / 2) + 1;//0
+		int amountToSpawn = 0;
 
-//		if (getMobType() == LairTemplate::CREATURE) {
-//			amountToSpawn = System::random(3) + ((lairTemplate->getSpawnLimit() / 3) - 2);
-//		} else {
-//			amountToSpawn = System::random(lairTemplate->getSpawnLimit() / 2) + (lairTemplate->getSpawnLimit() / 2);
-//		}
-//
-//		if (amountToSpawn < 1)
-//			amountToSpawn = 1;
-
-		//amountToSpawn += System::random(amountToSpawn);
-
-		if (System::random(4) == 4) {
-
-			const VectorMap<String, int>* mobs = lairTemplate->getBossMobiles();
-
-			for (int i = 0; i < mobs->size(); i++) {
-				objectsToSpawn.put(mobs->elementAt(i).getKey(), mobs->elementAt(i).getValue());
-			}
+		if (getMobType() == LairTemplate::CREATURE) {
+			amountToSpawn = System::random(3) + ((lairTemplate->getSpawnLimit() / 3) - 2);
 		} else {
+			amountToSpawn = System::random(lairTemplate->getSpawnLimit() / 2) + (lairTemplate->getSpawnLimit() / 2);
+		}
 
-			for (int i = 0; i < amountToSpawn; i++) {
-				int num = System::random(mobiles->size() - 1);
-				const String& mob = mobiles->get(num);
+		if (amountToSpawn < 1)
+			amountToSpawn = 1;
 
-				int find = objectsToSpawn.find(mob);
+		amountToSpawn += System::random(amountToSpawn);
 
-				if (find != -1) {
-					int& value = objectsToSpawn.elementAt(find).getValue();
-					++value;
-				} else {
-					objectsToSpawn.put(mob, 1);
-				}
+		for (int i = 0; i < amountToSpawn; i++) {
+			int num = System::random(mobiles->size() - 1);
+			const String& mob = mobiles->get(num);
+
+			int find = objectsToSpawn.find(mob);
+
+			if (find != -1) {
+				int& value = objectsToSpawn.elementAt(find).getValue();
+				++value;
+			} else {
+				objectsToSpawn.put(mob, 1);
 			}
 		}
 	}
