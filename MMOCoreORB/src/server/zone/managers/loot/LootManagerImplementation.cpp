@@ -324,7 +324,7 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 
 	bool yellow = false;
 
-	int newlegendaryChance = 19;//was 9
+	int newlegendaryChance = 9;//was 9
 	int newexceptionalChance = 4;
 	int newyellowChance = 1;
 
@@ -811,21 +811,21 @@ bool LootManagerImplementation::createLootFromCollection(TransactionLog& trx, Sc
 		const LootGroups* lootGroups = entry->getLootGroups();
 
 		//Now we do the second roll to determine loot group.
-		roll = System::random(10000000);
+		roll = System::random(lootGroups->count());//10000000);
 
 		//Select the loot group to use.
 		for (int i = 0; i < lootGroups->count(); ++i) {
 			const LootGroupEntry* entry = lootGroups->get(i);
 
-			tempChance += entry->getLootChance();
+//			tempChance += 1;//entry->getLootChance();
 
 			//Is this entry lower than the roll? If yes, then we want to try the next entry.
-			if (tempChance < roll)
-				continue;
+//			if (tempChance < roll)
+//				continue;
 
 			createLoot(trx, container, entry->getLootGroupName(), level);
 
-			break;
+			//break;
 		}
 	}
 

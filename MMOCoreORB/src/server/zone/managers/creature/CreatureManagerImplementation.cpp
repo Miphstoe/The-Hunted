@@ -605,11 +605,11 @@ int CreatureManagerImplementation::notifyDestruction(TangibleObject* destructor,
 				trx.abort() << "createLoot failed for ai object.";
 			}
 			//double loot
-			if (lootManager->createLoot(trx, creatureInventory, destructedObject)) {
-				trx.commit(true);
-			} else {
-				trx.abort() << "createLoot failed for ai object.";
-			}
+//			if (lootManager->createLoot(trx, creatureInventory, destructedObject)) {
+//				trx.commit(true);
+//			} else {
+//				trx.abort() << "createLoot failed for ai object.";
+//			}
 		}
 
 		Reference<AiAgent*> strongReferenceDestructedObject = destructedObject;

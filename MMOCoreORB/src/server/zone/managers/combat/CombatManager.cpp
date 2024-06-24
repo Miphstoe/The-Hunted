@@ -809,7 +809,12 @@ int CombatManager::calculateTargetPostureModifier(WeaponObject* weapon, Creature
 int CombatManager::getAttackerAccuracyModifier(TangibleObject* attacker, CreatureObject* defender, WeaponObject* weapon) const {
 	if (attacker->isAiAgent()) {
 //		attacker->getLevel()
-		return cast<AiAgent*>(attacker)->getLevel() + System::random(150);// + (cast<AiAgent*>(attacker)->getChanceHit() * 100);//cast<AiAgent*>(attacker)->getChanceHit() * 100;
+		int clvl = cast<AiAgent*>(attacker)->getLevel();
+		if (clvl > 50) clvl = 50;
+
+		int attackerAccuracy = (clvl * 6) + System::random(50);
+
+		return attackerAccuracy;// + (cast<AiAgent*>(attacker)->getChanceHit() * 100);//cast<AiAgent*>(attacker)->getChanceHit() * 100;
 	} else if (attacker->isInstallationObject()) {
 		return 500;//cast<InstallationObject*>(attacker)->getHitChance() * 100;
 	}
@@ -839,11 +844,13 @@ int CombatManager::getAttackerAccuracyModifier(TangibleObject* attacker, Creatur
 
 	//if (attackerAccuracy == 0) attackerAccuracy = -15; // unskilled penalty, TODO: this might be -50 or -125, do research
 
-	if (attacker->isPlayerCreature())//boost player accuracy
-		attackerAccuracy += System::random(50);
+	if (attacker->isPlayerCreature()) {//boost player accuracy
+		//attackerAccuracy += System::random(50);
+		attackerAccuracy *= 1.5;
+	}
 
 	if (weapon->isJediWeapon())
-		attackerAccuracy += System::random(50);
+		attackerAccuracy += 50;
 
 
 	attackerAccuracy += creoAttacker->getSkillMod("attack_accuracy") + creoAttacker->getSkillMod("dead_eye");
@@ -871,6 +878,9 @@ int CombatManager::getAttackerAccuracyModifier(TangibleObject* attacker, Creatur
 //		}
 //	}
 
+	if (attackerAccuracy > 150)
+		attackerAccuracy = System::random(attackerAccuracy - 150) + 150;
+
 	return attackerAccuracy;
 }
 
@@ -892,6 +902,18 @@ int CombatManager::getDefenderDefenseModifier(CreatureObject* defender, WeaponOb
 	int targetDefense = defender->isPlayerCreature() ? 0 : defender->getLevel();
 	int buffDefense = 0;
 
+
+	// defense hardcap
+	if (!defender->isPlayerCreature()) {
+
+		if (targetDefense > 100)
+			targetDefense = 100;
+
+		targetDefense *= 4;
+
+		return targetDefense;
+	}
+
 	const auto defenseAccMods = weapon->getDefenderDefenseModifiers();
 
 	for (int i = 0; i < defenseAccMods->size(); ++i) {
@@ -902,9 +924,7 @@ int CombatManager::getDefenderDefenseModifier(CreatureObject* defender, WeaponOb
 
 	debug() << "Base target defense is " << targetDefense;
 
-	// defense hardcap
-	if (!defender->isPlayerCreature() && targetDefense > 150)
-		targetDefense = 150;
+
 
 	if (attacker->isPlayerCreature())
 		targetDefense += defender->getSkillMod("private_defense");
@@ -940,8 +960,13 @@ int CombatManager::getDefenderSecondaryDefenseModifier(CreatureObject* defender)
 		targetDefense += defender->getSkillMod("private_" + mod);
 	}
 
-	if (!defender->isPlayerCreature() && targetDefense > 150)
-		targetDefense = 150;
+	if (!defender->isPlayerCreature()){
+		if ( targetDefense > 50)
+			targetDefense = 50;
+
+		targetDefense *= 2;
+	}
+
 
 	return targetDefense;
 }
@@ -1943,7 +1968,7 @@ int CombatManager::getHitChance(TangibleObject* attacker, CreatureObject* target
 	if (weaponAccuracy > 50) weaponAccuracy = 50;
 	if (weaponAccuracy < -25) weaponAccuracy = -25;
 
-	int attackerAccuracy = System::random(getAttackerAccuracyModifier(attacker, targetCreature, weapon));
+	int attackerAccuracy = getAttackerAccuracyModifier(attacker, targetCreature, weapon);
 	debug() << "Base attacker accuracy is " << attackerAccuracy;
 
 	// need to also add in general attack accuracy (mostly gotten from posture and states)
@@ -1972,8 +1997,8 @@ int CombatManager::getHitChance(TangibleObject* attacker, CreatureObject* target
 	int postureDefense = calculateTargetPostureModifier(weapon, targetCreature);
 
 	debug() << "Defender posture defense is " << postureDefense;
-	float attackerRoll = (float)System::random(249) + 1.f;
-	float defenderRoll = (float)System::random(150) + 25.f;
+	float attackerRoll = (float)System::random(50) + 1.f;
+	float defenderRoll = (float)System::random(30) + 1.f;
 
 	// TODO (dannuic): add the trapmods in here somewhere (defense down trapmods)
 	float accTotal = hitChanceEquation(attackerAccuracy + weaponAccuracy + accuracyBonus + postureAccuracy + bonusAccuracy, attackerRoll, targetDefense + postureDefense, defenderRoll);
