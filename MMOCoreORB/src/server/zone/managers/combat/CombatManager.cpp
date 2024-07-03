@@ -624,7 +624,7 @@ void CombatManager::applyDots(CreatureObject* attacker, CreatureObject* defender
 		float damMod = 1.0;//attacker->isAiAgent() ? cast<AiAgent*>(attacker)->getSpecialDamageMult() : 1.f;
 		uint32 dotstr = effect.getDotStrength();
 
-		//if (defender->isPlayerCreature() && attacker->isPlayerCreature()) {
+		if (defender->isPlayerCreature() && attacker->isPlayerCreature()) {
 
 //			attacker->setDefender(defender);
 //			defender->setDefender(attacker);
@@ -633,16 +633,12 @@ void CombatManager::applyDots(CreatureObject* attacker, CreatureObject* defender
 //
 //			defender->inflictDamage(attacker, CreatureAttribute::HEALTH, 1, true, "medical", true, true);
 
-//			if (dotstr > 125)
-//				dotstr = ((dotstr - 125) / 2) + 125;
+			if (dotstr > 125)
+				dotstr = ((dotstr - 125) / 2) + 125;
 			if (dotstr > 250)
-				dotstr = ((dotstr - 250) / 2) + 250;
-			if (dotstr > 450)
-				dotstr = ((dotstr - 450) / 5) + 450;
-		//}
-
-		if (!defender->isPlayerCreature()) {
-			dotstr *= 5;
+				dotstr = ((dotstr - 250) / 5) + 250;
+			if (dotstr > 350)
+				dotstr = ((dotstr - 350) / 10) + 350;
 		}
 
 		//CreatureObject *dtano = defenderObject->asCreatureObject();
@@ -849,8 +845,8 @@ int CombatManager::getAttackerAccuracyModifier(TangibleObject* attacker, Creatur
 	//if (attackerAccuracy == 0) attackerAccuracy = -15; // unskilled penalty, TODO: this might be -50 or -125, do research
 
 	if (attacker->isPlayerCreature()) {//boost player accuracy
+		//attackerAccuracy += System::random(50);
 		attackerAccuracy *= 1.5;
-		attackerAccuracy += 50 + System::random(25);
 	}
 
 	if (weapon->isJediWeapon())
@@ -1490,11 +1486,11 @@ int CombatManager::getArmorReduction(TangibleObject* attacker, WeaponObject* wea
 
 		// inflict condition damage
 
-//		if (System::random(4) >= 4) {
+		if (System::random(4) >= 4) {
 			Locker alocker(armor);
 
-			armor->inflictDamage(armor, 0, damage * 0.2, true, true);
-//		}
+			armor->inflictDamage(armor, 0, 1, true, true);
+		}
 	}
 
 	return damage;
@@ -1772,24 +1768,24 @@ float CombatManager::calculateDamage(CreatureObject* attacker, WeaponObject* wea
 //// mySWG balancing the profs based on highest dmg weapon and special for that class
 	if (attacker->isPlayerCreature() && !data.isForceAttack()) {
 		if (weapon->isPistolWeapon())
-		damage *= 3.4;//4.040;//1.82f;//half correct/fullcorrect/old correct
+		damage *= 6.94;//4.040;//1.82f;//half correct/fullcorrect/old correct
 		if (weapon->isCarbineWeapon())
-		damage *= 2.8;//2.925;//1.24f;
+		damage *= 5.74;//2.925;//1.24f;
 		if (weapon->isRifleWeapon())
-		damage *= 2.1;//1.594;//0.6f;
+		damage *= 7.75;//1.594;//0.6f;
 //			if (weapon->isRangedWeapon())
 //			damage *= 1.03f;
 		if (weapon->isUnarmedWeapon()){//unarmed is fukt b.c of 10k dmg crafted vk
 			//float minDamage = weapon->getMinDamage(), maxDamage = weapon->getMaxDamage();
-			damage *= 2.9;//1.536;//1.51f;
+			damage *= 5.88;//1.536;//1.51f;
 			//if (maxDamage > 2000)
 		}
 		if (weapon->isOneHandMeleeWeapon() && !weapon->isJediWeapon())
-		damage *= 1.35;//2.112;//1.26f;
+		damage *= 2.7;//2.112;//1.26f;
 		if (weapon->isTwoHandMeleeWeapon() && !weapon->isJediWeapon())
-		damage *= 1.0;//1.721;//0.73f;
+		damage *= 2.0;//1.721;//0.73f;
 		if (weapon->isPolearmWeaponObject() && !weapon->isJediWeapon())
-		damage *= 1.3;//1.771;//0.83f;
+		damage *= 2.73;//1.771;//0.83f;
 //			if (weapon->isMeleeWeapon())
 //			damage *= 0.96f;
 		if (weapon->isLightningRifle())
@@ -1813,7 +1809,7 @@ float CombatManager::calculateDamage(CreatureObject* attacker, WeaponObject* wea
 //		if (weapon->isJediPolearmWeapon())
 //		damage *= .9;//1.009;//0.89f;
 		if (weapon->isJediWeapon())
-		damage *= 2.0;//4.62
+		damage *= 2.31;//4.62
 	}
 
 	if (attacker->isPlayerCreature() && data.isForceAttack()) //force powers damage bonus cuz it sucks
@@ -1907,13 +1903,13 @@ float CombatManager::calculateDamage(CreatureObject* attacker, WeaponObject* wea
 
 	//PvE dmg
 	if (attacker->isPlayerCreature() && !defender->isPlayerCreature())
-		damage *= .25;
+		damage *= .35;
 
 	//EvP dmg
 	if (!attacker->isPlayerCreature() && defender->isPlayerCreature())	{
 		//damage += DefAvgDmg;//this adds player avg dmg to npc attack
 
-		damage *= 0.5;
+		damage *= 0.35;
 
 	}
 

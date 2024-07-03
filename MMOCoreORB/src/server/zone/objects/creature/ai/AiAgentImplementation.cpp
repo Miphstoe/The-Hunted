@@ -258,7 +258,7 @@ void AiAgentImplementation::loadTemplateData(CreatureTemplate* templateData) {
 				if (isDroidObject() && isPet())
 					ham = getHamMaximum();
 
-				if (ham > 100000) ham = 100000;//ham cap
+				if (ham > 50000) ham = 50000;//ham cap
 
 				//ham /= 4;//reduce ham
 

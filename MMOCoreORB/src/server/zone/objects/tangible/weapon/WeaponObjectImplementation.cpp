@@ -458,14 +458,14 @@ void WeaponObjectImplementation::fillAttributeList(AttributeListMessage* alm, Cr
 	if (sliced == 1)
 		alm->insertAttribute("wpn_attr", "@obj_attr_n:hacked1");
 
-//	if (isJediWeapon()) { //sliced == 1 &&
-//		if (minDamage > 3000 ||	minDamage < 1 || maxDamage > 6000 || maxDamage < 1)	{
-//			setMinDamage(1);//these work but introduce new problems
-//			setMaxDamage(1);
-//			inflictDamage(_this.getReferenceUnsafeStaticCast(), 0, getMaxCondition(), true, false);
-//		}
-//
-//	}
+	if (isJediWeapon()) { //sliced == 1 &&
+		if (minDamage > 3000 ||	minDamage < 1 || maxDamage > 6000 || maxDamage < 1)	{
+			setMinDamage(1);//these work but introduce new problems
+			setMaxDamage(1);
+			inflictDamage(_this.getReferenceUnsafeStaticCast(), 0, getMaxCondition(), true, true);
+		}
+
+	}
 
 
 }
@@ -720,14 +720,14 @@ String WeaponObjectImplementation::repairAttempt(int repairChance) {
 //		setConditionDamage(0, true);
 
 		message += "sys_repair_imperfect";
-		setMaxCondition(getMaxCondition() * .40f, true);
+		setMaxCondition(getMaxCondition() * .65f, true);
 		setConditionDamage(0, true);
-	} else if(repairChance < 60) {
+	} else if(repairChance < 50) {
 		message += "sys_repair_imperfect";
-		setMaxCondition(getMaxCondition() * .40f, true);
+		setMaxCondition(getMaxCondition() * .65f, true);
 		setConditionDamage(0, true);
-	} else if(repairChance < 95) {
-		setMaxCondition(getMaxCondition() * .60f, true);
+	} else if(repairChance < 75) {
+		setMaxCondition(getMaxCondition() * .80f, true);
 		setConditionDamage(0, true);
 		message += "sys_repair_slight";
 	} else {
@@ -745,12 +745,13 @@ void WeaponObjectImplementation::decay(CreatureObject* user) {
 	}
 
 	int roll = System::random(100);
-	int chance = 10; //5
+	int chance = 1; //5
 
 	if (hasPowerup())
-		chance += 20; //10
+		chance += 2; //10
 
 	if (roll < chance) {
+		Locker locker(_this.getReferenceUnsafeStaticCast());
 
 		if (isJediWeapon()) {
 			ManagedReference<SceneObject*> saberInv = getSlottedObject("saber_inv");
@@ -766,23 +767,15 @@ void WeaponObjectImplementation::decay(CreatureObject* user) {
 					crystal->inflictDamage(crystal, 0, 1, true, true);
 				}
 			}
+		} else {
+			inflictDamage(_this.getReferenceUnsafeStaticCast(), 0, 1, true, true);
+
+			if (((float)conditionDamage - 1 / (float)maxCondition < 0.75) && ((float)conditionDamage / (float)maxCondition > 0.75))
+				user->sendSystemMessage("@combat_effects:weapon_quarter");
+			if (((float)conditionDamage - 1 / (float)maxCondition < 0.50) && ((float)conditionDamage / (float)maxCondition > 0.50))
+				user->sendSystemMessage("@combat_effects:weapon_half");
 		}
-
-		Locker locker(_this.getReferenceUnsafeStaticCast());
-
-		if (isJediWeapon()) {
-			if (maxDamage > 6000)
-				inflictDamage(_this.getReferenceUnsafeStaticCast(), 0, 1000000, true, true);
-		}
-
-		inflictDamage(_this.getReferenceUnsafeStaticCast(), 0, 1, true, true);
-
-		if (((float)conditionDamage - 1 / (float)maxCondition < 0.75) && ((float)conditionDamage / (float)maxCondition > 0.75))
-			user->sendSystemMessage("@combat_effects:weapon_quarter");
-		if (((float)conditionDamage - 1 / (float)maxCondition < 0.50) && ((float)conditionDamage / (float)maxCondition > 0.50))
-			user->sendSystemMessage("@combat_effects:weapon_half");
 	}
-
 }
 
 bool WeaponObjectImplementation::isEquipped() {

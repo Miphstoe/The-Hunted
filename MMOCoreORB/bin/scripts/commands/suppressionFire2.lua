@@ -44,7 +44,7 @@
 SuppressionFire2Command = {
         name = "suppressionfire2",
 
-	damageMultiplier = 2.5,
+	damageMultiplier = 2.0,
 	speedMultiplier = 1.5,
 	healthCostMultiplier = 2.0,
 	actionCostMultiplier = 1.25,
@@ -69,7 +69,7 @@ SuppressionFire2Command = {
 
 	combatSpam = "sup_fire",
 	
-	weaponType = CARBINEWEAPON,
+	weaponType = RIFLEWEAPON + PISTOLWEAPON + CARBINEWEAPON,
 
 	range = -1
 }

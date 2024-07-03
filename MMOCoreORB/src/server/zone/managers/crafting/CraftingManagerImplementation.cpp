@@ -99,8 +99,8 @@ int CraftingManagerImplementation::calculateExperimentationSuccess(CreatureObjec
 	if(luckRoll > ((95 - expbonus) - forceSkill))
 		return AMAZINGSUCCESS;
 
-//	if(luckRoll < (5 - expbonus - failMitigate))
-//		luckRoll -= System::random(100);
+	if(luckRoll < (5 - expbonus - failMitigate))
+		luckRoll -= System::random(100);
 
 	//if(luckRoll < 5)
 	//	return CRITICALFAILURE;

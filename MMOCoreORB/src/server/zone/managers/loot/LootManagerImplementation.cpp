@@ -318,7 +318,7 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 
 	setCustomObjectName(prototype, templateObject);
 
-	float excMod = 1.5 + (System::random(15) / 10);
+	float excMod = 1.0 + (System::random(15) / 10);
 
 	//float adjustment = floor((float)(((level > 50) ? level : 50) - 50) / 10.f + 0.5);
 
@@ -329,13 +329,29 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 	int newyellowChance = 1;
 
 
-//	if (prototype->isComponent() || prototype->isWeaponObject() || prototype->isArmorObject()) {//&&!issaber?
-//
-//		if (System::random(newlegendaryChance) >= newlegendaryChance) { // - adjustment) { //legendaryChance
-//			UnicodeString newName = prototype->getDisplayedName() + " (Legendary)";
+	if (prototype->isComponent() || prototype->isWeaponObject() || prototype->isArmorObject()) {//&&!issaber?
+
+		if (System::random(newlegendaryChance) >= newlegendaryChance) { // - adjustment) { //legendaryChance
+			UnicodeString newName = prototype->getDisplayedName() + " (Legendary)";
+			prototype->setCustomObjectName(newName, false);
+
+			excMod = legendaryModifier;
+
+			level += System::random(350);
+
+			if(level > 350)	//vanilla 300
+				level = 350;
+
+			prototype->addMagicBit(false);
+
+			legendaryLooted.increment();
+		}
+
+//		else if (System::random(newexceptionalChance) >= newexceptionalChance) { // - adjustment) { //exceptionalChance
+//			UnicodeString newName = prototype->getDisplayedName() + " (Exceptional)";
 //			prototype->setCustomObjectName(newName, false);
 //
-//			excMod = legendaryModifier;
+//			excMod = exceptionalModifier;
 //
 //			level += System::random(350);
 //
@@ -344,37 +360,21 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 //
 //			prototype->addMagicBit(false);
 //
-//			legendaryLooted.increment();
+//			exceptionalLooted.increment();
+//		} else if (System::random(newyellowChance) >= newyellowChance) {
+//				excMod = yellowModifier;
+//
+//				prototype->addMagicBit(false);
+//
+//				level += System::random(350);
+//
+//				if(level > 350)	//vanilla 300
+//					level = 350;
+//
+//				yellowLooted.increment();
 //		}
-//
-////		else if (System::random(newexceptionalChance) >= newexceptionalChance) { // - adjustment) { //exceptionalChance
-////			UnicodeString newName = prototype->getDisplayedName() + " (Exceptional)";
-////			prototype->setCustomObjectName(newName, false);
-////
-////			excMod = exceptionalModifier;
-////
-////			level += System::random(350);
-////
-////			if(level > 350)	//vanilla 300
-////				level = 350;
-////
-////			prototype->addMagicBit(false);
-////
-////			exceptionalLooted.increment();
-////		} else if (System::random(newyellowChance) >= newyellowChance) {
-////				excMod = yellowModifier;
-////
-////				prototype->addMagicBit(false);
-////
-////				level += System::random(350);
-////
-////				if(level > 350)	//vanilla 300
-////					level = 350;
-////
-////				yellowLooted.increment();
-////		}
-//
-//	}
+
+	}
 
 	if (prototype->isLightsaberCrystalObject()) {
 		LightsaberCrystalComponent* crystal = cast<LightsaberCrystalComponent*> (prototype.get());
@@ -459,8 +459,8 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 		}
 
 		if (prototype->isComponent()) {
-			min *= 2.0;
-			max *= 2.5;
+			min *= 1.25;
+			max *= 1.75;
 		}
 
 		if (prototype->isArmorObject()) {
@@ -482,7 +482,7 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 		}
 
 		//using the exc mod as the randomizer so it doesnt affect the legendary tiers overlap
-		excMod *= .8 + (System::random(20000) * .00001);
+		excMod *= 1.25 + (System::random(25000) * .00001);
 
 //		float randomizer = .75 + (System::random(2500) * .0001);
 //
@@ -583,7 +583,7 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 //		}
 //	}
 
-	prototype->setJunkValue((int)(fJunkValue * excMod * 2));
+	prototype->setJunkValue((int)(fJunkValue * excMod));
 
 	// Use percentages to recalculate the values
 	craftingValues->recalculateValues(false);
