@@ -1991,6 +1991,10 @@ int CombatManager::getHitChance(TangibleObject* attacker, CreatureObject* target
 	int attackerAccuracy = getAttackerAccuracyModifier(attacker, targetCreature, weapon);
 	debug() << "Base attacker accuracy is " << attackerAccuracy;
 
+	if (creoAttacker->isPlayerCreature() && targetCreature->isPlayerCreature()) {
+		attackerAccuracy *= 1.5;//pvp
+	}
+
 	// need to also add in general attack accuracy (mostly gotten from posture and states)
 
 	int bonusAccuracy = 0;
@@ -2013,6 +2017,10 @@ int CombatManager::getHitChance(TangibleObject* attacker, CreatureObject* target
 
 	int targetDefense = System::random(getDefenderDefenseModifier(targetCreature, weapon, attacker));
 	debug() << "Defender defense is " << targetDefense;
+
+	if (creoAttacker->isPlayerCreature() && targetCreature->isPlayerCreature()) {
+		targetDefense *= .5;//pvp
+	}
 
 	int postureDefense = calculateTargetPostureModifier(weapon, targetCreature);
 
@@ -2413,6 +2421,13 @@ int CombatManager::applyDamage(TangibleObject* attacker, WeaponObject* weapon, C
 	int foodBonus = defender->getSkillMod("mitigate_damage");
 	int totalFoodMit = 0;
 
+	int pvpdmgtier1 = 50;
+
+	int pvpdmgtier2 = 100;
+
+	int pvpdmgtier3 = 200;
+
+
 	if (healthDamaged) {
 		static const uint8 bodyLocations[] = {HIT_BODY, HIT_BODY, HIT_LARM, HIT_RARM};
 		hitLocation = bodyLocations[System::random(3)];
@@ -2432,6 +2447,21 @@ int CombatManager::applyDamage(TangibleObject* attacker, WeaponObject* weapon, C
 		int spilledDamage = (int)(healthDamage*spillMultPerPool); // Cut our damage by the spill percentage
 		healthDamage -= spilledDamage; // subtract spill damage from total damage
 		totalSpillOver += spilledDamage;  // accumulate spill damage
+
+		if (attacker->isPlayerCreature() && defender->isPlayerCreature()) {
+
+			if (healthDamage > pvpdmgtier1)
+				healthDamage = ((healthDamage - pvpdmgtier1) / 2) + pvpdmgtier1;
+			if (healthDamage > pvpdmgtier2)
+				healthDamage = ((healthDamage - pvpdmgtier2) / 5) + pvpdmgtier2;
+			if (healthDamage > pvpdmgtier3)
+				healthDamage = ((healthDamage - pvpdmgtier3) / 10) + pvpdmgtier3;
+//			if (healthDamage > 150)
+//				healthDamage = ((healthDamage - 150) / 100) + 150;
+
+			//healthDamage *= .5;
+
+		}
 
 		defender->inflictDamage(attacker, CreatureAttribute::HEALTH, (int)healthDamage, true, xpType, true, true);
 
@@ -2458,6 +2488,21 @@ int CombatManager::applyDamage(TangibleObject* attacker, WeaponObject* weapon, C
 		actionDamage -= spilledDamage;
 		totalSpillOver += spilledDamage;
 
+		if (attacker->isPlayerCreature() && defender->isPlayerCreature()) {
+
+			if (actionDamage > pvpdmgtier1)
+				actionDamage = ((actionDamage - pvpdmgtier1) / 2) + pvpdmgtier1;
+			if (actionDamage > pvpdmgtier2)
+				actionDamage = ((actionDamage - pvpdmgtier2) / 5) + pvpdmgtier2;
+			if (actionDamage > pvpdmgtier3)
+				actionDamage = ((actionDamage - pvpdmgtier3) / 10) + pvpdmgtier3;
+//			if (actionDamage > 150)
+//				actionDamage = ((actionDamage - 150) / 100) + 150;
+
+			//actionDamage *= .5;
+
+		}
+
 		defender->inflictDamage(attacker, CreatureAttribute::ACTION, (int)actionDamage, true, xpType, true, true);
 
 		poolsToWound.add(CreatureAttribute::ACTION);
@@ -2481,6 +2526,21 @@ int CombatManager::applyDamage(TangibleObject* attacker, WeaponObject* weapon, C
 		mindDamage -= spilledDamage;
 		totalSpillOver += spilledDamage;
 
+		if (attacker->isPlayerCreature() && defender->isPlayerCreature()) {
+
+			if (mindDamage > pvpdmgtier1)
+				mindDamage = ((mindDamage - pvpdmgtier1) / 2) + pvpdmgtier1;
+			if (mindDamage > pvpdmgtier2)
+				mindDamage = ((mindDamage - pvpdmgtier2) / 5) + pvpdmgtier2;
+			if (mindDamage > pvpdmgtier3)
+				mindDamage = ((mindDamage - pvpdmgtier3) / 10) + pvpdmgtier3;
+//			if (mindDamage > 150)
+//				mindDamage = ((mindDamage - 150) / 100) + 150;
+
+			//mindDamage *= .5;
+
+		}
+
 		defender->inflictDamage(attacker, CreatureAttribute::MIND, (int)mindDamage, true, xpType, true, true);
 
 		poolsToWound.add(CreatureAttribute::MIND);
@@ -2491,16 +2551,35 @@ int CombatManager::applyDamage(TangibleObject* attacker, WeaponObject* weapon, C
 
 		int spillOverRemainder = (totalSpillOver % numSpillOverPools) + spillDamagePerPool;
 
+		int spillDMG = (numSpillOverPools-- > 1 ? spillDamagePerPool : spillOverRemainder);
+
+		if (attacker->isPlayerCreature() && defender->isPlayerCreature()) {
+
+			if (spillDMG > pvpdmgtier1)
+				spillDMG = ((spillDMG - pvpdmgtier1) / 2) + pvpdmgtier1;
+			if (spillDMG > pvpdmgtier2)
+				spillDMG = ((spillDMG - pvpdmgtier2) / 5) + pvpdmgtier2;
+			if (spillDMG > pvpdmgtier3)
+				spillDMG = ((spillDMG - pvpdmgtier3) / 10) + pvpdmgtier3;
+//			if (spillDMG > 150)
+//				spillDMG = ((spillDMG - 150) / 100) + 150;
+
+			//spillDMG *= .5;
+		}
+
 		if ((poolsToDamage ^ 0x7) & HEALTH)
-			defender->inflictDamage(attacker, CreatureAttribute::HEALTH, (numSpillOverPools-- > 1 ? spillDamagePerPool : spillOverRemainder), true, xpType, true, true);
+			defender->inflictDamage(attacker, CreatureAttribute::HEALTH, spillDMG, true, xpType, true, true);
 		if ((poolsToDamage ^ 0x7) & ACTION)
-			defender->inflictDamage(attacker, CreatureAttribute::ACTION, (numSpillOverPools-- > 1 ? spillDamagePerPool : spillOverRemainder), true, xpType, true, true);
+			defender->inflictDamage(attacker, CreatureAttribute::ACTION, spillDMG, true, xpType, true, true);
 		if ((poolsToDamage ^ 0x7) & MIND)
-			defender->inflictDamage(attacker, CreatureAttribute::MIND, (numSpillOverPools-- > 1 ? spillDamagePerPool : spillOverRemainder), true, xpType, true, true);
+			defender->inflictDamage(attacker, CreatureAttribute::MIND, spillDMG, true, xpType, true, true);
 	}
 
 	int totalDamage =  (int) (healthDamage + actionDamage + mindDamage);
 	defender->notifyObservers(ObserverEventType::DAMAGERECEIVED, attacker, totalDamage);
+
+	if (ratio > 50)
+		ratio = 50;
 
 	if (poolsToWound.size() > 0 && System::random(100) < ratio) {
 		int poolToWound = poolsToWound.get(System::random(poolsToWound.size() - 1));

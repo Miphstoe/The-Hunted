@@ -88,7 +88,7 @@ object_tangible_wearables_armor_nightsister_armor_nightsister_bicep_r_s01 = obje
 	customName = "Nightsister Melee Armguard",
 
 	-- Damage types in WeaponObject
-	vulnerability = STUN + LIGHTSABER,
+	--vulnerability = STUN + LIGHTSABER,
 
 	-- These are default Blue Frog stats
 	healthEncumbrance = 25,

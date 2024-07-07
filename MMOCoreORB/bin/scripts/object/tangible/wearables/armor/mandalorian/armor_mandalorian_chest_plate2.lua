@@ -41,8 +41,13 @@
 --this exception also makes it possible to release a modified version 
 
 
-object_tangible_wearables_armor_zam_armor_zam_wesell_pants = object_tangible_wearables_armor_zam_shared_armor_zam_wesell_pants:new {
+object_tangible_wearables_armor_mandalorian_armor_mandalorian_chest_plate2 = object_tangible_wearables_armor_mandalorian_shared_armor_mandalorian_chest_plate2:new {
 	templateType = ARMOROBJECT,
+
+--	certificationsRequired = { "combat_bountyhunter_master",
+--					"combat_commando_master",
+--					"outdoors_squadleader_master",
+--					"outdoors_ranger_master" },
 
 	playerRaces = { "object/creature/player/bothan_male.iff",
 				"object/creature/player/bothan_female.iff",
@@ -86,38 +91,30 @@ object_tangible_wearables_armor_zam_armor_zam_wesell_pants = object_tangible_wea
 				"object/mobile/vendor/weequay_male.iff",
 				"object/mobile/vendor/zabrak_female.iff",
 				"object/mobile/vendor/zabrak_male.iff" },
-
-	-- Damage types in WeaponObject
-	vulnerability = STUN + LIGHTSABER,
 	
-	--specialResists = BLAST,
-	-- These are default Blue Frog stats
-	healthEncumbrance = 1,
-	actionEncumbrance = 1,
-	mindEncumbrance = 1,
+	-- Damage types in WeaponObject
+	--vulnerability = LIGHTSABER,
+	
+	specialResists = STUN + LIGHTSABER,
+
+	-- These are default Blue Frog stats, These are also used as temporary DWB crafting stats. Needs to be adjusted to random color, and Blast should be a Special Resist. Encumberance on boots and all arm/hand armor are estimated. Helm/Chest/Leggings are correct. 
+	healthEncumbrance = 233,
+	actionEncumbrance = 96,
+	mindEncumbrance = 50,
 
 	-- LIGHT, MEDIUM, HEAVY
 	rating = LIGHT,
+	maxCondition = 400000,
 
-	kinetic = 15,
-	energy = 15,
-	electricity = 15,
-	stun = 15,
-	blast = 15,
-	heat = 15,
-	cold = 15,
-	acid = 15,
-	lightSaber = 0,
-
-	numberExperimentalProperties = {1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 2, 1},
-	experimentalProperties = {"XX", "XX", "XX", "OQ", "SR", "OQ", "SR", "OQ", "UT", "MA", "OQ", "MA", "OQ", "MA", "OQ", "XX", "XX", "OQ", "SR", "XX"},
-	experimentalWeights = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-	experimentalGroupTitles = {"null", "null", "null", "null", "exp_quality", "exp_durability", "exp_durability", "exp_durability", "exp_durability", "null", "null", "exp_resistance", "null"},
-	experimentalSubGroupTitles = {"null", "null", "sockets", "hit_points", "armor_effectiveness", "armor_integrity", "armor_health_encumbrance", "armor_action_encumbrance", "armor_mind_encumbrance", "armor_rating", "armor_special_type", "armor_special_effectiveness", "armor_special_integrity"},
-	experimentalMin = {0, 0, 0, 1000, 1, 11250, 23, 30, 6, 1, 4, 1, 18750},
-	experimentalMax = {0, 0, 0, 1000, 20, 18750, 14, 18, 3, 1, 4, 40, 31250},
-	experimentalPrecision = {0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0},
-	experimentalCombineType = {0, 0, 4, 1, 1, 1, 1, 1, 1, 4, 4, 4, 1},
+	kinetic = 90,
+	energy = 90,
+	electricity = 90,
+	stun = 90,
+	blast = 90,
+	heat = 90,
+	cold = 90,
+	acid = 90,
+	lightSaber = 90
 }
 
-ObjectTemplates:addTemplate(object_tangible_wearables_armor_zam_armor_zam_wesell_pants, "object/tangible/wearables/armor/zam/armor_zam_wesell_pants.iff")
+ObjectTemplates:addTemplate(object_tangible_wearables_armor_mandalorian_armor_mandalorian_chest_plate2, "object/tangible/wearables/armor/mandalorian/armor_mandalorian_chest_plate.iff")

@@ -121,9 +121,9 @@ void WearableObjectImplementation::generateSockets(CraftingValues* craftingValue
 
 	int random = (System::random(750)) - 250; // -250 to 500
 
-	float roll = System::random(skill);// + luck + random);
+	float roll = System::random(skill / 10);// + luck + random);
 
-	int generatedCount = roll / 10;//int(float(MAXSOCKETS * roll) / float(MAXSOCKETS * 100));
+	int generatedCount = 4 + roll;//int(float(MAXSOCKETS * roll) / float(MAXSOCKETS * 100));
 
 	if (generatedCount > MAXSOCKETS)
 		generatedCount = MAXSOCKETS;
