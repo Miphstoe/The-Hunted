@@ -62,7 +62,7 @@ public:
 		int mindCost = player->calculateCostAdjustment(CreatureAttribute::FOCUS, 200);
 		int skillMod = player->getSkillMod("dna_harvesting") * 2;
 		int cl = creature->getLevel();
-		if (cl > 100) cl = 100;
+		if (cl > 75) cl = 75;
 		switch(currentPhase) {
 		case BEGIN:
 			// We should be good to go now and try the sample
@@ -115,7 +115,8 @@ public:
 			// need to revist master against CL2 i.e. ((100-2)/2) + (100-2) = 49 + (98) = 147/2 = ( roll mod is 73)
 			// so with no luck you need 95 or better roll for amazing
 			float rollMod = (((skillMod-cl)/cl))  + (skillMod-cl);
-			rollMod /= 2;
+			//rollMod /= 2;
+
 			// We have the players roll. NOW to determine if success of failure;
 			if (sampleRoll > 75) { // adjust great success ot 75% and above
 				int maxSamples = (int) ceil((float) skillMod / 25.f);
@@ -141,7 +142,7 @@ public:
 					result = 4;
 				} else {
 					// did we aggro?
-					int aggroChance = System::random(100);
+					int aggroChance = System::random(cl);
 					int aggroMod = (creature->getDnaSampleCount() * 5);
 					if (aggroChance > System::random(skillMod))  // aggro
 						result = 3;
@@ -251,9 +252,9 @@ public:
 		//60 	BAQ, AQ,AAQ
 		//75 	AQ,AAQ,HQ
 		//100 	AAQ,HQ, VHQ
-		if (qualityRoll < 33)
+		if (qualityRoll < 10)
 			quality = low;
-		else if (qualityRoll < 66)
+		else if (qualityRoll < 40)
 			quality = mid;
 		else
 			quality = high;

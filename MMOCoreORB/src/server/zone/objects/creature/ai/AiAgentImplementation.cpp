@@ -154,8 +154,8 @@ void AiAgentImplementation::loadTemplateData(CreatureTemplate* templateData) {
 	bool allowedWeapon = true;
 
 	if (petDeed != nullptr) {
-		minDmg = petDeed->getMinDamage();
-		maxDmg = petDeed->getMaxDamage();
+		minDmg = petDeed->getMinDamage() * 2;
+		maxDmg = petDeed->getMaxDamage() * 2;
 		allowedWeapon = petDeed->getRanged();
 	}
 
@@ -270,17 +270,17 @@ void AiAgentImplementation::loadTemplateData(CreatureTemplate* templateData) {
 		}
 	} else {
 		int health = petDeed->getHealth();
-		baseHAM.add(health);
-		baseHAM.add(health/10);
-		baseHAM.add(health/10);
+		baseHAM.add(health * 3);
+		baseHAM.add(health/10 * 3);
+		baseHAM.add(health/10 * 3);
 		int action = petDeed->getAction();
-		baseHAM.add(action);
-		baseHAM.add(action/10);
-		baseHAM.add(action/10);
+		baseHAM.add(action * 3);
+		baseHAM.add(action/10 * 3);
+		baseHAM.add(action/10 * 3);
 		int mind = petDeed->getMind();
-		baseHAM.add(mind);
-		baseHAM.add(mind/10);
-		baseHAM.add(mind/10);
+		baseHAM.add(mind * 3);
+		baseHAM.add(mind/10 * 3);
+		baseHAM.add(mind/10 * 3);
 	}
 
 	hamList.removeAll();
@@ -2379,10 +2379,10 @@ bool AiAgentImplementation::isScentMasked(CreatureObject* target) {
 
 	// Step 1. Check for break
 	bool success = false;
-	int camoSkill = effectiveTarget->getSkillMod("mask_scent") * 2;
+	int camoSkill = effectiveTarget->getSkillMod("mask_scent") * 3;
 	int creatureLevel = getLevel();
 
-	if (creatureLevel > 100) creatureLevel = 100;
+	if (creatureLevel > 75) creatureLevel = 75;
 
 //	int mod = 100;
 //	if (effectiveTarget->isKneeling() || effectiveTarget->isSitting())
