@@ -154,7 +154,7 @@ void PetControlDeviceImplementation::callObject(CreatureObject* player) {
 
 		if (ch) {
 			maxPets = player->getSkillMod("keep_creature");
-			maxLevelofPets = player->getSkillMod("tame_level");
+			maxLevelofPets = player->getSkillMod("tame_level") * 5; //70*5=350
 		}
 
 		if (creaturePet->getAdultLevel() > maxLevelofPets) {
