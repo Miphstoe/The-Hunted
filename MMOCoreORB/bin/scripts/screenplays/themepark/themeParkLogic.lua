@@ -1867,8 +1867,13 @@ function ThemeParkLogic:handleMissionReward(pConversingPlayer)
 		end
 	end
 	
-	local morecredits = getRandomNumber(1000, 15000)
+	local morecredits = getRandomNumber(5000, 25000)
 	self:giveCredits(pConversingPlayer, morecredits)
+
+	self:giveLoot(pConversingPlayer, "junk")
+	
+	self:giveLoot(pConversingPlayer, "junk")
+	
 end
 
 function ThemeParkLogic:givePermission(pConversingPlayer, permissionGroup)
@@ -1902,7 +1907,7 @@ function ThemeParkLogic:giveLoot(pConversingPlayer, lootGroup)
 		return
 	end
 	
-	local ranlvl = getRandomNumber(1, 350)
+	local ranlvl = 350--getRandomNumber(1, 350)
 	
 	createLoot(pInventory, lootGroup, ranlvl, true)
 	CreatureObject(pConversingPlayer):sendSystemMessage("@theme_park/messages:theme_park_reward")
@@ -1919,7 +1924,7 @@ function ThemeParkLogic:giveLootSet(pConversingPlayer, lootGroup, setSize)
 		return
 	end
 	
-	local ranlvl = getRandomNumber(1, 350)
+	local ranlvl = 350--getRandomNumber(1, 350)
 	
 	createLootSet(pInventory, lootGroup, ranlvl, true, setSize)
 	CreatureObject(pConversingPlayer):sendSystemMessage("@theme_park/messages:theme_park_reward")

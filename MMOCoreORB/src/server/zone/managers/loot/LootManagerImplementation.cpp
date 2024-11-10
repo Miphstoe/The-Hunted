@@ -335,11 +335,11 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 			UnicodeString newName = prototype->getDisplayedName() + " (Legendary)";
 			prototype->setCustomObjectName(newName, false);
 
-			excMod = legendaryModifier;
+			excMod = legendaryModifier; //5.0?
 
-			level += System::random(350);
-
-			if(level > 350)	//vanilla 300
+//			level += System::random(350);
+//
+//			if(level > 350)	//vanilla 300
 				level = 350;
 
 			prototype->addMagicBit(false);
