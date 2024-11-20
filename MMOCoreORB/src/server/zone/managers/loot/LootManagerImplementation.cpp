@@ -259,10 +259,10 @@ int LootManagerImplementation::calculateLootCredits(int level) {
 TangibleObject* LootManagerImplementation::createLootObject(const LootItemTemplate* templateObject, int level, bool maxCondition) {
 	int uncappedLevel = level;
 
-	if(level < 1)
-		level = 1;
-
-	if(level > 350)	//vanilla 300
+//	if(level < 1)
+//		level = 1;
+//
+//	if(level > 350)	//vanilla 300
 		level = 350;
 
 	//level += System::random(350 - level);
@@ -340,7 +340,7 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 //			level += System::random(350);
 //
 //			if(level > 350)	//vanilla 300
-				level = 350;
+				//level = 350;
 
 			prototype->addMagicBit(false);
 
@@ -398,7 +398,7 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 		if (min == max)
 			continue;
 
-		float percentage = level / 350 * 80 +(System::random(350) / 350 * 20); //System::random(level * 1000) / 20000.f; //System::random(10000) / 10000.f;
+		float percentage = 9000 + System::random(1000) / 10000.f; //System::random(level * 1000) / 20000.f; //System::random(10000) / 10000.f;
 
 		// If the attribute is represented by an integer (useCount, maxDamage,
 		// range mods, etc), we need to base the percentage on a random roll
