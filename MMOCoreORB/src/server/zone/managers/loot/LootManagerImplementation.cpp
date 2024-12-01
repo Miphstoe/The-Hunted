@@ -262,7 +262,7 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 //	if(level < 1)
 //		level = 1;
 //
-//	if(level > 350)	//vanilla 300
+	if(level <= 350)	//vanilla 300
 		level = 350;
 
 	//level += System::random(350 - level);

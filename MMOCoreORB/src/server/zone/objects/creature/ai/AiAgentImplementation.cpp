@@ -144,7 +144,16 @@ void AiAgentImplementation::loadTemplateData(CreatureTemplate* templateData) {
 
 	convoTemplateCRC = npcTemplate->getConversationTemplate();
 
+	bool legendarynpc = false;//adds (elite) name tag
+
 	level = getTemplateLevel();
+	
+	if (level > 350) level = 350;
+	
+	if (System::random(25) == 25) {// and elite <= 1.0) {
+		legendarynpc = true;
+		level = 500;// + (System::random(25) * .01);//1.516 X lvl 330 = lvl 500
+	}
 
 	planetMapCategory = npcTemplate->getPlanetMapCategory();
 
@@ -301,7 +310,14 @@ void AiAgentImplementation::loadTemplateData(CreatureTemplate* templateData) {
 		int templSpecies = getSpecies();
 
 		if (!npcTemplate->getRandomNameTag()) {
-			setCustomObjectName(nm->makeCreatureName(npcTemplate->getRandomNameType(), templSpecies), false);
+			//setCustomObjectName(nm->makeCreatureName(npcTemplate->getRandomNameType(), templSpecies), false);
+			setCustomObjectName(nm->makeCreatureName(npcTemplate->getRandomNameType(), templSpecies) + "\\#C0C0C0" + " [" + level + "]", false);
+			
+			if (legendarynpc == true) {
+				//objectName = npcTemplate->getObjectName() + "(Legendary)";
+				//setCustomObjectName("(Legendary)", false);
+				setCustomObjectName(nm->makeCreatureName(npcTemplate->getRandomNameType(), templSpecies) + "\\#C0C0C0" + " [" + level + "]" + "\\#FF00FF" + " (Elite)", false); // + "\\#FF00FF" + " (Legendary)"
+			}
 		} else {
 			String newName = nm->makeCreatureName(npcTemplate->getRandomNameType(), templSpecies);
 			newName += " (";
@@ -312,10 +328,20 @@ void AiAgentImplementation::loadTemplateData(CreatureTemplate* templateData) {
 				newName += StringIdManager::instance()->getStringId(objectName.getFullPath().hashCode()).toString();
 
 			newName += ")";
-			setCustomObjectName(newName, false);
+			//setCustomObjectName(newName, false);
+			setCustomObjectName(newName + "\\#C0C0C0" + " [" + level + "]", false);
+			
+			if (legendarynpc == true) {
+				setCustomObjectName(newName + "\\#C0C0C0" + " [" + level + "]" + "\\#FF00FF" + " (Elite)", false);
+			}
 		}
 	} else {
-		setCustomObjectName(templateData->getCustomName(), false);
+		//setCustomObjectName(templateData->getCustomName(), false);
+		
+		setCustomObjectName(templateData->getCustomName() + StringIdManager::instance()->getStringId(objectName.getFullPath().hashCode()).toString() + "\\#C0C0C0" + " [" + level + "]", false);
+		if (legendarynpc == true) {
+			setCustomObjectName(templateData->getCustomName() + StringIdManager::instance()->getStringId(objectName.getFullPath().hashCode()).toString() + "\\#C0C0C0" + " [" + level + "]" + "\\#FF00FF" + " (Elite)", false);
+		}
 	}
 
 	setHeight(templateData->getScale(), false);
@@ -1694,7 +1720,7 @@ void AiAgentImplementation::activateAwarenessEvent(uint64 delay) {
 	}
 
 	if (!awarenessEvent->isScheduled()) {
-		awarenessEvent->schedule(delay);
+		awarenessEvent->schedule(delay);//awarenessEvent->schedule(3000);//delay);//slow down ai for efficiency
 
 #ifdef DEBUG
 		info("Scheduling awareness event", true);
@@ -1800,7 +1826,7 @@ bool AiAgentImplementation::findNextPosition(float maxDistance, bool walk) {
 
 	WorldCoordinates nextPosition;
 
-	float newSpeed = runSpeed; // Is this *1.5? Is that some magic number?
+	float newSpeed = runSpeed; // Is this *1.5? Is that some magic number?  //this is ai speed
 	if (walk && !(isRetreating() || isFleeing()))
 		newSpeed = walkSpeed;
 
@@ -1809,6 +1835,10 @@ bool AiAgentImplementation::findNextPosition(float maxDistance, bool walk) {
 
 	if (hasState(CreatureState::FROZEN))
 		newSpeed = 0.01f;
+
+//add creature dizzy snare
+	//if (hasState(CreatureState::DIZZY))
+		//newSpeed *= 0.5f;
 
 	float updateTicks = float(UPDATEMOVEMENTINTERVAL) / 1000.f;
 
@@ -2058,7 +2088,7 @@ bool AiAgentImplementation::findNextPosition(float maxDistance, bool walk) {
 			float dist = fabs(thisWorldPos.distanceTo(nextWorldPos));
 			auto interval = UPDATEMOVEMENTINTERVAL;
 			nextMovementInterval = Math::min((int)((Math::min(dist, maxDist)/newSpeed)*1000 + 0.5), interval);
-			currentSpeed = newSpeed;
+			currentSpeed = newSpeed; //didnt do anythng?
 
 			// Tell the clients where to expect us next tick -- requires that we have found a destination
 			broadcastNextPositionUpdate(&nextStepPosition);
@@ -2474,7 +2504,7 @@ void AiAgentImplementation::activateMovementEvent() {
 	if (getZoneUnsafe() == nullptr)
 		return;
 
-	const static uint64 minScheduleTime = 100;
+	const static uint64 minScheduleTime = 100;//1000
 
 	Locker locker(&movementEventMutex);
 
