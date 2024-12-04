@@ -1773,14 +1773,22 @@ void PlayerManagerImplementation::disseminateExperience(TangibleObject* destruct
 				//Jedi experience doesn't count towards combat experience, and is earned at 20% the rate of normal experience
 				if (xpType != "jedi_general")
 					combatXp += xpAmount;
-				else
+				else {
 					xpAmount *= 0.5f;
+
+					if (attacker->hasSkill("force_title_jedi_rank_03"))
+						awardExperience(attacker, "force_rank_xp", xpAmount, true, .01, true);
+				}
+
 
 				//Award individual expType
 				awardExperience(attacker, xpType, xpAmount);
 			}
 
 			combatXp = awardExperience(attacker, "combat_general", combatXp, true, 0.1f);
+
+			//frsXp = awardExperience(attacker, "force_rank_xp", frsXp, true, 0.01f);
+
 
 			//Check if the group leader is a squad leader
 			if (group == nullptr)

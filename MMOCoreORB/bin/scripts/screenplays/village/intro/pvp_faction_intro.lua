@@ -65,7 +65,7 @@ function PVPFactionIntro:startStepDelay(pPlayer, step)
 --		return
 --	else
 	--player lost bh or first time
-		stepDelay = (getRandomNumber(15, 30) * 60 * 1000) --2min - 720=12hr
+		stepDelay = (getRandomNumber(5, 15) * 60 * 1000) --2min - 720=12hr
 --	end
 
 	writeScreenPlayData(pPlayer, "VillageJediProgression", "PVPFactionIntroDelay", stepDelay + os.time())
