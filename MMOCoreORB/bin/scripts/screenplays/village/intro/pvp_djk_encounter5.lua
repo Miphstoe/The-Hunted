@@ -14,7 +14,7 @@ PVPDJKEncounter5 = Encounter:new {
 	-- Encounter properties
 	encounterDespawnTime = 2 * 60 * 1000, -- 30 sec
 	spawnObjectList = {
-		{ template = "luke_skywalker2", minimumDistance = 64, maximumDistance = 96, referencePoint = 0, followPlayer = true, setNotAttackable = false, runOnDespawn = true },
+		{ template = "darth_vader2", minimumDistance = 64, maximumDistance = 96, referencePoint = 0, followPlayer = true, setNotAttackable = false, runOnDespawn = true },
 	},
 	onEncounterSpawned = nil,
 	isEncounterFinished = nil,
@@ -134,7 +134,7 @@ function PVPDJKEncounter5:onEncounterInRange(pPlayer, spawnedObjects)
 	Logger:log("Sending threaten string.", LT_INFO)
 	local threatenString = LuaStringIdChatParameter(SITH_SHADOW_THREATEN_STRING)
 	threatenString:setTT(CreatureObject(pPlayer):getFirstName())
-	spatialChat(spawnedObjects[1], "Peace is a lie, there is only passion!")
+	spatialChat(spawnedObjects[1], "Jedi Master...")
 
 
 	foreach(spawnedObjects, function(pMobile)

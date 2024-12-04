@@ -1927,6 +1927,14 @@ float CombatManager::calculateDamage(CreatureObject* attacker, WeaponObject* wea
 
 	if (damage < 1) damage = 1;
 
+//	if (damage < 10) damage = System::random(15) + 10;
+//
+//	if (attacker->isPlayerCreature() && defender->isPlayerCreature()) {
+//		if (damage < 25) damage = System::random(15) + 25;
+//		if (damage > 250) damage = System::random(25) + 225;
+//
+//	}
+
 	debug() << "damage to be dealt is " << damage;
 
 	return damage;

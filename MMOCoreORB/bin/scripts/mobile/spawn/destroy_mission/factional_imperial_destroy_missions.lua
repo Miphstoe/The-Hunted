@@ -152,6 +152,12 @@ factional_imperial_destroy_missions = {
 			maxDifficulty = 27,
 			size = 25,
 		},
+		{
+			lairTemplateName = "global_luke_skywalker",
+			minDifficulty = 350,
+			maxDifficulty = 500,
+			size = 25,
+		},
 	}
 }
 
