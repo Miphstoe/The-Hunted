@@ -460,14 +460,14 @@ void WeaponObjectImplementation::fillAttributeList(AttributeListMessage* alm, Cr
 	if (sliced == 1)
 		alm->insertAttribute("wpn_attr", "@obj_attr_n:hacked1");
 
-	if (isJediWeapon()) { //sliced == 1 &&
-		if (minDamage > 3000 ||	minDamage < 1 || maxDamage > 6000 || maxDamage < 1)	{
-			setMinDamage(1);//these work but introduce new problems
-			setMaxDamage(1);
-			inflictDamage(_this.getReferenceUnsafeStaticCast(), 0, 1000000, true, true);
-		}
-
-	}
+//	if (isJediWeapon()) { //sliced == 1 &&
+//		if (minDamage > 3000 ||	minDamage < 1 || maxDamage > 6000 || maxDamage < 1)	{
+//			setMinDamage(1);//these work but introduce new problems
+//			setMaxDamage(1);
+//			inflictDamage(_this.getReferenceUnsafeStaticCast(), 0, 1000000, true, true);
+//		}
+//
+//	}
 
 
 
