@@ -1008,13 +1008,13 @@ void MissionManagerImplementation::randomizeGenericBountyMission(CreatureObject*
 	bool playerTarget = false;
 	int size = potentialTargets->size();
 
-	if (level == 3 && size > 0) {
-		int compareValue = size > 25 ? 25 : size < 5 ? 5 : size;
-		if (System::random(100) < compareValue) {
-			playerTarget = true;
-			randomTexts = 6;
-		}
-	}
+//	if (level == 3 && size > 0) {
+//		int compareValue = size > 25 ? 25 : size < 5 ? 5 : size;
+//		if (System::random(100) < compareValue) {
+//			playerTarget = true;
+//			randomTexts = 6;
+//		}
+//	}
 
 	mission->setStartPosition(player->getPositionX(), player->getPositionY(), playerZone->getZoneName());
 

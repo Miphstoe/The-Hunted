@@ -118,6 +118,9 @@ uint32 DamageOverTimeList::addDot(CreatureObject* victim,
 	if (strength == 0 || duration == 0)
 		return 0;
 
+	if (victim->hasState(dotType)) //only 1 dot of each type
+		return 0;
+
 	// determine chance to hit, if no hit, just return 0. potency of less than 0 can't be resisted
 	if (potency > 0 && System::random(100) >= Math::max(5.f, Math::min(potency * (80.f / (100.f + defense)), 95.f)))
 		return 0;

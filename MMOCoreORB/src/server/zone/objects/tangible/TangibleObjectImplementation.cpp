@@ -1104,6 +1104,9 @@ bool TangibleObjectImplementation::isAttackableBy(TangibleObject* object) {
 }
 
 bool TangibleObjectImplementation::isAttackableBy(CreatureObject* object) {
+	if (object->isPlayerCreature())
+		return false; //DISABLE PVP
+
 	if (object->isPlayerCreature()) {
 		Reference<PlayerObject*> ghost = object->getPlayerObject();
 		if (ghost != nullptr && ghost->hasCrackdownTefTowards(getFaction())) {
