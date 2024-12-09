@@ -34,10 +34,6 @@ bool CombatManager::startCombat(CreatureObject* attacker, TangibleObject* defend
 	if (attacker == defender)
 		return false;
 
-//DISABLE PVP ... also disable deathblow command ... also line 3361 for area attacks ... also //TangibleObjectImplementation::isAttackableBy
-	if (attacker->isPlayerCreature() && defender->asCreatureObject()->isPlayerCreature())
-		return false;
-
 	if (attacker->getZone() == nullptr || defender->getZone() == nullptr)
 		return false;
 
@@ -69,6 +65,10 @@ bool CombatManager::startCombat(CreatureObject* attacker, TangibleObject* defend
 
 		return false;
 	}
+
+	//DISABLE PVP ... also disable deathblow command ... also line 3361 for area attacks ... also //TangibleObjectImplementation::isAttackableBy
+	if (attacker->isPlayerCreature() && defender->isPlayerCreature())
+		return false;
 
 	//CreatureObject *creoatt = defender->asCreatureObject();
 //	ManagedReference<WeaponObject*> weapon = creo->getWeapon();
@@ -715,12 +715,12 @@ void CombatManager::applyWeaponDots(CreatureObject* attacker, CreatureObject* de
 
 		int weapdotstr = weapon->getDotStrength(i);
 
-		if (weapdotstr > 125)
-			weapdotstr = ((weapdotstr - 125) / 2) + 125;
-		if (weapdotstr > 250)
-			weapdotstr = ((weapdotstr - 250) / 5) + 250;
-		if (weapdotstr > 350)
-			weapdotstr = ((weapdotstr - 350) / 10) + 350;
+//		if (weapdotstr > 125)
+//			weapdotstr = ((weapdotstr - 125) / 2) + 125;
+//		if (weapdotstr > 250)
+//			weapdotstr = ((weapdotstr - 250) / 5) + 250;
+//		if (weapdotstr > 350)
+//			weapdotstr = ((weapdotstr - 350) / 10) + 350;
 
 		if (weapon->getDotPotency(i)*(1.f-resist/100.f) > System::random(100) &&
 			defender->addDotState(attacker, type, weapon->getObjectID(), weapdotstr, weapon->getDotAttribute(i), weapon->getDotDuration(i), -1, 0, (int)(weapon->getDotStrength(i)/5.f)) > 0)
@@ -1051,51 +1051,51 @@ int CombatManager::calculateDamageRange(TangibleObject* attacker, CreatureObject
 
 		//these individual weapon stats are worth 1 fifth of their value, multiplicative 1/10th
 		if (weapon->isPistolWeapon()){
-			if (maxDamage > 750)	maxDamage = ((maxDamage - 750) / 5) + 750;
-			if (minDamage > 375)	minDamage = ((minDamage - 375) / 5) + 375;
+			if (maxDamage > 750)	maxDamage = ((maxDamage - 750) / 2) + 750;
+			if (minDamage > 375)	minDamage = ((minDamage - 375) / 2) + 375;
 		}
 		if (weapon->isCarbineWeapon()){
-			if (maxDamage > 1000)	maxDamage = ((maxDamage - 1000) / 5) + 1000;
-			if (minDamage > 500)	minDamage = ((minDamage - 500) / 5) + 500;
+			if (maxDamage > 1000)	maxDamage = ((maxDamage - 1000) / 2) + 1000;
+			if (minDamage > 500)	minDamage = ((minDamage - 500) / 2) + 500;
 		}
 		if (weapon->isRifleWeapon()){
-			if (maxDamage > 1500)	maxDamage = ((maxDamage - 1500) / 5) + 1500;
-			if (minDamage > 750)	minDamage = ((minDamage - 750) / 5) + 750;
+			if (maxDamage > 1500)	maxDamage = ((maxDamage - 1500) / 2) + 1500;
+			if (minDamage > 750)	minDamage = ((minDamage - 750) / 2) + 750;
 		}
 		if (weapon->isUnarmedWeapon()) { //unarmed is fukt b.c of 10k dmg crafted vk
-			if (maxDamage > 350)	maxDamage = ((maxDamage - 350) / 5) + 350;
-			if (minDamage > 175)	minDamage = ((minDamage - 175) / 5) + 175;
+			if (maxDamage > 350)	maxDamage = ((maxDamage - 350) / 2) + 350;
+			if (minDamage > 175)	minDamage = ((minDamage - 175) / 2) + 175;
 		}
 
 		if (weapon->isOneHandMeleeWeapon() && !weapon->isJediWeapon()){
-			if (maxDamage > 750)	maxDamage = ((maxDamage - 750) / 5) + 750;
-			if (minDamage > 375)	minDamage = ((minDamage - 375) / 5) + 375;
+			if (maxDamage > 750)	maxDamage = ((maxDamage - 750) / 2) + 750;
+			if (minDamage > 375)	minDamage = ((minDamage - 375) / 2) + 375;
 		}
 		if (weapon->isTwoHandMeleeWeapon() && !weapon->isJediWeapon()){
-			if (maxDamage > 1000)	maxDamage = ((maxDamage - 1000) / 5) + 1000;
-			if (minDamage > 500)	minDamage = ((minDamage - 500) / 5) + 500;
+			if (maxDamage > 1000)	maxDamage = ((maxDamage - 1000) / 2) + 1000;
+			if (minDamage > 500)	minDamage = ((minDamage - 500) / 2) + 500;
 		}
 		if (weapon->isPolearmWeaponObject() && !weapon->isJediWeapon()){
-			if (maxDamage > 1500)	maxDamage = ((maxDamage - 1500) / 5) + 1500;
-			if (minDamage > 750)	minDamage = ((minDamage - 750) / 5) + 750;
+			if (maxDamage > 1500)	maxDamage = ((maxDamage - 1500) / 2) + 1500;
+			if (minDamage > 750)	minDamage = ((minDamage - 750) / 2) + 750;
 		}
 
 		if (weapon->isHeavyWeapon()) {
-			if (maxDamage > 2000)	maxDamage = ((maxDamage - 2000) / 5) + 2000;
-			if (minDamage > 1000)	minDamage = ((minDamage - 1000) / 5) + 1000;
+			if (maxDamage > 2000)	maxDamage = ((maxDamage - 2000) / 2) + 2000;
+			if (minDamage > 1000)	minDamage = ((minDamage - 1000) / 2) + 1000;
 		}
 		if (weapon->isSpecialHeavyWeapon()){
-			if (maxDamage > 2000)	maxDamage = ((maxDamage - 2000) / 5) + 2000;
-			if (minDamage > 1000)	minDamage = ((minDamage - 1000) / 5) + 1000;
+			if (maxDamage > 2000)	maxDamage = ((maxDamage - 2000) / 2) + 2000;
+			if (minDamage > 1000)	minDamage = ((minDamage - 1000) / 2) + 1000;
 		}
 		if (weapon->isJediWeapon()){
-			if (maxDamage > 1000)	maxDamage = ((maxDamage - 1000) / 5) + 1000;
-			if (minDamage > 500)	minDamage = ((minDamage - 500) / 5) + 500;
+			if (maxDamage > 1000)	maxDamage = ((maxDamage - 1000) / 2) + 1000;
+			if (minDamage > 500)	minDamage = ((minDamage - 500) / 2) + 500;
 		}
 
 		//catch all for any crazy dmg palyer weaps also multiplicative with above
-		if (maxDamage > 3000)	maxDamage = ((maxDamage - 3000) / 10) + 3000;
-		if (minDamage > 1500)	minDamage = ((minDamage - 1500) / 10) + 1500;
+		if (maxDamage > 3000)	maxDamage = ((maxDamage - 5000) / 2) + 3000;
+		if (minDamage > 1500)	minDamage = ((minDamage - 2500) / 2) + 1500;
 	}
 
 
@@ -2102,13 +2102,13 @@ int CombatManager::getHitChance(TangibleObject* attacker, CreatureObject* target
 
 	debug() << "Final hit chance is " << accTotal;
 
-	if (System::random(100) > accTotal && (System::random(100) > 32)) // miss, just return MISS
+	if (System::random(100) > accTotal && (System::random(100) > 20)) // miss, just return MISS
 		return MISS;
 
 	debug() << "Attack hit successfully";
 
 	// now we have a successful hit, so calculate secondary defenses if there is a damage component
-	if (damage > 0  && (System::random(100) > 32)) {
+	if (damage > 0  && (System::random(100) > 20)) {
 		ManagedReference<WeaponObject*> targetWeapon = targetCreature->getWeapon();
 		const auto defenseAccMods = targetWeapon->getDefenderSecondaryDefenseModifiers();
 		const String& def = defenseAccMods->get(0); // FIXME: this is hacky, but a lot faster than using contains()
@@ -3350,7 +3350,7 @@ Reference<SortedVector<ManagedReference<TangibleObject*> >* > CombatManager::get
 				continue;
 			}
 
-			if (tano->isPlayerCreature()) {
+			if (attacker->isPlayerCreature() && tano->isPlayerCreature()) {
 				//DISABLE PVP
 				continue;
 			}
