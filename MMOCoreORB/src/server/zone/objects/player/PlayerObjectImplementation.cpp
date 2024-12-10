@@ -2088,7 +2088,7 @@ void PlayerObjectImplementation::activateForcePowerRegen() {
 //			regen = ((regen - 125) / 2) + 125;
 
 		if (creature->isInCombat())//combat regen reduced
-			regen /= 5;
+			regen /= 2;
 //		else
 //			regen *= 2;//out of combat regen buff
 

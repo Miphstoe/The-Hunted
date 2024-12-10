@@ -197,12 +197,12 @@ void ArmorObjectImplementation::fillAttributeList(AttributeListMessage* alm, Cre
 				"cat_armor_effectiveness.armor_eff_elemental_acid",
 				txt.toString());
 	}
-	if (getLightSaber() >= 0.5) {
-		StringBuffer txt;
-		txt << Math::getPrecision(getLightSaber(),1) << "%";
-		alm->insertAttribute("cat_armor_effectiveness.armor_eff_restraint",
-				txt.toString());
-	}
+//	if (getLightSaber() >= 0.5) {
+//		StringBuffer txt;
+//		txt << Math::getPrecision(getLightSaber(),1) << "%";
+//		alm->insertAttribute("cat_armor_effectiveness.armor_eff_restraint",
+//				txt.toString());
+//	}
 
 	//Vulnerabilities
 	if (getKinetic() < 0.5)
@@ -233,8 +233,8 @@ void ArmorObjectImplementation::fillAttributeList(AttributeListMessage* alm, Cre
 		alm->insertAttribute(
 				"cat_armor_vulnerability.armor_eff_elemental_acid", "-");
 
-	if (getLightSaber() < 0.5)
-		alm->insertAttribute("cat_armor_vulnerability.armor_eff_restraint", "-");
+//	if (getLightSaber() < 0.5)
+//		alm->insertAttribute("cat_armor_vulnerability.armor_eff_restraint", "-");
 
 	//Encumbrances
 	alm->insertAttribute("cat_armor_encumbrance.health", getHealthEncumbrance());

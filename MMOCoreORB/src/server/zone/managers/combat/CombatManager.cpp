@@ -1044,59 +1044,59 @@ int CombatManager::calculateDamageRange(TangibleObject* attacker, CreatureObject
 	int damageMitigation = 0;
 	float minDamage = weapon->getMinDamage(), maxDamage = weapon->getMaxDamage();
 
-	if (attacker->isPlayerCreature()) {
-		//this is an initial nerf to ALL weapons over these stats, they are multiplicative after
-		if (maxDamage > 500)	maxDamage = ((maxDamage - 500) / 2) + 500;//all stats over this are worth half
-		if (minDamage > 250)	minDamage = ((minDamage - 250) / 2) + 250;
-
-		//these individual weapon stats are worth 1 fifth of their value, multiplicative 1/10th
-		if (weapon->isPistolWeapon()){
-			if (maxDamage > 750)	maxDamage = ((maxDamage - 750) / 2) + 750;
-			if (minDamage > 375)	minDamage = ((minDamage - 375) / 2) + 375;
-		}
-		if (weapon->isCarbineWeapon()){
-			if (maxDamage > 1000)	maxDamage = ((maxDamage - 1000) / 2) + 1000;
-			if (minDamage > 500)	minDamage = ((minDamage - 500) / 2) + 500;
-		}
-		if (weapon->isRifleWeapon()){
-			if (maxDamage > 1500)	maxDamage = ((maxDamage - 1500) / 2) + 1500;
-			if (minDamage > 750)	minDamage = ((minDamage - 750) / 2) + 750;
-		}
-		if (weapon->isUnarmedWeapon()) { //unarmed is fukt b.c of 10k dmg crafted vk
-			if (maxDamage > 350)	maxDamage = ((maxDamage - 350) / 2) + 350;
-			if (minDamage > 175)	minDamage = ((minDamage - 175) / 2) + 175;
-		}
-
-		if (weapon->isOneHandMeleeWeapon() && !weapon->isJediWeapon()){
-			if (maxDamage > 750)	maxDamage = ((maxDamage - 750) / 2) + 750;
-			if (minDamage > 375)	minDamage = ((minDamage - 375) / 2) + 375;
-		}
-		if (weapon->isTwoHandMeleeWeapon() && !weapon->isJediWeapon()){
-			if (maxDamage > 1000)	maxDamage = ((maxDamage - 1000) / 2) + 1000;
-			if (minDamage > 500)	minDamage = ((minDamage - 500) / 2) + 500;
-		}
-		if (weapon->isPolearmWeaponObject() && !weapon->isJediWeapon()){
-			if (maxDamage > 1500)	maxDamage = ((maxDamage - 1500) / 2) + 1500;
-			if (minDamage > 750)	minDamage = ((minDamage - 750) / 2) + 750;
-		}
-
-		if (weapon->isHeavyWeapon()) {
-			if (maxDamage > 2000)	maxDamage = ((maxDamage - 2000) / 2) + 2000;
-			if (minDamage > 1000)	minDamage = ((minDamage - 1000) / 2) + 1000;
-		}
-		if (weapon->isSpecialHeavyWeapon()){
-			if (maxDamage > 2000)	maxDamage = ((maxDamage - 2000) / 2) + 2000;
-			if (minDamage > 1000)	minDamage = ((minDamage - 1000) / 2) + 1000;
-		}
-		if (weapon->isJediWeapon()){
-			if (maxDamage > 1000)	maxDamage = ((maxDamage - 1000) / 2) + 1000;
-			if (minDamage > 500)	minDamage = ((minDamage - 500) / 2) + 500;
-		}
-
-		//catch all for any crazy dmg palyer weaps also multiplicative with above
-		if (maxDamage > 3000)	maxDamage = ((maxDamage - 5000) / 2) + 3000;
-		if (minDamage > 1500)	minDamage = ((minDamage - 2500) / 2) + 1500;
-	}
+//	if (attacker->isPlayerCreature()) {
+//		//this is an initial nerf to ALL weapons over these stats, they are multiplicative after
+//		if (maxDamage > 500)	maxDamage = ((maxDamage - 500) / 2) + 500;//all stats over this are worth half
+//		if (minDamage > 250)	minDamage = ((minDamage - 250) / 2) + 250;
+//
+//		//these individual weapon stats are worth 1 fifth of their value, multiplicative 1/10th
+//		if (weapon->isPistolWeapon()){
+//			if (maxDamage > 750)	maxDamage = ((maxDamage - 750) / 2) + 750;
+//			if (minDamage > 375)	minDamage = ((minDamage - 375) / 2) + 375;
+//		}
+//		if (weapon->isCarbineWeapon()){
+//			if (maxDamage > 1000)	maxDamage = ((maxDamage - 1000) / 2) + 1000;
+//			if (minDamage > 500)	minDamage = ((minDamage - 500) / 2) + 500;
+//		}
+//		if (weapon->isRifleWeapon()){
+//			if (maxDamage > 1500)	maxDamage = ((maxDamage - 1500) / 2) + 1500;
+//			if (minDamage > 750)	minDamage = ((minDamage - 750) / 2) + 750;
+//		}
+//		if (weapon->isUnarmedWeapon()) { //unarmed is fukt b.c of 10k dmg crafted vk
+//			if (maxDamage > 350)	maxDamage = ((maxDamage - 350) / 2) + 350;
+//			if (minDamage > 175)	minDamage = ((minDamage - 175) / 2) + 175;
+//		}
+//
+//		if (weapon->isOneHandMeleeWeapon() && !weapon->isJediWeapon()){
+//			if (maxDamage > 750)	maxDamage = ((maxDamage - 750) / 2) + 750;
+//			if (minDamage > 375)	minDamage = ((minDamage - 375) / 2) + 375;
+//		}
+//		if (weapon->isTwoHandMeleeWeapon() && !weapon->isJediWeapon()){
+//			if (maxDamage > 1000)	maxDamage = ((maxDamage - 1000) / 2) + 1000;
+//			if (minDamage > 500)	minDamage = ((minDamage - 500) / 2) + 500;
+//		}
+//		if (weapon->isPolearmWeaponObject() && !weapon->isJediWeapon()){
+//			if (maxDamage > 1500)	maxDamage = ((maxDamage - 1500) / 2) + 1500;
+//			if (minDamage > 750)	minDamage = ((minDamage - 750) / 2) + 750;
+//		}
+//
+//		if (weapon->isHeavyWeapon()) {
+//			if (maxDamage > 2000)	maxDamage = ((maxDamage - 2000) / 2) + 2000;
+//			if (minDamage > 1000)	minDamage = ((minDamage - 1000) / 2) + 1000;
+//		}
+//		if (weapon->isSpecialHeavyWeapon()){
+//			if (maxDamage > 2000)	maxDamage = ((maxDamage - 2000) / 2) + 2000;
+//			if (minDamage > 1000)	minDamage = ((minDamage - 1000) / 2) + 1000;
+//		}
+//		if (weapon->isJediWeapon()){
+//			if (maxDamage > 1000)	maxDamage = ((maxDamage - 1000) / 2) + 1000;
+//			if (minDamage > 500)	minDamage = ((minDamage - 500) / 2) + 500;
+//		}
+//
+//		//catch all for any crazy dmg palyer weaps also multiplicative with above
+//		if (maxDamage > 3000)	maxDamage = ((maxDamage - 5000) / 2) + 3000;
+//		if (minDamage > 1500)	minDamage = ((minDamage - 2500) / 2) + 1500;
+//	}
 
 
 //	//// mySWG balancing the profs based on highest dmg weapon and special for that class
@@ -1273,7 +1273,7 @@ int CombatManager::getArmorObjectReduction(ArmorObject* armor, int damageType) c
 		resist = armor->getAcid();
 		break;
 	case SharedWeaponObjectTemplate::LIGHTSABER:
-		resist = armor->getLightSaber();
+		resist = 0;//armor->getLightSaber();
 		break;
 	}
 
@@ -1330,7 +1330,7 @@ int CombatManager::getArmorNpcReduction(AiAgent* defender, int damageType) const
 		resist = defender->getAcid();
 		break;
 	case SharedWeaponObjectTemplate::LIGHTSABER:
-		resist = defender->getLightSaber();
+		resist = 0;//defender->getLightSaber();
 		break;
 	}
 	if (resist > 90)
@@ -1368,7 +1368,7 @@ int CombatManager::getArmorVehicleReduction(VehicleObject* defender, int damageT
 		resist = defender->getAcid();
 		break;
 	case SharedWeaponObjectTemplate::LIGHTSABER:
-		resist = defender->getLightSaber();
+		resist = 0;//defender->getLightSaber();
 		break;
 	}
 	if (resist > 90)
@@ -1760,6 +1760,9 @@ float CombatManager::calculateDamage(CreatureObject* attacker, WeaponObject* wea
 		float mod = attacker->isAiAgent() ? cast<AiAgent*>(attacker)->getSpecialDamageMult() : 1.f;
 		damage = minDmg * mod;
 		diff = (maxDmg * mod) - damage;
+
+//		if (diff > 0)
+//			damage += System::random(diff);
 	} else {
 		diff = calculateDamageRange(attacker, defender, weapon);
 		float minDamage = weapon->getMinDamage();
@@ -1768,6 +1771,63 @@ float CombatManager::calculateDamage(CreatureObject* attacker, WeaponObject* wea
 			minDamage = 5;
 
 		damage = minDamage;
+
+//		if (diff > 0)
+//			damage += System::random(diff);
+
+//		if (attacker->isPlayerCreature()) {
+//			//this is an initial nerf to ALL weapons over these stats, they are multiplicative after
+////			if (damage > 500)	damage = ((damage - 500) / 2) + 500;//all stats over this are worth half
+////			if (damage > 250)	damage = ((damage - 250) / 2) + 250;
+//
+//			//these individual weapon stats are worth 1 fifth of their value, multiplicative 1/10th
+//			if (weapon->isPistolWeapon()){
+//				if (damage > 1500)	damage = ((damage - 1500) / 2) + 1500;
+////				if (damage > 375)	damage = ((damage - 375) / 2) + 375;
+//			}
+//			if (weapon->isCarbineWeapon()){
+//				if (damage > 1750)	damage = ((damage - 1750) / 2) + 1750;
+////				if (damage > 500)	damage = ((damage - 500) / 2) + 500;
+//			}
+//			if (weapon->isRifleWeapon()){
+//				if (damage > 1000)	damage = ((damage - 1000) / 2) + 1000;
+////				if (damage > 750)	damage = ((damage - 750) / 2) + 750;
+//			}
+//			if (weapon->isUnarmedWeapon()) { //unarmed is fukt b.c of 10k dmg crafted vk
+//				if (damage > 2000)	damage = ((damage - 2000) / 2) + 2000;
+////				if (damage > 175)	damage = ((damage - 175) / 2) + 175;
+//			}
+//
+//			if (weapon->isOneHandMeleeWeapon() && !weapon->isJediWeapon()){
+//				if (damage > 2000)	damage = ((damage - 2000) / 2) + 2000;
+////				if (damage > 375)	damage = ((damage - 375) / 2) + 375;
+//			}
+//			if (weapon->isTwoHandMeleeWeapon() && !weapon->isJediWeapon()){
+//				if (damage > 1500)	damage = ((damage - 1500) / 2) + 1500;
+////				if (damage > 500)	damage = ((damage - 500) / 2) + 500;
+//			}
+//			if (weapon->isPolearmWeaponObject() && !weapon->isJediWeapon()){
+//				if (damage > 1750)	damage = ((damage - 1750) / 2) + 1750;
+////				if (damage > 750)	damage = ((damage - 750) / 2) + 750;
+//			}
+//			if (weapon->isHeavyWeapon()) {
+//				if (damage > 2000)	damage = ((damage - 2000) / 2) + 2000;
+////				if (damage > 1000)	damage = ((damage - 1000) / 2) + 1000;
+//			}
+//			if (weapon->isSpecialHeavyWeapon()){
+//				if (damage > 2000)	damage = ((damage - 2000) / 2) + 2000;
+////				if (damage > 1000)	damage = ((damage - 1000) / 2) + 1000;
+//			}
+//			if (weapon->isJediWeapon()){
+//				if (damage > 3000)	damage = ((damage - 3000) / 2) + 3000;
+////				if (damage > 500)	damage = ((damage - 500) / 2) + 500;
+//			}
+//
+//			//catch all for any crazy dmg palyer weaps also multiplicative with above
+////			if (damage > 3000)	damage = ((damage - 5000) / 2) + 3000;
+////			if (damage > 1500)	damage = ((damage - 2500) / 2) + 1500;
+//		}
+
 	}
 
 	if (diff > 0)
@@ -1836,25 +1896,36 @@ float CombatManager::calculateDamage(CreatureObject* attacker, WeaponObject* wea
 //		damage *= 1.0 + (.8 * attackerLvl);
 //	}
 
-	if (attacker->isPlayerCreature() && data.isForceAttack()) //force powers damage bonus cuz it sucks
-		damage *= 7;
+	if (attacker->isPlayerCreature() && data.isForceAttack()) { //force powers damage bonus cuz it sucks
+		//damage *= 5;
+		float powersmult = 5.0;
 
-	float darkDamage = attacker->getSkillMod("force_power_dark");
+		ManagedReference<PlayerObject*> ghost = attacker->getPlayerObject();
+		FrsData* playerData = ghost->getFrsData();
+		int councilType = playerData->getCouncilType();
 
-	if (darkDamage > 0 && (data.isForceAttack())) { //weapon->isJediWeapon() ||
-		darkDamage += 25;
-		damage *= 1.f + (darkDamage / 100.f);
-	}
+		float darkDamage = attacker->getSkillMod("force_power_dark");
+		float lightDamage = attacker->getSkillMod("force_power_light") / 2;
 
-	float lightDamage = attacker->getSkillMod("force_power_light") / 2;
+		if (councilType == FrsManager::COUNCIL_LIGHT) {
+			if (darkDamage > 0 && data.isForceAttack()) {
+				darkDamage += 25;
+//				damage *= 1.f + (darkDamage / 100.f);
+				powersmult += (darkDamage / 100.f);
+			}
+		} else if (councilType == FrsManager::COUNCIL_DARK) {
+			if (lightDamage > 0 && data.isForceAttack()) {
+				lightDamage += 5;
+//				damage *= 1.f + (lightDamage / 100.f);
+				powersmult += (lightDamage / 100.f);
+			}
+		}
 
-	if (lightDamage > 0 && data.isForceAttack()) {
-		lightDamage += 5;
-		damage *= 1.f + (lightDamage / 100.f);
+		damage *= powersmult;
 	}
 
 	if (!attacker->isPlayerCreature() && data.isForceAttack()) {	//cap npc max force pwoer dmg.
-		damage /= 3;						//this prevents npc from doing 3k dmg force lightning
+		damage /= 2;					//this prevents npc from doing 3k dmg force lightning
 	}
 
 	damage = applyDamageModifiers(attacker, weapon, damage, data);
@@ -1977,8 +2048,7 @@ float CombatManager::calculateDamage(CreatureObject* attacker, WeaponObject* wea
 	//EvP dmg
 //	if (!attacker->isPlayerCreature() && defender->isPlayerCreature())	{
 //		//damage += DefAvgDmg;//this adds player avg dmg to npc attack
-//
-//		damage *= 0.75;//was .35
+//		damage *= 1.5;
 //
 //	}
 
@@ -2034,7 +2104,7 @@ int CombatManager::getHitChance(TangibleObject* attacker, CreatureObject* target
 
 			float accTotal = hitChanceEquation(attackerAccuracy, attackerRoll, targetDefense, defenderRoll);
 
-			if (System::random(100) > accTotal  && (System::random(100) > 20))
+			if (System::random(100) > accTotal  && (System::random(100) > 10))
 				return MISS;
 			else
 				return HIT;
@@ -2102,13 +2172,13 @@ int CombatManager::getHitChance(TangibleObject* attacker, CreatureObject* target
 
 	debug() << "Final hit chance is " << accTotal;
 
-	if (System::random(100) > accTotal && (System::random(100) > 20)) // miss, just return MISS
+	if (System::random(100) > accTotal && (System::random(100) > 10)) // miss, just return MISS
 		return MISS;
 
 	debug() << "Attack hit successfully";
 
 	// now we have a successful hit, so calculate secondary defenses if there is a damage component
-	if (damage > 0  && (System::random(100) > 20)) {
+	if (damage > 0  && (System::random(100) > 10)) {
 		ManagedReference<WeaponObject*> targetWeapon = targetCreature->getWeapon();
 		const auto defenseAccMods = targetWeapon->getDefenderSecondaryDefenseModifiers();
 		const String& def = defenseAccMods->get(0); // FIXME: this is hacky, but a lot faster than using contains()
@@ -2490,45 +2560,36 @@ int CombatManager::applyDamage(TangibleObject* attacker, WeaponObject* weapon, C
 	int foodBonus = defender->getSkillMod("mitigate_damage");
 	int totalFoodMit = 0;
 
-	ZoneServer* server = attacker->getZoneServer();
-	CreatureObject* creoAttacker = attacker->asCreatureObject();
-
-	int attackerLvl = 0;
-	int defenderLvl = 0;
-
-	if (!attacker->isPlayerCreature()) {
-		attackerLvl = creoAttacker->getLevel() / 10;
-
-		//if (attackerLvl > 100)	attackerLvl = 100;
-
-		attackerLvl = (attackerLvl / 2) + System::random(attackerLvl / 2);
-	}
+//	CreatureObject* creoAttacker = attacker->asCreatureObject();
+//
+//	int attackerLvl = 0;
+//	int defenderLvl = 0;
+//
+//	if (!attacker->isPlayerCreature()) {
+//		attackerLvl = creoAttacker->getLevel();
+//
+//		if (attackerLvl > 100)	attackerLvl = 100;
+//
+//		attackerLvl = (attackerLvl / 5) + System::random(attackerLvl / 10);
+//	}
 
 
 //dmg balance
-	int pvpdmgtier1 = 200;
+	int pvpdmgtier1 = 500;
+	int pvpdmgtier2 = 250;
+	int pvpdmgtier3 = 125;
 
-	int pvpdmgtier2 = 300;
-
-	int pvpdmgtier3 = 500;
-
-	int pvedmgtier1 = 1000;
-
-	int pvedmgtier2 = 2000;
-
-	int pvedmgtier3 = 4000;
+	int pvedmgtier1 = 5000;
+	int pvedmgtier2 = 2500;
+	int pvedmgtier3 = 1250;
 
 	int mult1 = 2;
-
 	int mult2 = 2;
+	int mult3 = 2;
 
-	int mult3 = 4;
-
-	int evpdmgtier1 = 100;
-
-	int evpdmgtier2 = 200;
-
-	int evpdmgtier3 = 400;
+	int evpdmgtier1 = 500;
+	int evpdmgtier2 = 250;
+	int evpdmgtier3 = 125;
 
 
 	if (healthDamaged) {
@@ -2547,41 +2608,70 @@ int CombatManager::applyDamage(TangibleObject* attacker, WeaponObject* weapon, C
 		healthDamage -= foodMitigation;
 		totalFoodMit += foodMitigation;
 
-		if (healthDamage < 25) healthDamage = 25 + System::random(5);
+		if (healthDamage < 10) healthDamage = 10 + System::random(5);
 
-		if (!attacker->isPlayerCreature()) healthDamage += attackerLvl;
+		//if (!attacker->isPlayerCreature()) healthDamage += attackerLvl;
 
-		if (attacker->isPlayerCreature() && defender->isPlayerCreature() && (!data.isForceAttack())) {
-			if (healthDamage > pvpdmgtier3)
-				healthDamage = ((healthDamage - pvpdmgtier3) / mult3) + pvpdmgtier3;
-			if (healthDamage > pvpdmgtier2)
-				healthDamage = ((healthDamage - pvpdmgtier2) / mult2) + pvpdmgtier2;
+		//PVP
+		if (attacker->isPlayerCreature() && defender->isPlayerCreature()) {// && (!data.isForceAttack())) {
 			if (healthDamage > pvpdmgtier1)
 				healthDamage = ((healthDamage - pvpdmgtier1) / mult1) + pvpdmgtier1;
-
-			if (healthDamage < 50) healthDamage = 50 + System::random(5);
-
+			if (healthDamage > pvpdmgtier2)
+				healthDamage = ((healthDamage - pvpdmgtier2) / mult2) + pvpdmgtier2;
+			if (healthDamage > pvpdmgtier3)
+				healthDamage = ((healthDamage - pvpdmgtier3) / mult3) + pvpdmgtier3;
 		}
-
-		if (attacker->isPlayerCreature() && !defender->isPlayerCreature() && (!data.isForceAttack())) {
-			if (healthDamage > pvedmgtier3)
-				healthDamage = ((healthDamage - pvedmgtier3) / mult3) + pvedmgtier3;
-			if (healthDamage > pvedmgtier2)
-				healthDamage = ((healthDamage - pvedmgtier2) / mult2) + pvedmgtier2;
+		//PVE
+		if (attacker->isPlayerCreature() && !defender->isPlayerCreature()) {// && (!data.isForceAttack())) {
 			if (healthDamage > pvedmgtier1)
 				healthDamage = ((healthDamage - pvedmgtier1) / mult1) + pvedmgtier1;
-
-
+			if (healthDamage > pvedmgtier2)
+				healthDamage = ((healthDamage - pvedmgtier2) / mult2) + pvedmgtier2;
+			if (healthDamage > pvedmgtier3)
+				healthDamage = ((healthDamage - pvedmgtier3) / mult3) + pvedmgtier3;
 		}
-
+		//EVP
 		if (!attacker->isPlayerCreature() && defender->isPlayerCreature()) {
-			if (healthDamage > evpdmgtier3)
-				healthDamage = ((healthDamage - evpdmgtier3) / mult3) + evpdmgtier3;
-			if (healthDamage > evpdmgtier2)
-				healthDamage = ((healthDamage - evpdmgtier2) / mult2) + evpdmgtier2;
 			if (healthDamage > evpdmgtier1)
 				healthDamage = ((healthDamage - evpdmgtier1) / mult1) + evpdmgtier1;
+			if (healthDamage > evpdmgtier2)
+				healthDamage = ((healthDamage - evpdmgtier2) / mult2) + evpdmgtier2;
+			if (healthDamage > evpdmgtier3)
+				healthDamage = ((healthDamage - evpdmgtier3) / mult3) + evpdmgtier3;
+		}
 
+		//player weapon balance
+		if (attacker->isPlayerCreature() && !data.isForceAttack()) {
+			if (weapon->isPistolWeapon()) {
+				healthDamage *= 1.0;
+			}
+			if (weapon->isCarbineWeapon()) {
+				healthDamage *= 1.0;
+			}
+			if (weapon->isRifleWeapon()) {
+				healthDamage *= 1.0;
+			}
+			if (weapon->isUnarmedWeapon()) {
+				healthDamage *= 1.0;
+			}
+			if (weapon->isOneHandMeleeWeapon() && !weapon->isJediWeapon()) {
+				healthDamage *= 1.0;
+			}
+			if (weapon->isTwoHandMeleeWeapon() && !weapon->isJediWeapon()) {
+				healthDamage *= 1.0;
+			}
+			if (weapon->isPolearmWeaponObject() && !weapon->isJediWeapon()) {
+				healthDamage *= 1.0;
+			}
+			if (weapon->isHeavyWeapon()) {
+				healthDamage *= 1.0;
+			}
+			if (weapon->isSpecialHeavyWeapon()) {
+				healthDamage *= 1.0;
+			}
+			if (weapon->isJediWeapon()) {
+				healthDamage *= 1.0;
+			}
 		}
 
 		int spilledDamage = (int)(healthDamage*spillMultPerPool); // Cut our damage by the spill percentage
@@ -2609,42 +2699,70 @@ int CombatManager::applyDamage(TangibleObject* attacker, WeaponObject* weapon, C
 		actionDamage -= foodMitigation;
 		totalFoodMit += foodMitigation;
 
-		if (actionDamage < 25) actionDamage = 25 + System::random(5);
+		if (actionDamage < 10) actionDamage = 10 + System::random(5);
 
-		if (!attacker->isPlayerCreature()) actionDamage += attackerLvl;
+		//if (!attacker->isPlayerCreature()) actionDamage += attackerLvl;
 
-		if (attacker->isPlayerCreature() && defender->isPlayerCreature() && (!data.isForceAttack())) {
-			if (actionDamage > pvpdmgtier3)
-				actionDamage = ((actionDamage - pvpdmgtier3) / mult3) + pvpdmgtier3;
-			if (actionDamage > pvpdmgtier2)
-				actionDamage = ((actionDamage - pvpdmgtier2) / mult2) + pvpdmgtier2;
+		//PVP
+		if (attacker->isPlayerCreature() && defender->isPlayerCreature()) {// && (!data.isForceAttack())) {
 			if (actionDamage > pvpdmgtier1)
 				actionDamage = ((actionDamage - pvpdmgtier1) / mult1) + pvpdmgtier1;
-
-			if (actionDamage < 50) actionDamage = 50 + System::random(5);
-
+			if (actionDamage > pvpdmgtier2)
+				actionDamage = ((actionDamage - pvpdmgtier2) / mult2) + pvpdmgtier2;
+			if (actionDamage > pvpdmgtier3)
+				actionDamage = ((actionDamage - pvpdmgtier3) / mult3) + pvpdmgtier3;
 		}
-
-		if (attacker->isPlayerCreature() && !defender->isPlayerCreature() && (!data.isForceAttack())) {
-			if (actionDamage > pvedmgtier3)
-				actionDamage = ((actionDamage - pvedmgtier3) / mult3) + pvedmgtier3;
-			if (actionDamage > pvedmgtier2)
-				actionDamage = ((actionDamage - pvedmgtier2) / mult2) + pvedmgtier2;
+		//PVE
+		if (attacker->isPlayerCreature() && !defender->isPlayerCreature()) {// && (!data.isForceAttack())) {
 			if (actionDamage > pvedmgtier1)
 				actionDamage = ((actionDamage - pvedmgtier1) / mult1) + pvedmgtier1;
-
+			if (actionDamage > pvedmgtier2)
+				actionDamage = ((actionDamage - pvedmgtier2) / mult2) + pvedmgtier2;
+			if (actionDamage > pvedmgtier3)
+				actionDamage = ((actionDamage - pvedmgtier3) / mult3) + pvedmgtier3;
 		}
-
+		//EVP
 		if (!attacker->isPlayerCreature() && defender->isPlayerCreature()) {
-			if (actionDamage > evpdmgtier3)
-				actionDamage = ((actionDamage - evpdmgtier3) / mult3) + evpdmgtier3;
-			if (actionDamage > evpdmgtier2)
-				actionDamage = ((actionDamage - evpdmgtier2) / mult2) + evpdmgtier2;
 			if (actionDamage > evpdmgtier1)
 				actionDamage = ((actionDamage - evpdmgtier1) / mult1) + evpdmgtier1;
+			if (actionDamage > evpdmgtier2)
+				actionDamage = ((actionDamage - evpdmgtier2) / mult2) + evpdmgtier2;
+			if (actionDamage > evpdmgtier3)
+				actionDamage = ((actionDamage - evpdmgtier3) / mult3) + evpdmgtier3;
+		}
 
-
-
+		//player weapon balance
+		if (attacker->isPlayerCreature() && !data.isForceAttack()) {
+			if (weapon->isPistolWeapon()) {
+				actionDamage *= 1.0;
+			}
+			if (weapon->isCarbineWeapon()) {
+				actionDamage *= 1.0;
+			}
+			if (weapon->isRifleWeapon()) {
+				actionDamage *= 1.0;
+			}
+			if (weapon->isUnarmedWeapon()) {
+				actionDamage *= 1.0;
+			}
+			if (weapon->isOneHandMeleeWeapon() && !weapon->isJediWeapon()) {
+				actionDamage *= 1.0;
+			}
+			if (weapon->isTwoHandMeleeWeapon() && !weapon->isJediWeapon()) {
+				actionDamage *= 1.0;
+			}
+			if (weapon->isPolearmWeaponObject() && !weapon->isJediWeapon()) {
+				actionDamage *= 1.0;
+			}
+			if (weapon->isHeavyWeapon()) {
+				actionDamage *= 1.0;
+			}
+			if (weapon->isSpecialHeavyWeapon()) {
+				actionDamage *= 1.0;
+			}
+			if (weapon->isJediWeapon()) {
+				actionDamage *= 1.0;
+			}
 		}
 
 		int spilledDamage = (int)(actionDamage*spillMultPerPool);
@@ -2670,38 +2788,70 @@ int CombatManager::applyDamage(TangibleObject* attacker, WeaponObject* weapon, C
 		mindDamage -= foodMitigation;
 		totalFoodMit += foodMitigation;
 
-		if (mindDamage < 25) mindDamage = 20 + System::random(5);
+		if (mindDamage < 10) mindDamage = 10 + System::random(5);
 
-		if (!attacker->isPlayerCreature()) mindDamage += attackerLvl;
+		//if (!attacker->isPlayerCreature()) mindDamage += attackerLvl;
 
-		if (attacker->isPlayerCreature() && defender->isPlayerCreature() && (!data.isForceAttack())) {
-			if (mindDamage > pvpdmgtier3)
-				mindDamage = ((mindDamage - pvpdmgtier3) / mult3) + pvpdmgtier3;
-			if (mindDamage > pvpdmgtier2)
-				mindDamage = ((mindDamage - pvpdmgtier2) / mult2) + pvpdmgtier2;
+		//PVP
+		if (attacker->isPlayerCreature() && defender->isPlayerCreature()) {// && (!data.isForceAttack())) {
 			if (mindDamage > pvpdmgtier1)
 				mindDamage = ((mindDamage - pvpdmgtier1) / mult1) + pvpdmgtier1;
-
-			if (mindDamage < 50) mindDamage = 50 + System::random(5);
-
+			if (mindDamage > pvpdmgtier2)
+				mindDamage = ((mindDamage - pvpdmgtier2) / mult2) + pvpdmgtier2;
+			if (mindDamage > pvpdmgtier3)
+				mindDamage = ((mindDamage - pvpdmgtier3) / mult3) + pvpdmgtier3;
 		}
-
-		if (attacker->isPlayerCreature() && !defender->isPlayerCreature() && (!data.isForceAttack())) {
-			if (mindDamage > pvedmgtier3)
-				mindDamage = ((mindDamage - pvedmgtier3) / mult3) + pvedmgtier3;
-			if (mindDamage > pvedmgtier2)
-				mindDamage = ((mindDamage - pvedmgtier2) / mult2) + pvedmgtier2;
+		//PVE
+		if (attacker->isPlayerCreature() && !defender->isPlayerCreature()) {// && (!data.isForceAttack())) {
 			if (mindDamage > pvedmgtier1)
 				mindDamage = ((mindDamage - pvedmgtier1) / mult1) + pvedmgtier1;
+			if (mindDamage > pvedmgtier2)
+				mindDamage = ((mindDamage - pvedmgtier2) / mult2) + pvedmgtier2;
+			if (mindDamage > pvedmgtier3)
+				mindDamage = ((mindDamage - pvedmgtier3) / mult3) + pvedmgtier3;
 		}
-
+		//EVP
 		if (!attacker->isPlayerCreature() && defender->isPlayerCreature()) {
-			if (mindDamage > evpdmgtier3)
-				mindDamage = ((mindDamage - evpdmgtier3) / mult3) + evpdmgtier3;
-			if (mindDamage > evpdmgtier2)
-				mindDamage = ((mindDamage - evpdmgtier2) / mult2) + evpdmgtier2;
 			if (mindDamage > evpdmgtier1)
 				mindDamage = ((mindDamage - evpdmgtier1) / mult1) + evpdmgtier1;
+			if (mindDamage > evpdmgtier2)
+				mindDamage = ((mindDamage - evpdmgtier2) / mult2) + evpdmgtier2;
+			if (mindDamage > evpdmgtier3)
+				mindDamage = ((mindDamage - evpdmgtier3) / mult3) + evpdmgtier3;
+		}
+
+		//player weapon balance
+		if (attacker->isPlayerCreature() && !data.isForceAttack()) {
+			if (weapon->isPistolWeapon()) {
+				mindDamage *= 1.0;
+			}
+			if (weapon->isCarbineWeapon()) {
+				mindDamage *= 1.0;
+			}
+			if (weapon->isRifleWeapon()) {
+				mindDamage *= 1.0;
+			}
+			if (weapon->isUnarmedWeapon()) {
+				mindDamage *= 1.0;
+			}
+			if (weapon->isOneHandMeleeWeapon() && !weapon->isJediWeapon()) {
+				mindDamage *= 1.0;
+			}
+			if (weapon->isTwoHandMeleeWeapon() && !weapon->isJediWeapon()) {
+				mindDamage *= 1.0;
+			}
+			if (weapon->isPolearmWeaponObject() && !weapon->isJediWeapon()) {
+				mindDamage *= 1.0;
+			}
+			if (weapon->isHeavyWeapon()) {
+				mindDamage *= 1.0;
+			}
+			if (weapon->isSpecialHeavyWeapon()) {
+				mindDamage *= 1.0;
+			}
+			if (weapon->isJediWeapon()) {
+				mindDamage *= 1.0;
+			}
 		}
 
 		int spilledDamage = (int)(mindDamage*spillMultPerPool);
@@ -2793,10 +2943,11 @@ int CombatManager::applyDamage(CreatureObject* attacker, WeaponObject* weapon, T
 //		damageMultiplier *= .5;
 //		damageMultiplier += .5;
 
+		if (damageMultiplier > 3.0)
+			damageMultiplier = ((damageMultiplier - 3.0) / 2) + 3.0;
 		if (damageMultiplier > 2.0)
 			damageMultiplier = ((damageMultiplier - 2.0) / 2) + 2.0;
-		if (damageMultiplier > 3.0)
-			damageMultiplier = ((damageMultiplier - 3.0) / 5) + 3.0;
+
 
 		damage *= damageMultiplier;
 	}

@@ -2727,11 +2727,11 @@ void AiAgentImplementation::fillAttributeList(AttributeListMessage* alm, Creatur
 		alm->insertAttribute("cat_armor_special_protection.armor_eff_elemental_acid", txt.toString());
 	}
 
-	if (isSpecialProtection(SharedWeaponObjectTemplate::LIGHTSABER)) {
-		StringBuffer txt;
-		txt << Math::getPrecision(getLightSaber(), 1) << "%";
-		alm->insertAttribute("cat_armor_special_protection.armor_eff_restraint", txt.toString());
-	}
+//	if (isSpecialProtection(SharedWeaponObjectTemplate::LIGHTSABER)) {
+//		StringBuffer txt;
+//		txt << Math::getPrecision(getLightSaber(), 1) << "%";
+//		alm->insertAttribute("cat_armor_special_protection.armor_eff_restraint", txt.toString());
+//	}
 
 	if (getKinetic() > 0 && !isSpecialProtection(SharedWeaponObjectTemplate::KINETIC)) {
 		StringBuffer txt;
@@ -2781,11 +2781,11 @@ void AiAgentImplementation::fillAttributeList(AttributeListMessage* alm, Creatur
 		alm->insertAttribute("cat_armor_effectiveness.armor_eff_elemental_acid", txt.toString());
 	}
 
-	if (getLightSaber() > 0 && !isSpecialProtection(SharedWeaponObjectTemplate::LIGHTSABER)) {
-		StringBuffer txt;
-		txt << Math::getPrecision(getLightSaber(), 1) << "%";
-		alm->insertAttribute("cat_armor_effectiveness.armor_eff_restraint", txt.toString());
-	}
+//	if (getLightSaber() > 0 && !isSpecialProtection(SharedWeaponObjectTemplate::LIGHTSABER)) {
+//		StringBuffer txt;
+//		txt << Math::getPrecision(getLightSaber(), 1) << "%";
+//		alm->insertAttribute("cat_armor_effectiveness.armor_eff_restraint", txt.toString());
+//	}
 
 	if (getKinetic() < 0)
 		alm->insertAttribute("cat_armor_vulnerability.armor_eff_kinetic", "-");
@@ -2811,8 +2811,8 @@ void AiAgentImplementation::fillAttributeList(AttributeListMessage* alm, Creatur
 	if (getAcid() < 0)
 		alm->insertAttribute("cat_armor_vulnerability.armor_eff_elemental_acid", "-");
 
-	if (getLightSaber() < 0)
-		alm->insertAttribute("cat_armor_vulnerability.armor_eff_restraint", "-");
+//	if (getLightSaber() < 0)
+//		alm->insertAttribute("cat_armor_vulnerability.armor_eff_restraint", "-");
 
 	if (isPet())
 	{
