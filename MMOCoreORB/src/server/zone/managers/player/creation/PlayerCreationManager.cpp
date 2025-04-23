@@ -329,7 +329,7 @@ bool PlayerCreationManager::createCharacter(ClientCreateCharacterCallback* callb
 	auto client = callback->getClient();
 
 	if (client->getCharacterCount(zoneServer.get()->getGalaxyID()) >= 10) {
-		ErrorMessage* errMsg = new ErrorMessage("Create Error", "You are limited to 10 characters on mySWG.", 0x0);
+		ErrorMessage* errMsg = new ErrorMessage("Create Error", "You are limited to 10 characters on Hunted.", 0x0);
 		client->sendMessage(errMsg);
 
 		return false;
@@ -576,7 +576,10 @@ bool PlayerCreationManager::createCharacter(ClientCreateCharacterCallback* callb
 
 	ManagedReference<SuiMessageBox*> box = new SuiMessageBox(playerCreature, SuiWindowType::NONE);
 	box->setPromptTitle("WELCOME");
-	box->setPromptText("Welcome to mySWG! \nDon't forget to migrate your stats! Stats can also be migrated in Image Designer tents. Have fun!");
+	box->setPromptText("Welcome to Hunted! \nDon't forget to migrate your stats! Stats can also be migrated in Image Designer tents. Have fun!");
+	String playerName = playerCreature->getFirstName();
+	StringBuffer zBroadcast;
+	zBroadcast << "\\#00ace6" << playerName << " \\#ffb90f Has Joined Hunted!";
 
 	ghost->addSuiBox(box);
 	playerCreature->sendMessage(box->generateMessage());
