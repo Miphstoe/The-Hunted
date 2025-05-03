@@ -58,7 +58,7 @@ end
 -- Hologrind professions will be generated for the player.
 -- @param pCreatureObject pointer to the creature object of the created player.
 function HologrindJediManager:onPlayerCreated(pCreatureObject)
-		local unlockluck = 1 --getRandomNumber(1, 3)
+		local unlockluck = 10 --getRandomNumber(1, 3)
 		
 		writeScreenPlayData(pCreatureObject, "forcesensitivity", "unlock", unlockluck)
 
