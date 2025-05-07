@@ -113,7 +113,7 @@ veteranRewards = {
 		{templateFile = "object/tangible/veteran_reward/frn_tech_console_sectional_d.iff", milestone=6, oneTime=false, description="@veteran_new:techconsole_d"},
 		{templateFile = "object/tangible/veteran_reward/frn_vet_jabba_toy.iff", milestone=6, oneTime=false, description="@veteran_new:mini_jabba"},
 		{templateFile = "object/tangible/veteran_reward/frn_vet_stormtrooper_toy.iff", milestone=6, oneTime=false, description="@veteran_new:mini_stormtrooper"},
-		--{templateFile = "object/tangible/veteran_reward/antidecay.iff", milestone=28, oneTime=true, description="@veteran_new:antidecay"},
+		--{templateFile = "object/tangible/veteran_reward/antidecay.iff", milestone=28, oneTime=true, noTrade=true, description="@veteran_new:antidecay"},
 
 		-- 8 Day Rewards
 		{templateFile = "object/tangible/camp/camp_spit_s2.iff", milestone=8, oneTime=false, description="Camp Center (Small)"},
