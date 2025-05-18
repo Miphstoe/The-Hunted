@@ -1669,7 +1669,7 @@ class CreatureObject extends TangibleObject {
 
 	@read
 	public float getRunSpeed() {
-		return runSpeed;
+		return runSpeed * 1.25;
 	}
 
 	@read
