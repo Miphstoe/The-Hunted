@@ -1,31 +1,34 @@
+-- Tarkin's Revenge May 2019
 -- Allows players to choose the direction they want to take destroy missions
+-- Big thanks to Tarkin's Revenge for the lua and code
 --
---							N 90
+--							N 0/360
 --							|
---					NW 135  |	NE 45
+--					NW 45   |	NE 315
 --						  \ | /
 --						   \|/
---			W 180 ----------+---------- E 0 and 360
+--			W 90  ----------+---------- E 270
 --						   /|\
 --						  / | \
---					SW 225	|  SE 315
+--					SW 135	|  SE 225
 --							|
---							S 270
+--							S 180
 
 mission_direction_choice = ScreenPlay:new {
 	numberOfActs = 1,
-
+	
 	directions = {
 		{dirDesc = "Reset Direction", dirSelect = 0},
---		{dirDesc = "North", dirSelect = 90},
---		{dirDesc = "North East", dirSelect = 45},
-		{dirDesc = "Player Facing Direction", dirSelect = 360}, 
---		{dirDesc = "South East", dirSelect = 315}, 
---		{dirDesc = "South", dirSelect = 270}, 
---		{dirDesc = "South West", dirSelect = 225}, 
---		{dirDesc = "West", dirSelect = 180}, 
---		{dirDesc = "North West", dirSelect = 135}, 
+		{dirDesc = "North", dirSelect = 360},
+		{dirDesc = "North West", dirSelect = 45},
+		{dirDesc = "West", dirSelect = 90}, 
+		{dirDesc = "South West", dirSelect = 135}, 
+		{dirDesc = "South", dirSelect = 180}, 
+		{dirDesc = "South East", dirSelect = 225}, 
+		{dirDesc = "East", dirSelect = 270}, 
+		{dirDesc = "North East", dirSelect = 315}, 
 	}
+
 }
 
 function mission_direction_choice:start()
@@ -54,7 +57,7 @@ function mission_direction_choice:showLevels(pPlayer)
 
 	sui.setTitle("Mission Direction Selection")
 
-	local promptText = "Use this menu to select the direction in which you would like to take missions.  After you have chosen, use the mission terminal to get a selection of missions (if any exist) within that direction.  \n\nIf no missions are offered to you, it is because terrain is unsuitable for missions in that direction from your current location.  You will need to choose another direction.\n\nWhen you want to go back to the 'normal' offering of missions for your skill level/group level, just choose Reset Mission Direction."
+	local promptText = "Use this menu to select the direction in which you would like to take missions.  After you have chosen, use the mission terminal to get a selection of missions (if any exist) in that direction.  \n\nIf no missions are offered to you, it is because terrain is unsuitable for missions in that direction from your current location.  You will need to choose another direction.\n\nWhen you want to go back to the 'normal' offering of missions, just choose Reset Direction."
 
 	sui.setPrompt(promptText)
 
@@ -82,13 +85,33 @@ function  mission_direction_choice:dirSelection(pPlayer, pSui, eventIndex, args)
 
 	local selectedDir = tonumber(self.directions[selectedIndex].dirSelect)
 	local selectedDirDesc = self.directions[selectedIndex].dirDesc
-
+	
 	writeScreenPlayData(pPlayer, "mission_direction_choice", "directionChoice", selectedDir) 
 
 	if (selectedDir == 0) then
-		CreatureObject(pPlayer):sendSystemMessage("Mission direction has been reset to normal randomization.")
+		CreatureObject(pPlayer):sendSystemMessage("\r\\#" .. "FF6600" .. "\\" .. "Mission direction has been reset to normal randomization.")
 	else	
-		CreatureObject(pPlayer):sendSystemMessage("You have selected take mission to the " .. selectedDirDesc .. ". This choice will remain active until you choose to change or reset it.")
+		CreatureObject(pPlayer):sendSystemMessage("\r\\#" .. "FF6600" .. "\\" .. "You have selected to take missions in the " .. selectedDirDesc .. " direction. This choice will remain active until you choose to change or reset it.")
 	end
 
+end
+
+function  mission_direction_choice:status(pPlayer)
+
+	local selectedDir = tonumber(readScreenPlayData(pPlayer, "mission_direction_choice", "directionChoice"))
+
+	if selectedDir ~= nil and selectedDir ~= 0 then
+
+		local index = 0
+		for i = 1, #self.directions, 1 do
+			if self.directions[i].dirSelect == selectedDir then
+				index = i
+				break
+			end
+		end
+
+		local selectedDirDesc = self.directions[index].dirDesc
+		CreatureObject(pPlayer):sendSystemMessage("\r\\#" .. "FF6600" .. "\\" .. "Current Setting:  You have selected to take missions in the " .. selectedDirDesc .. " direction. This choice will remain active until you choose to change or reset it.")
+
+	end	
 end
