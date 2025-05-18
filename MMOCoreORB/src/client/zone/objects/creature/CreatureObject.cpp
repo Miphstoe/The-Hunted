@@ -1,3 +1,5 @@
+/app/MMOCoreORB/src/server/zone/objects/creature/CreatureObject.h
+
 #include "CreatureObject.h"
 bool CreatureObject::canLearnSkill(const String& skillName) {
     Skill* skill = skillManager->getSkill(skillName);
