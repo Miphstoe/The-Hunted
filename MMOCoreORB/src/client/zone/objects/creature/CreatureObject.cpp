@@ -1,18 +1,15 @@
 #include "CreatureObject.h"
+bool CreatureObject::canLearnSkill(const String& skillName) {
+    Skill* skill = skillManager->getSkill(skillName);
+    if (skill == nullptr)
+        return false;
 
-CreatureObject::CreatureObject(LuaObject* templateData) : TangibleObject(templateData) {
-	setLoggingName("CreatureObject");
+    int skillPointsRequired = skill->getSkillPointsRequired();
+    int currentSkillPoints = getSkillPoints();  // This function exists in CreatureObject
 
-	actionCount = 0;
+    if ((currentSkillPoints + skillPointsRequired) > 250)
+        return false;
 
-
-if ((currentSkillPoints + skillPointsRequired) > 250)
-    return false;
-}
-
-void CreatureObject::parseBaseline3(Message* message) {
-	TangibleObject::parseBaseline3(message);
-
-
+    return true;
 }
 
