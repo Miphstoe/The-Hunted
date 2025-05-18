@@ -403,7 +403,7 @@ bool SkillManager::awardSkill(const String& skillName, CreatureObject* creature,
 
 		const SkillList* list = creature->getSkillList();
 		
-		int totalSkillPointsWasted = 235;
+		int totalSkillPointsWasted = 250;
 
 		for (int i = 0; i < list->size(); ++i) {
 			Skill* skill = list->get(i);
