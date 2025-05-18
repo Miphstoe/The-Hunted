@@ -7,7 +7,7 @@ bool CreatureObject::canLearnSkill(const String& skillName) {
         return false;
 
     int skillPointsRequired = skill->getSkillPointsRequired();
-    int currentSkillPoints = getSkillPoints();  // This function exists in CreatureObject
+    int currentSkillPoints = getSkillPoints(); // already available in CreatureObject
 
     if ((currentSkillPoints + skillPointsRequired) > 250)
         return false;
