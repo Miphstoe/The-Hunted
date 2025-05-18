@@ -43,6 +43,7 @@
 
 object_building_player_player_guildhall_tatooine_style_02 = object_building_player_shared_player_guildhall_tatooine_style_02:new {
 	lotSize = 5,
+	 storageCapacity = 1000,
 	baseMaintenanceRate = 100,
 	allowedZones = {"dantooine", "lok", "tatooine"},
 	publicStructure = 0,
