@@ -4,10 +4,11 @@ CreatureObject::CreatureObject(LuaObject* templateData) : TangibleObject(templat
 	setLoggingName("CreatureObject");
 
 	actionCount = 0;
-}
+
 
 if ((currentSkillPoints + skillPointsRequired) > 250)
     return false;
+}
 
 void CreatureObject::parseBaseline3(Message* message) {
 	TangibleObject::parseBaseline3(message);
