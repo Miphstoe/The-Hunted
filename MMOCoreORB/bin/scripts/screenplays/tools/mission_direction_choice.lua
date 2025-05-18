@@ -1,4 +1,4 @@
--- Allows players to choose the direction they want to take destroy missions
+ Allows players to choose the direction they want to take destroy missions
 --
 --							N 90
 --							|
