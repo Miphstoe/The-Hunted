@@ -14,6 +14,8 @@ public:
 
 	uint32 getNewActionCount() {
 		return ++actionCount;
+		bool canLearnSkill(const String& skillName);
+
 	}
 
 };
