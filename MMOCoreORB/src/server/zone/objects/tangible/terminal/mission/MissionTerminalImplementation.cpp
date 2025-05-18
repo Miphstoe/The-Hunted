@@ -12,9 +12,9 @@
 #include "server/zone/managers/city/CityManager.h"
 #include "server/zone/managers/city/CityRemoveAmenityTask.h"
 #include "server/zone/objects/player/sessions/SlicingSession.h"
+#include "server/zone/managers/player/PlayerManager.h"
 #include "server/zone/managers/director/DirectorManager.h"
 #include "server/zone/objects/player/PlayerObject.h"
-#include "server/zone/managers/visibility/VisibilityManager.h"
 
 void MissionTerminalImplementation::fillObjectMenuResponse(ObjectMenuResponse* menuResponse, CreatureObject* player) {
 	TerminalImplementation::fillObjectMenuResponse(menuResponse, player);
@@ -32,16 +32,21 @@ void MissionTerminalImplementation::fillObjectMenuResponse(ObjectMenuResponse* m
 		menuResponse->addRadialMenuItemToRadialID(73, 77, 3, "@city/city:west"); // West
 	}
 
-	if (terminalType == "general" || terminalType == "imperial" || terminalType == "rebel") {
-		menuResponse->addRadialMenuItem(112, 3, "Choose Mission Level");
-		menuResponse->addRadialMenuItem(113, 3, "Choose Mission Direction");
-	}
-
-	if (isBountyTerminal() && player->getPlayerObject()->isJedi()){
-		menuResponse->addRadialMenuItem(114, 3, "Check Visibility");
-
-	}
-
+	menuResponse->addRadialMenuItem(94, 3, "set mission level"); //
+	menuResponse->addRadialMenuItemToRadialID(94, 82, 3, "reset"); //
+	menuResponse->addRadialMenuItemToRadialID(94, 78, 3, "5"); //
+	menuResponse->addRadialMenuItemToRadialID(94, 79, 3, "10"); //
+	menuResponse->addRadialMenuItemToRadialID(94, 80, 3, "15"); //
+	menuResponse->addRadialMenuItemToRadialID(94, 81, 3, "25"); //
+	menuResponse->addRadialMenuItemToRadialID(94, 83, 3, "35"); //
+	menuResponse->addRadialMenuItemToRadialID(94, 84, 3, "50"); //
+	menuResponse->addRadialMenuItemToRadialID(94, 85, 3, "75"); //
+	menuResponse->addRadialMenuItemToRadialID(94, 86, 3, "100"); //
+	menuResponse->addRadialMenuItemToRadialID(94, 87, 3, "150"); //
+	menuResponse->addRadialMenuItemToRadialID(94, 88, 3, "200"); //
+	menuResponse->addRadialMenuItemToRadialID(94, 89, 3, "300"); //
+	menuResponse->addRadialMenuItemToRadialID(94, 90, 3, "400"); //
+	menuResponse->addRadialMenuItemToRadialID(94, 91, 3, "500"); //
 }
 
 int MissionTerminalImplementation::handleObjectMenuSelect(CreatureObject* player, byte selectedID) {
@@ -92,30 +97,46 @@ int MissionTerminalImplementation::handleObjectMenuSelect(CreatureObject* player
 		cityManager->alignAmenity(city, player, _this.getReferenceUnsafeStaticCast(), selectedID - 74);
 
 		return 0;
-	} else if (selectedID == 112) {
-		Lua* lua = DirectorManager::instance()->getLuaInstance();
-		Reference<LuaFunction*> mission_level_choice = lua->createFunction("mission_level_choice", "openWindow", 0);
-		*mission_level_choice << player;
+	}
 
-		mission_level_choice->callFunction();
+	if (selectedID >= 78) {
+		int selectedLevel = 0;//server->getPlayerManager()->calculatePlayerLevel(player);
+
+		if (selectedID == 78) selectedLevel = 5;
+		if (selectedID == 79) selectedLevel = 10;
+		if (selectedID == 80) selectedLevel = 15;
+		if (selectedID == 81) selectedLevel = 25;
+		if (selectedID == 82) selectedLevel = 0;//server->getPlayerManager()->calculatePlayerLevel(player);
+		if (selectedID == 83) selectedLevel = 35;
+		if (selectedID == 84) selectedLevel = 50;
+		if (selectedID == 85) selectedLevel = 75;
+		if (selectedID == 86) selectedLevel = 100;
+		if (selectedID == 87) selectedLevel = 150;
+		if (selectedID == 88) selectedLevel = 200;
+		if (selectedID == 89) selectedLevel = 300;
+		if (selectedID == 90) selectedLevel = 400;
+		if (selectedID == 91) selectedLevel = 500;
+
+		ManagedReference<PlayerManager*> playerManager = server->getPlayerManager();
+
+		ManagedReference<PlayerObject* > ghost = player->getPlayerObject();
+		//PlayerObject* ghost = player->getPlayerObject();
+
+		int currentlevel = ghost->getExperience("mission_level_choice");
+
+		playerManager->awardExperience(player, "mission_level_choice", currentlevel * -1, false, false, false);
+
+		playerManager->awardExperience(player, "mission_level_choice", selectedLevel, false, false, false);
+
+		//PlayerManagerImplementation::awardExperience(player, "mission_level_choice", selectedLevel, false, false, false);
+
+		//DirectorManager::instance()->writeScreenPlayData(player, "mission_level_choice", "levelChoice", selectedLevel);
+
+		//Vector<Reference<ScreenPlayTask*> > levelData = DirectorManager::instance()->writeScreenPlayData(player, "mission_level_choice", "levelChoice", selectedLevel);
+
+		//Vector<Reference<ScreenPlayTask*> > eventList = DirectorManager::instance()->getObjectEvents(obj);
+
 		return 0;
-	} else if (selectedID == 113) {
-
-		Lua* lua = DirectorManager::instance()->getLuaInstance();
-
-		Reference<LuaFunction*> mission_direction_choice = lua->createFunction("mission_direction_choice", "openWindow", 0);
-		*mission_direction_choice << player;
-
-		mission_direction_choice->callFunction();
-		return 0;
-	} else if (selectedID == 114) {
-		int terminalVisThreshold = VisibilityManager::instance()->getTerminalVisThreshold();
-
-		if (player->getPlayerObject()->getVisibility() >= terminalVisThreshold)
-			player->sendSystemMessage("You have enough visibility for the Bounty Hunter Terminals, but you will not appear on the terminals if you are not Special Forces reb/imp.");
-
-		if (player->getPlayerObject()->getVisibility() < terminalVisThreshold)
-			player->sendSystemMessage("You are not listed on the Bounty Hunter Terminals.");
 	}
 
 	return TangibleObjectImplementation::handleObjectMenuSelect(player, selectedID);
