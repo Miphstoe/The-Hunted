@@ -1,8 +1,8 @@
-Hunted_vendor = Creature:new {
+myswg_vendor = Creature:new {
 --	objectName = "@mob/creature_names:trainer_weaponsmith",
 	randomNameType = NAME_GENERIC,
 	randomNameTag = true,
-  customName = "Hunted_Vendor",
+  customName = "mySWG Vendor",
 	faction = "",
 	level = 100,
 	chanceHit = 0.390000,
@@ -45,7 +45,7 @@ Hunted_vendor = Creature:new {
 	},
 	lootGroups = {},
 	weapons = {},
-	conversationTemplate = "Hunted_vendor_conv",
+	conversationTemplate = "myswg_vendor_conv",
 	attacks = {}
 }
-CreatureTemplates:addCreatureTemplate(Hunted_vendor,"Hunted_vendor")
+CreatureTemplates:addCreatureTemplate(myswg_vendor,"myswg_vendor")
