@@ -111,7 +111,7 @@
 #include "server/zone/objects/transaction/TransactionLog.h"
 #include "server/zone/objects/creature/commands/TransferItemMiscCommand.h"
 //#include "templates/crcstringtable/CrcStringTable.h"
-#include "server/zone/objects/ship/PobShipObject.h"
+//#include "server/zone/objects/ship/PobShipObject.h"
 #include "server/zone/objects/ship/ai/ShipAiAgent.h"
 #include "server/zone/objects/tangible/deed/ship/ShipDeed.h"
 #include "server/zone/packets/object/transform/Transform.h"
