@@ -177,8 +177,8 @@ void VehicleControlDeviceImplementation::storeObject(CreatureObject* player, boo
 
 	/*if (!controlledObject->isInQuadTree())
 		return;*/
-if (!force && player->isDead())
-        return;
+        if (!force && player->isDead())
+            return;
 
 	if (player->isRidingMount() && player->getParent() == controlledObject) {
 
