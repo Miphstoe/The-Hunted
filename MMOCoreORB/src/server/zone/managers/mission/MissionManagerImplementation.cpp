@@ -1081,7 +1081,7 @@ void MissionManagerImplementation::randomizeGenericBountyMission(CreatureObject*
 			ManagedReference<PlayerManager*> playerManager = creature->getZoneServer()->getPlayerManager();
 
 			int jedilvl = playerManager->calculatePlayerLevel(creature) * 3;
-			int skillboxes = SkillManager::instance()->getJediSkillCount(player, true);
+		        //int skillboxes = SkillManager::instance()->getJediSkillCount(player, true);
 
 			int jedireward = 1337;//skillboxes * 1000;//jedilvl * 1000;
 
