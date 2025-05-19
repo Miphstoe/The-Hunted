@@ -50,7 +50,8 @@ object_draft_schematic_weapon_lightsaber_lightsaber_training = object_draft_sche
    craftingToolTab = 2048, -- (See DraftSchematicObjectTemplate.h)
    complexity = 16, 
    size = 1, 
-
+   factoryCrateType = "object/factory/factory_crate_weapon.iff",
+   
    xpType = "jedi_general", 
    xp = 0, 
 
@@ -66,7 +67,7 @@ object_draft_schematic_weapon_lightsaber_lightsaber_training = object_draft_sche
    ingredientTemplateNames = {"craft_weapon_ingredients_n", "craft_weapon_ingredients_n", "craft_weapon_ingredients_n", "craft_weapon_ingredients_n", "craft_weapon_ingredients_n", "craft_weapon_ingredients_n", "craft_weapon_ingredients_n"},
    ingredientTitleNames = {"emitter_shroud", "primary_crystal", "activator", "handgrip", "focusing_crystals", "power_field_insulator", "energizers"},
    ingredientSlotType = {0, 1, 0, 0, 1, 0, 0},
-   resourceTypes = {"mineral", "object/tangible/component/weapon/lightsaber/lightsaber_refined_crystal_pack.iff", "metal", "chemical", "object/tangible/component/weapon/lightsaber/lightsaber_refined_crystal_pack.iff", "gas", "metal"},
+   resourceTypes = {"mineral", "object/tangible/component/weapon/lightsaber/shared_lightsaber_refined_crystal_pack.iff", "metal", "chemical", "object/tangible/component/weapon/lightsaber/shared_lightsaber_refined_crystal_pack.iff", "gas", "metal"},
    resourceQuantities = {10, 1, 10, 12, 1, 10, 10},
    contribution = {100, 100, 100, 100, 100, 100, 100},
 
