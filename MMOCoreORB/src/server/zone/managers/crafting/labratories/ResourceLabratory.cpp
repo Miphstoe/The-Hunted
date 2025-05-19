@@ -295,14 +295,5 @@ String ResourceLabratory::checkBioSkillMods(const String& property) {
 	}
 
 	return "";
-       // ...existing code...
-propertyvalue = component->getAttributeValue(property) * draftSlot->getContribution();
-
-// Add this block to apply a multiplier to extraction rate
-if (property == "extraction_rate") { // Change to your actual property name
-    float extractionMultiplier = 4.0f; // Set your desired multiplier here or fetch from config/skills
-    propertyvalue *= extractionMultiplier;
-}
-// ...existing code...
-	
+      	
 }
