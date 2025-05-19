@@ -195,7 +195,7 @@ void LightsaberCrystalComponentImplementation::validateCrystalStats() {
 		if (attackSpeed > maxFloatStat || attackSpeed < minFloatStat)
 			attackSpeed = Math::getPrecision(getRandomizedStat(minFloatStat, maxFloatStat, itemLevel), 2);
 	}
-
+}
 
 int LightsaberCrystalComponentImplementation::getCrystalQuality() {
 	if (itemLevel < 40)
