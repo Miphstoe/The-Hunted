@@ -53,7 +53,7 @@ void GroupManager::inviteToGroup(CreatureObject* leader, CreatureObject* target)
 		ManagedReference<GroupObject*> group = leader->getGroup();
 
 		if (playerIsInvitingOwnPet(leader, target)) {
-			if (!target->isInRange(leader, 100000000000000000)) {
+			//if (!target->isInRange(leader, 100000000000000000)) {
 				return;
 			}
 		}
