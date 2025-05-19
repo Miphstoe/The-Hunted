@@ -115,15 +115,15 @@ void CraftingValues::recalculateValues(bool initial, bool looted) {
 		{
 			if (level >= 300)
 			{
-				log(true) << " Loot attribute: " << attributeName " Value: " << newValue;
+				log(true) << " Loot attribute: " << attributeName << " Value: " << newValue;
 			}
 			else if (level >= 85 && level < 300)
 			{
-				log(true) << " Loot attribute: " << attributeName " Value: " << newValue;
+				log(true) << " Loot attribute: " << attributeName << " Value: " << newValue;
 			}
 			else if (level >= 1 && level < 85)
 			{
-				log(true) << " Loot attribute: " << attributeName " Value: " << newValue;
+				log(true) << " Loot attribute: " << attributeName << " Value: " << newValue;
 			}
 		}
 
