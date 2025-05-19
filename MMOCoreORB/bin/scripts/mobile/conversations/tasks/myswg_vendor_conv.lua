@@ -1,10 +1,10 @@
-mySWG_vendor_conv = ConvoTemplate:new {
+myswg_vendor_conv = ConvoTemplate:new {
     initialScreen = "first_screen",
     templateType = "Lua",
-    luaClassHandler = "mySWG_vendor_convo_handler",
+    luaClassHandler = "myswg_vendor_convo_handler",
     screens = {}
 }
-mySWG_vendor_first_screen = ConvoScreen:new {
+myswg_vendor_first_screen = ConvoScreen:new {
     id = "first_screen",
     leftDialog = "",
     customDialogText = "What can I help you with?",
@@ -24,7 +24,7 @@ mySWG_vendor_first_screen = ConvoScreen:new {
 			--	{"No thank you.", "deny_quest"},--not needed
     }
 }
-mySWG_vendor_conv:addScreen(mySWG_vendor_first_screen);
+myswg_vendor_conv:addScreen(myswg_vendor_first_screen);
 
 weaps1 = ConvoScreen:new {    
     id = "weaps1",
@@ -55,7 +55,7 @@ weaps1 = ConvoScreen:new {
         {"Main menu.", "first_screen"},
     }
 }
-mySWG_vendor_conv:addScreen(weaps1);
+myswg_vendor_conv:addScreen(weaps1);
 
 armor1 = ConvoScreen:new {    
     id = "armor1",
@@ -78,7 +78,7 @@ armor1 = ConvoScreen:new {
         {"Main menu.", "first_screen"},
     }
 }
-mySWG_vendor_conv:addScreen(armor1);
+myswg_vendor_conv:addScreen(armor1);
 
 art1 = ConvoScreen:new {
     id = "art1",
@@ -104,7 +104,7 @@ art1 = ConvoScreen:new {
         {"Main menu.", "first_screen"},
     }
 }
-mySWG_vendor_conv:addScreen(art1);
+myswg_vendor_conv:addScreen(art1);
 
 arch1 = ConvoScreen:new {
     id = "arch1",
@@ -125,7 +125,7 @@ arch1 = ConvoScreen:new {
         {"Main menu.", "first_screen"},
     }
 }
-mySWG_vendor_conv:addScreen(arch1);
+myswg_vendor_conv:addScreen(arch1);
 
 chef1 = ConvoScreen:new {
     id = "chef1",
@@ -142,7 +142,7 @@ chef1 = ConvoScreen:new {
        	{"Main menu.", "first_screen"},
     }
 }
-mySWG_vendor_conv:addScreen(chef1);
+myswg_vendor_conv:addScreen(chef1);
 
 loot1 = ConvoScreen:new {
     id = "loot1",
@@ -167,7 +167,7 @@ loot1 = ConvoScreen:new {
         {"Main menu.", "first_screen"},
     }
 }
-mySWG_vendor_conv:addScreen(loot1);
+myswg_vendor_conv:addScreen(loot1);
 
 doc1 = ConvoScreen:new {
     id = "doc1",
@@ -185,7 +185,7 @@ doc1 = ConvoScreen:new {
       	{"Main menu.", "first_screen"},
     }
 }
-mySWG_vendor_conv:addScreen(doc1);
+myswg_vendor_conv:addScreen(doc1);
 
 droid1 = ConvoScreen:new {
     id = "droid1",
@@ -203,7 +203,7 @@ droid1 = ConvoScreen:new {
       	{"Main menu.", "first_screen"},
     }
 }
-mySWG_vendor_conv:addScreen(droid1);
+myswg_vendor_conv:addScreen(droid1);
 
 tailor1 = ConvoScreen:new {
     id = "tailor1",
@@ -218,7 +218,7 @@ tailor1 = ConvoScreen:new {
       	{"Main menu.", "first_screen"},
     }
 }
-mySWG_vendor_conv:addScreen(tailor1);
+myswg_vendor_conv:addScreen(tailor1);
 
 newbuff1 = ConvoScreen:new {
     id = "newbuff1",
@@ -242,598 +242,598 @@ newbuff1 = ConvoScreen:new {
       	{"Main menu.", "first_screen"},
     }
 }
-mySWG_vendor_conv:addScreen(newbuff1);
+myswg_vendor_conv:addScreen(newbuff1);
 
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "buff1",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "buff2",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option1",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option2",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option3",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option4",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option5",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option6",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option7",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option8",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option9",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option10",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option11",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option12",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option13",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option14",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option15",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option16",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option17",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option18",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option19",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option20",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option21",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option22",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option23",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option24",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option25",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option26",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option27",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option28",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option29",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option30",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option31",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option32",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option33",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option34",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option35",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option36",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option37",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option38",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option39",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option40",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option41",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option42",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option43",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option44",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option45",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option46",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option47",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option48",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option49",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option50",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option51",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option52",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option53",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option54",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option55",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option56",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option57",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option58",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option59",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option60",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option61",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option62",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option63",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option64",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option65",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option66",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option67",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option68",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option69",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option70",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option71",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option72",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option73",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option74",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option75",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option76",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option77",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option78",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_accept_quest = ConvoScreen:new {    
+myswg_vendor_accept_quest = ConvoScreen:new {    
     id = "option79",
     leftDialog = "",
     customDialogText = "Enjoy!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_conv:addScreen(mySWG_vendor_accept_quest);
-mySWG_vendor_deny_quest = ConvoScreen:new {
+myswg_vendor_conv:addScreen(myswg_vendor_accept_quest);
+myswg_vendor_deny_quest = ConvoScreen:new {
     id = "deny_quest",
     leftDialog = "",
     customDialogText = "Well, have a nice day!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_conv:addScreen(mySWG_vendor_deny_quest);
-mySWG_vendor_insufficient_funds = ConvoScreen:new {
+myswg_vendor_conv:addScreen(myswg_vendor_deny_quest);
+myswg_vendor_insufficient_funds = ConvoScreen:new {
     id = "insufficient_funds",  
     leftDialog = "", 
     customDialogText = "Sorry, but you don't have enough cash credits with you to purchase that. Head on over to the bank. I'll be here when ya get back!",
     stopConversation = "true",
     options = { }
 }
-mySWG_vendor_conv:addScreen(mySWG_vendor_insufficient_funds);
-mySWG_vendor_insufficient_space = ConvoScreen:new {
+myswg_vendor_conv:addScreen(myswg_vendor_insufficient_funds);
+myswg_vendor_insufficient_space = ConvoScreen:new {
     id = "insufficient_space",
     leftDialog = "", 
     customDialogText = "Sorry, but you don't have enough space in your inventory to accept the item. Please make some space and try again.",    
     stopConversation = "true",  
     options = { }
 }
-mySWG_vendor_conv:addScreen(mySWG_vendor_insufficient_space);
-addConversationTemplate("mySWG_vendor_conv", mySWG_vendor_conv);
+myswg_vendor_conv:addScreen(myswg_vendor_insufficient_space);
+addConversationTemplate("myswg_vendor_conv", myswg_vendor_conv);
