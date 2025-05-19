@@ -3,8 +3,8 @@ myswg_vendor = ScreenPlay:new {
     questString = "myswg_vendor_task",                   
     states = {}, 
 }
-registerScreenPlay("myswg_vendor", true)
-function myswg_vendor:start()     
+registerScreenPlay("Hunted_vendor", true)
+function Hunted_vendor:start()     
     -- Spawn our character into the world, setting pLarry a pointer variable we can use to check or change his state. 
     local pWeaponsmith = spawnMobile("corellia", "myswg_vendor", 1, -157, 28.0, -4724, 35, 0 )--cnet
     local pWeaponsmith1 = spawnMobile("corellia", "myswg_vendor", 1, -5042, 21.0, -2297, 35, 0 )--tyrena
@@ -67,7 +67,7 @@ function myswg_vendor:start()
                 
 --    local pLarry = spawnMobile("naboo", "merch_crazy_larry", 1, -4881, 6.0, 4150, 35, 0 )
 end
-myswg_vendor_convo_handler = Object:new {
+Hunted_vendor_convo_handler = Object:new {
     tstring = "myconversation" 
 }
 function myswg_vendor_convo_handler:getNextConversationScreen(conversationTemplate, conversingPlayer, selectedOption)            
