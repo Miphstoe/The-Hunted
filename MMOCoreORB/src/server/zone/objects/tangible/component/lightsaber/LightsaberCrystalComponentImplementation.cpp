@@ -585,6 +585,6 @@ int LightsaberCrystalComponentImplementation::inflictDamage(TangibleObject* atta
 
 	return 0;
 }
-} // end of class implementation
+//} // end of class implementation
 
 
