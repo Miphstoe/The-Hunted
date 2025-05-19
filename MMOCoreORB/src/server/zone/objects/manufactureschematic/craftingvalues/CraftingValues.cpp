@@ -73,7 +73,7 @@ CreatureObject* CraftingValues::getPlayer() {
 	return player.get();
 }
 
-void CraftingValues::recalculateValues(bool initial) {
+void CraftingValues::recalculateValues(bool initial, bool looted) {
 	String experimentalPropTitle, attributeName;
 	float percentage = 0.f, min = 0.f, max = 0.f, newValue = 0.f, oldValue = 0.f;
 	bool hidden = false;
@@ -103,6 +103,28 @@ void CraftingValues::recalculateValues(bool initial) {
 				newValue = (float(1.0f - percentage) * (min - max)) + max;
 		} else if(max == min) {
 			newValue = max;
+		}
+
+		//NOTES The-Hunted
+		//SET THE PROTECTION FOR LOOTED ITEMS
+		//The attributes below correspond the the special protection values
+		//armor effectivness holds the value for all non special protection values
+		if ((attributeName == "armor_effectiveness" || attributeName == "blasteffectiveness" || attributeName == "heateffectiveness" ||
+			attributeName == "kineticeffectiveness" || attributeName == "energyeffectiveness" || attattributeNameribute == "electricaleffectiveness" ||
+			attributeName == "coldeffectiveness" || attributeName == "acideffectiveness") && looted)
+		{
+			if (level >= 300)
+			{
+				log(true) << " Loot attribute: " << attributeName " Value: " << newValue;
+			}
+			else if (level >= 85 && level < 300)
+			{
+				log(true) << " Loot attribute: " << attributeName " Value: " << newValue;
+			}
+			else if (level >= 1 && level < 85)
+			{
+				log(true) << " Loot attribute: " << attributeName " Value: " << newValue;
+			}
 		}
 
 		if (initial || (newValue != oldValue && !initial && !hidden)) {
