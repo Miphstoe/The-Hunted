@@ -74,7 +74,7 @@ armor1 = ConvoScreen:new {
         {"Composite Leggings - 250k", "option20"},
         {"Composite Chest Plate - 250k", "option21"},
         {"Composite Helmet - 250k", "option22"},
-        {"Composite Left Bracer - 250k", "option23"},                               
+        {"Composite Gloves - 250k", "option23"},                               
         {"Main menu.", "first_screen"},
     }
 }
