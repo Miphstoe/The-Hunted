@@ -53,7 +53,7 @@ void GroupManager::inviteToGroup(CreatureObject* leader, CreatureObject* target)
 		ManagedReference<GroupObject*> group = leader->getGroup();
 
 		if (playerIsInvitingOwnPet(leader, target)) {
-			if (!target->isInRange(leader, 120)) {
+			if (!target->isInRange(leader, 100000.0f)) {
 				return;
 			}
 		}
@@ -63,7 +63,7 @@ void GroupManager::inviteToGroup(CreatureObject* leader, CreatureObject* target)
 		}
 
 		// can't invite if the group is full
-		if (group->getGroupSize() >= 20) {
+		if (group->getGroupSize() >= 50) {
 			leader->sendSystemMessage("@group:full");
 			return;
 		}
