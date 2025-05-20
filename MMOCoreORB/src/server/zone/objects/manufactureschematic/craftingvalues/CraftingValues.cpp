@@ -131,6 +131,13 @@ void CraftingValues::recalculateValues(bool initial, bool looted, int level) {
 			setCurrentValue(attributeName, newValue);
 			valuesToSend.add(attributeName);
 		}
+
+		//There is no need for this if we are setting the percintages above
+		//This only needs to be done to looted items
+		if (attributeName == "armor_special_effectiveness" && looted == true)
+		{
+			newValue = 0;
+		}
 	}
 }
 
