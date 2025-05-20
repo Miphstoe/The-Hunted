@@ -1,299 +1,123 @@
---[[
-Copyright (C) 2007 <SWGEmu>
+--Copyright (C) 2007 <SWGEmu>
  
-This File is part of Core3.
+--This File is part of Core3.
  
-This program is free software; you can redistribute 
-it and/or modify it under the terms of the GNU Lesser 
-General Public License as published by the Free Software
-Foundation; either version 2 of the License, 
-or (at your option) any later version.
+--This program is free software; you can redistribute 
+--it and/or modify it under the terms of the GNU Lesser 
+--General Public License as published by the Free Software
+--Foundation; either version 2 of the License, 
+--or (at your option) any later version.
  
-This program is distributed in the hope that it will be useful, 
-but WITHOUT ANY WARRANTY; without even the implied warranty of 
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
-See the GNU Lesser General Public License for
-more details.
+--This program is distributed in the hope that it will be useful, 
+--but WITHOUT ANY WARRANTY; without even the implied warranty of 
+--MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+--See the GNU Lesser General Public License for
+--more details.
  
-You should have received a copy of the GNU Lesser General 
-Public License along with this program; if not, write to
-the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+--You should have received a copy of the GNU Lesser General 
+--Public License along with this program; if not, write to
+--the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  
-Linking Engine3 statically or dynamically with other modules 
-is making a combined work based on Engine3. 
-Thus, the terms and conditions of the GNU Lesser General Public License 
-cover the whole combination.
+--Linking Engine3 statically or dynamically with other modules 
+--is making a combined work based on Engine3. 
+--Thus, the terms and conditions of the GNU Lesser General Public License 
+--cover the whole combination.
  
-In addition, as a special exception, the copyright holders of Engine3 
-give you permission to combine Engine3 program with free software 
-programs or libraries that are released under the GNU LGPL and with 
-code included in the standard release of Core3 under the GNU LGPL 
-license (or modified versions of such code, with unchanged license). 
-You may copy and distribute such a system following the terms of the 
-GNU LGPL for Engine3 and the licenses of the other code concerned, 
-provided that you include the source code of that other code when 
-and as the GNU LGPL requires distribution of source code.
+--In addition, as a special exception, the copyright holders of Engine3 
+--give you permission to combine Engine3 program with free software 
+--programs or libraries that are released under the GNU LGPL and with 
+--code included in the standard release of Core3 under the GNU LGPL 
+--license (or modified versions of such code, with unchanged license). 
+--You may copy and distribute such a system following the terms of the 
+--GNU LGPL for Engine3 and the licenses of the other code concerned, 
+--provided that you include the source code of that other code when 
+--and as the GNU LGPL requires distribution of source code.
  
-Note that people who make modified versions of Engine3 are not obligated 
-to grant this special exception for their modified versions; 
-it is their choice whether to do so. The GNU Lesser General Public License 
-gives permission to release a modified version without this exception; 
-this exception also makes it possible to release a modified version 
-which carries forward this exception.
---]]
+--Note that people who make modified versions of Engine3 are not obligated 
+--to grant this special exception for their modified versions; 
+--it is their choice whether to do so. The GNU Lesser General Public License 
+--gives permission to release a modified version without this exception; 
+--this exception also makes it possible to release a modified version 
+--which carries forward this exception.
 
+buildInitialResourcesFromScript = 1 -- Use a script to build resource database when empty
+  -- So that during wipes crafters can mantain spreadsheets with calculations
 
+--  These indicate zone names where resources spawn
+activeZones = "corellia,tatooine,lok,naboo,rori,endor,talus,yavin4,dathomir,dantooine"
 
---[[
-	GLOBAL CITY SETTINGS
-	--------------------
---]]
---The amount of time in minutes before the city specialization may be changed again.
-CitySpecializationCooldown = 1
+averageShiftTime = 14400000 -- In milliseconds 4hrs
+  --  This is the time between each time the Resource Manager schedules
+  --  itself to run again.
+  --  *** Default is 2 hours (7200000) ***
+  --  *** Good testing time is (15000) ***
 
---The amount of time in minutes before another withdrawal from the city treasury may be made.
-TreasuryWithdrawalCooldown = 1
+aveduration = 86400 -- In seconds 3972 = 6-24hrs, 14400 = 24hrs-88hrs or 3.67days @ *22
+  -- This is the modifier for how long spawns are in shift
+  -- Organics are in shift between (6 * aveduration) and  (22 * aveduration)
+  -- Inorganics are in shift between (6 * aveduration) and (11 * aveduration)
+  -- JTL resources are in shift between (13 * aveduration) and (22 * aveduration)
+  -- Set to 86400 for standard SOE behavior
 
---The number of city update cycles that must pass before mayoral voting process is complete.
-CityVotingCycles = 3
+spawnThrottling = 90 -- *** 10-90 ***
+  -- This will add a throttle to the spawner so that 90% of
+  -- resource stats will be less than x * maxGate. So if a
+  -- resource stat has a range of 0-1000 and this is set
+  -- at 70, there's a 90% chance that the stat will have
+  -- a value of < 700 and a 10% chance it will be > 700.
+  -- Set to 90 for standard SOE behavior
 
---The number of city update cyles after which to lock the mayoral voting race registration.
-CityVotingCyclesUntilLocked = 2
+lowerGateOverride = 1000 -- 1-1000  
+  -- This will manually set the lower gate to this 
+  -- number if it has a lower gate greater than the
+  -- number entered.  ex. if a resource has a SOE gate
+  -- of 850-950, and the number is set at 300, it will
+  -- change the gate to 300-950.  This allows for resource
+  -- quality control, especially for resources with 
+  -- very high gates.  
+  -- Set to 1000 for standard SOE behavior.
+  
+maxSpawnQuantity = 0 
+  -- This value specifies the quantity that a specific resource
+  -- will spawn before automatically despawning.  This value
+  -- is disabled (0) by default as it is NOT standard behavior, 
+  -- but it is an option for admins to have more control over resources.
+  -- Set to 0 for standard SOE behavior
 
---The amount of time in minutes before the city performs an update.
-CityUpdateInterval = 1440
+--A function used to insert the JTL resources into a lua table.
+function InsertJtlIntoTable(jtlString, tab)
+	local jtlTable = { {} }
 
---The amount of time in minutes a new city has to gain enough citizens to remain a city.
-NewCityGracePeriod = 1440
+	for k in string.gmatch(jtlString, "[%a_]+") do
+		table.insert(jtlTable, k)
+	end
 
---The amount of time in minutes an old city has to regain enough citizens to remain a city.
-OldCityGracePeriod = 4320
+	for i = 2, #jtlTable do
+		table.insert(tab, {jtlTable[i], 1})
+	end
+	return tab
+end
 
---Whether or not to allow the use of the command, /cityWarn to give players a TEF while in the city limits.
-EnableCityWarn = false
+--  Resources included in the JTL update
+jtlresources = "steel_bicorbantium,steel_arveshian,aluminum_perovskitic,copper_borocarbitic,fiberplast_gravitonic,gas_reactive_organometallic,ore_siliclastic_fermionic,radioactive_polymetric"
 
---The number of citizens required to achieve each city rank. (Outpost, Village, Township, City, Metropolis)
-CitizensPerRank = {1, 1, 1, 1, 1}
---CitizensPerRank = {10, 20, 35, 55, 85}
+  -- The minimum pool includes is a table of resources and occurrences. A resource will always be in spawn a number of times equal to it's occurrence.
+  -- The minimum pool will never include the items in the excludes
+minimumpoolincludes = { {"petrochem_fuel_liquid_type1", 1}, {"petrochem_fuel_liquid_type2", 1}, {"petrochem_fuel_liquid_type3", 1}, {"petrochem_fuel_liquid_type4", 1}, {"petrochem_fuel_liquid_type5", 1}, {"petrochem_fuel_liquid_type6", 1}, {"petrochem_fuel_liquid_type7", 1}, {"petrochem_fuel_liquid_unknown", 1}, {"petrochem_inert_lubricating_oil", 1}, {"petrochem_inert_polymer", 1}, {"petrochem_fuel_solid_unknown", 1}, {"petrochem_fuel_solid_type1", 1}, {"petrochem_fuel_solid_type2", 1}, {"petrochem_fuel_solid_type3", 1}, {"petrochem_fuel_solid_type4", 1}, {"petrochem_fuel_solid_type5", 1}, {"petrochem_fuel_solid_type6", 1}, {"petrochem_fuel_solid_type7", 1}, {"radioactive_unknown", 1}, {"radioactive_type1", 1}, {"radioactive_type2", 1}, {"radioactive_type3", 1}, {"radioactive_type4", 1}, {"radioactive_type5", 1}, {"radioactive_type6", 1}, {"radioactive_type7", 1}, {"radioactive_polymetric", 1}, {"metal_ferrous_unknown", 1}, {"steel_smelted", 1}, {"steel_rhodium", 1}, {"steel_kiirium", 1}, {"steel_cubirian", 1}, {"steel_thoranium", 1}, {"steel_neutronium", 1}, {"steel_duranium", 1}, {"steel_ditanium", 1}, {"steel_quadranium", 1}, {"steel_carbonite", 1}, {"steel_arveshian", 1}, {"steel_bicorbantium", 1}, {"steel_duralloy", 1}, {"iron_smelted", 1}, {"iron_plumbum", 1}, {"iron_polonium", 1}, {"iron_axidite", 1}, {"iron_bronzium", 1}, {"iron_colat", 1}, {"iron_dolovite", 1}, {"iron_doonium", 1}, {"iron_kammris", 1}, {"metal_nonferrous_unknown", 1}, {"aluminum_smelted", 1}, {"aluminum_titanium", 1}, {"aluminum_agrinium", 1}, {"aluminum_chromium", 1}, {"aluminum_duralumin", 1}, {"aluminum_linksteel", 1}, {"aluminum_perovskitic", 1}, {"aluminum_phrik", 1}, {"copper_smelted", 1}, {"copper_desh", 1}, {"copper_thallium", 1}, {"copper_beyrllius", 1}, {"copper_codoan", 1}, {"copper_diatium", 1}, {"copper_kelsh", 1}, {"copper_mythra", 1}, {"copper_platinite", 1}, {"copper_polysteel", 1}, {"copper_borocarbitic", 1}, {"ore_igneous_unknown", 1}, {"ore_extrusive_bene", 1}, {"ore_extrusive_chronamite", 1}, {"ore_extrusive_ilimium", 1}, {"ore_extrusive_kalonterium", 1}, {"ore_extrusive_keschel", 1}, {"ore_extrusive_lidium", 1}, {"ore_extrusive_maranium", 1}, {"ore_extrusive_pholokite", 1}, {"ore_extrusive_quadrenium", 1}, {"ore_extrusive_vintrium", 1}, {"ore_intrusive_berubium", 1}, {"ore_intrusive_chanlon", 1}, {"ore_intrusive_corintium", 1}, {"ore_intrusive_derillium", 1}, {"ore_intrusive_oridium", 1}, {"ore_intrusive_dylinium", 1}, {"ore_intrusive_hollinium", 1}, {"ore_intrusive_ionite", 1}, {"ore_intrusive_katrium", 1}, {"ore_sedimentary_unknown", 1}, {"ore_carbonate_alantium", 1}, {"ore_carbonate_barthierium", 1}, {"ore_carbonate_chromite", 1}, {"ore_carbonate_frasium", 1}, {"ore_carbonate_lommite", 1}, {"ore_carbonate_ostrine", 1}, {"ore_carbonate_varium", 1}, {"ore_carbonate_zinsiam", 1}, {"ore_siliclastic_low_grade", 1}, {"ore_siliclastic_ardanium", 1}, {"ore_siliclastic_cortosis", 1}, {"ore_siliclastic_crism", 1}, {"ore_siliclastic_malab", 1}, {"ore_siliclastic_robindun", 1}, {"ore_siliclastic_fermionic", 1}, {"ore_siliclastic_tertian", 1}, {"gemstone_unknown", 1}, {"armophous_bospridium", 1}, {"armophous_baradium", 1}, {"armophous_regvis", 1}, {"armophous_plexite", 1}, {"armophous_rudic", 1}, {"armophous_ryll", 1}, {"armophous_sedrellium", 1}, {"armophous_stygium", 1}, {"armophous_vendusii", 1}, {"armophous_baltaran", 1}, {"crystalline_byrothsis", 1}, {"crystalline_gallinorian", 1}, {"crystalline_green_diamond", 1}, {"crystalline_kerol_firegem", 1}, {"crystalline_seafah_jewel", 1}, {"crystalline_sormahil_firegem", 1}, {"crystalline_laboi_mineral_crystal", 1}, {"crystalline_vertex", 1}, {"gas_reactive_unknown", 1}, {"gas_reactive_mixed", 1}, {"gas_reactive_eleton", 1}, {"gas_reactive_irolunn", 1}, {"gas_reactive_methane", 1}, {"gas_reactive_orveth", 1}, {"gas_reactive_sig", 1}, {"gas_reactive_skevon", 1}, {"gas_reactive_organometallic", 1}, {"gas_reactive_tolium", 1}, {"gas_inert_unknown", 1}, {"gas_inert_mixed", 1}, {"gas_inert_hydron3", 1}, {"gas_inert_malium", 1}, {"gas_inert_bilal", 1}, {"gas_inert_corthel", 1}, {"gas_inert_dioxis", 1}, {"gas_inert_hurlothrombic", 1}, {"gas_inert_kaylon", 1}, {"gas_inert_korfaise", 1}, {"gas_inert_methanagen", 1}, {"gas_inert_mirth", 1}, {"gas_inert_obah", 1}, {"gas_inert_rethin", 1}, {"gas_inert_culsion", 1} }
+minimumpoolexcludes = ""
 
---The radius in meters of the city at each city rank. (Outpost, Village, Township, City, Metropolis)
-RadiusPerRank = {100, 150, 200, 250, 300}
+-- The random pool includes is a table of resources and weights. The higher the weight, the more likely the resource is to be chosen when a random pool resource shifts.
+  -- The random pool will never include the items in the excludes
+  -- The random pool spawns a total number of resources equal to the size
+randompoolincludes = { {"metal", 10}, {"ore", 10}, {"radioactive", 10}, {"gemstone", 10}, {"gas", 10}, {"water", 10} }
+randompoolexcludes = ""
+randompoolsize = 54
 
--- Maximum for each rank.  ex. rank 1 = DecorationsPerRank * 1, rank 5 = DecorationsPerRank * 5
-DecorationsPerRank = 10
-TrainersPerRank = 5
-MissionTerminalsPerRank = 3
+  -- The fixed pool is a table of resources and occurrences. A resource will always be in spawn a number of times equal to it's occurrence. The function call inserts each JTL resource into the table with an occurrence of 1.
+fixedpoolincludes = ""
+fixedpoolexcludes = ""
 
--- Amount to discount city maintenance  float.  1 = 100%, .75 =75%, .5=50% etc
-maintenanceDiscount = 1
+  -- The native pool will have one of each of the items listed in the includes spawned on each planet at all times, but planet restricted.
+nativepoolincludes = "milk_domesticated,milk_wild,meat_domesticated,meat_wild,meat_herbivore,meat_carnivore,meat_reptilian,meat_avian,meat_egg,meat_insect,seafood_fish,seafood_crustacean,seafood_mollusk,bone_mammal,bone_avian,bone_horn,hide_wooly,hide_bristley,hide_leathery,hide_scaley,corn_domesticated,corn_wild,rice_domesticated,rice_wild,oats_domesticated,oats_wild,wheat_domesticated,wheat_wild,vegetable_greens,vegetable_beans,vegetable_tubers,vegetable_fungi,fruit_fruits,fruit_berries,fruit_flowers,wood_deciduous,softwood_conifer,softwood_evergreen,energy_renewable_unlimited_solar,energy_renewable_unlimited_wind,fiberplast,water_vapor"
+nativepoolexcludes = ""
 
---[[
-	CITIES ALLOWED PER PLANET
-	-------------------------
-	
-	This is the number of cities allowed per planet, per rank. (Outpost, Village, Township, City, Metropolis)
-	The maximum amount of cities per rank is 255.
---]]
-CitiesAllowed = {
-	{"corellia", {5, 5, 5, 5, 5}},
-	{"dantooine", {5, 5, 5, 5, 5}},
-	{"dathomir", {5, 5, 5, 5, 5}},
-	{"endor", {5, 5, 5, 5, 5}},
-	{"lok", {5, 5, 5, 5, 5}},
-	{"naboo", {5, 5, 5, 5, 5}},
-	{"rori", {5, 5, 5, 5, 5}},
-	{"talus", {5, 5, 5, 5, 5}},
-	{"tatooine", {5, 5, 5, 5, 5}},
-	{"yavin4", {5, 5, 5, 5, 5}},
-}
-
-
-
---[[
-	CITY TAX SETTINGS
-	-----------------
-	
-	WARNING: Do not change the number or order of tax entries below. You may only safely modify the entries.
-	min: The minimum value of the tax.
-	max: The maximum value of the tax.
-	menuText: The text that appears on the 'Adjust Taxes' selection menu.
-	inputTitle: The title of the set tax window.
-	inputText: The text description of the set tax window.
-	statusPrompt: The text that appears in the 'Status Report' window. Leave this blank to omit the tax from the report.
-	systemMessage: The system message that is displayed to the mayor when settings this tax.
-	emailSubject: The subject of the email that is sent to citizens when this tax changes.
-	emailBody: The body of the email that is sent to citizens when this tax changes. %DI = Amount of new tax; %TO = Name of the city.
---]]
-CityTaxes = {
-	{--Income Tax
-		min = 0, max = 2000,
-		menuText = "@city/city:income_tax",
-		inputTitle = "@city/city:set_tax_t_income",
-		inputText = "@city/city:set_tax_d_income",
-		statusPrompt = "@city/city:income_tax_prompt",
-		systemMessage = "@city/city:set_income_tax",
-		emailSubject = "@city/city:tax_income_subject",
-		emailBody = "@city/city:tax_income_body"
-	},
-	{--Property Tax
-		min = 0, max = 50,
-		menuText = "@city/city:property_tax_prompt",
-		inputTitle = "@city/city:set_tax_t_property",
-		inputText = "@city/city:set_tax_d_property",
-		statusPrompt = "@city/city:promperty_tax_prompt",
-		systemMessage = "@city/city:set_property_tax",
-		emailSubject = "@city/city:tax_property_subject",
-		emailBody = "@city/city:tax_property_body"
-	},
-	{--Sales Tax
-		min = 0, max = 20,
-		menuText = "@city/city:sales_tax",
-		inputTitle = "@city/city:set_tax_t_sales",
-		inputText = "@city/city:set_tax_d_sales",
-		statusPrompt = "@city/city:sales_tax_prompt",
-		systemMessage = "@city/city:set_sales_tax",
-		emailSubject = "@city/city:tax_sales_subject",
-		emailBody = "@city/city:tax_sales_body"
-	},
-	{--Travel Tax
-		min = 0, max = 500,
-		menuText = "@city/city:travel_tax",
-		inputTitle = "@city/city:set_tax_t_travel",
-		inputText = "@city/city:set_tax_d_travel",
-		statusPrompt = "@city/city:travel_cost_prompt",
-		systemMessage = "@city/city:set_travel_fee",
-		emailSubject = "@city/city:tax_travel_subject",
-		emailBody = "@city/city:tax_travel_body"
-	},
-	{--Garage Tax
-		min = 0, max = 30,
-		menuText = "@city/city:garage_tax",
-		inputTitle = "Adjust Garage Service Fee", -- missing from stf
-		inputText = "@city/city:set_tax_d_garage",
-		statusPrompt = "Garage Cost: ", -- missing from stf
-		systemMessage = "@city/city:set_garage_tax",
-		emailSubject = "@city/city:garage_fee_subject",
-		emailBody = "@city/city:garage_fee_body"
-	}
-}
-
-
-
---[[
-	CITY SPECIALIZATIONS
-	====================
---]]
-CitySpecializations = {
-	{--Sample Rich
-		name = "@city/city:city_spec_sample_rich",
-		cost = 1000,
-		skillMods = {
-			{"private_spec_samplesize", 20},
-			{"private_spec_samplerate", 10},
-			{"private_medical_rating", 10},
-			{"private_spec_cloning", 20},
-			{"private_spec_experimentation", 15},
-			{"private_spec_missions", 15},
-			{"private_spec_entertainer", 10},
-			{"private_defense", 90}
-		}
-	},
-	{--Manufacturing Center
-		name = "@city/city:city_spec_industry",
-		cost = 1000,
-		skillMods = {
-			{"private_spec_samplesize", 20},
-			{"private_spec_samplerate", 10},
-			{"private_medical_rating", 10},
-			{"private_spec_cloning", 20},
-			{"private_spec_experimentation", 15},
-			{"private_spec_missions", 15},
-			{"private_spec_entertainer", 10},
-			{"private_defense", 90}
-		}
-	},
-	{--Medical Center
-		name = "@city/city:city_spec_doctor",
-		cost = 1000,
-		skillMods = {
-			{"private_spec_samplesize", 20},
-			{"private_spec_samplerate", 10},
-			{"private_medical_rating", 10},
-			{"private_spec_cloning", 20},
-			{"private_spec_experimentation", 15},
-			{"private_spec_missions", 15},
-			{"private_spec_entertainer", 10},
-			{"private_defense", 90}
-		}
-	},
-	{--Clone Lab
-		name = "@city/city:city_spec_cloning",
-		cost = 1000,
-		skillMods = {
-			{"private_spec_samplesize", 20},
-			{"private_spec_samplerate", 10},
-			{"private_medical_rating", 10},
-			{"private_spec_cloning", 20},
-			{"private_spec_experimentation", 15},
-			{"private_spec_missions", 15},
-			{"private_spec_entertainer", 10},
-			{"private_defense", 90}
-		}
-	},
-	{--Research Center
-		name = "@city/city:city_spec_research",
-		cost = 1000,
-		skillMods = {
-			{"private_spec_samplesize", 20},
-			{"private_spec_samplerate", 10},
-			{"private_medical_rating", 10},
-			{"private_spec_cloning", 20},
-			{"private_spec_experimentation", 15},
-			{"private_spec_missions", 15},
-			{"private_spec_entertainer", 10},
-			{"private_defense", 90}
-		}
-	},
-	{--Improved Job Market
-		name = "@city/city:city_spec_missions",
-		cost = 1000,
-		skillMods = {
-			{"private_spec_samplesize", 20},
-			{"private_spec_samplerate", 10},
-			{"private_medical_rating", 10},
-			{"private_spec_cloning", 20},
-			{"private_spec_experimentation", 15},
-			{"private_spec_missions", 15},
-			{"private_spec_entertainer", 10},
-			{"private_defense", 90}
-		}
-	},
-	{--Entertainment District
-		name = "@city/city:city_spec_entertainer",
-		cost = 1000,
-		skillMods = {
-			{"private_spec_samplesize", 20},
-			{"private_spec_samplerate", 10},
-			{"private_medical_rating", 10},
-			{"private_spec_cloning", 20},
-			{"private_spec_experimentation", 15},
-			{"private_spec_missions", 15},
-			{"private_spec_entertainer", 10},
-			{"private_defense", 90}
-		}
-	},
-	{--Stronghold
-		name = "@city/city:city_spec_stronghold",
-		cost = 1000,
-		skillMods = {
-			{"private_spec_samplesize", 20},
-			{"private_spec_samplerate", 10},
-			{"private_medical_rating", 10},
-			{"private_spec_cloning", 20},
-			{"private_spec_experimentation", 15},
-			{"private_spec_missions", 15},
-			{"private_spec_entertainer", 10},
-			{"private_defense", 90}
-		}
-	},
-}
