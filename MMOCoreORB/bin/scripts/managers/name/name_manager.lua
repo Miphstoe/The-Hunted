@@ -28,6 +28,7 @@ darktrooperPrefixes = { "JLB", "RAR", "KNP", "BCP", "RTZ" };
 swamptrooperPrefixes = { "GL", "TL", "RL", "NL", "CL" };
 
 reservedNames = {
+--	{ "veaseomat", DECLINED_DEVELOPER },
 	{ "anal", DECLINED_PROFANE },
 	{ "ass", DECLINED_PROFANE },
 	{ "biatch", DECLINED_PROFANE },
@@ -270,7 +271,7 @@ reservedNames = {
 	{ "Antidar Williams", DECLINED_FICT_RESERVED },
 	{ "Ark Roose", DECLINED_FICT_RESERVED },
 	{ "Aron Peacebringer", DECLINED_FICT_RESERVED },
-	{ "Asajj Ventress", DECLINED_FICT_RESERVED },
+--	{ "Asajj Ventress", DECLINED_FICT_RESERVED },
 	{ "Ask Aak", DECLINED_FICT_RESERVED },
 	{ "Augara Jowil", DECLINED_FICT_RESERVED },
 	{ "Auren Yomm", DECLINED_FICT_RESERVED },
