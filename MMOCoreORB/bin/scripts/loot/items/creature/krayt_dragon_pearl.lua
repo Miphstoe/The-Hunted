@@ -9,7 +9,7 @@ krayt_dragon_pearl = {
 	craftingValues = {
 		--{"color",0,30,0},--actual color now managed in lootmanagerimp.cpp
 		{"mindamage", 20,150,0},
-		{"maxdamage", 40,225,0},
+		{"maxdamage", 70,225,0},
 		{"attackspeed",0.0,-0.6,1},
 		{"woundchance",0,0,0},
 		{"forcecost",-4,-10,0},
@@ -18,8 +18,6 @@ krayt_dragon_pearl = {
 		{"attackhealthcost",0,-9,0},
 		{"attackactioncost",0,-9,0},
 		{"attackmindcost",0,-9,0},
-		craftingValues = {
-		        {"color",31,31,0},
 	},
 	customizationStringNames = {},
 	customizationValues = {}
