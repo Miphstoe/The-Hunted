@@ -52,10 +52,10 @@ void GroupManager::inviteToGroup(CreatureObject* leader, CreatureObject* target)
 	if (leader->isGrouped()) {
 		ManagedReference<GroupObject*> group = leader->getGroup();
 
-		if (playerIsInvitingOwnPet(leader, target)) {
-			if (!target->isInRange(leader, 100000.0f)) {
-				return;
-			}
+		//if (playerIsInvitingOwnPet(leader, target)) {
+			//if (!target->isInRange(leader, 100000.0f)) {
+			//return;
+			//}
 		}
 		else if (group->getLeader() != leader) {
 			leader->sendSystemMessage("@group:must_be_leader");
