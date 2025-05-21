@@ -18,6 +18,8 @@ krayt_dragon_pearl = {
 		{"attackhealthcost",0,-9,0},
 		{"attackactioncost",0,-9,0},
 		{"attackmindcost",0,-9,0},
+		craftingValues = {
+		        {"color",31,31,0},
 	},
 	customizationStringNames = {},
 	customizationValues = {}
