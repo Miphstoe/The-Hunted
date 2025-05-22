@@ -77,12 +77,12 @@ CitizensPerRank = {1, 1, 1, 1, 1}
 --CitizensPerRank = {10, 20, 35, 55, 85}
 
 --The radius in meters of the city at each city rank. (Outpost, Village, Township, City, Metropolis)
-RadiusPerRank = {100, 150, 200, 250, 300}
+RadiusPerRank = {150, 250, 300, 450, 550}
 
 -- Maximum for each rank.  ex. rank 1 = DecorationsPerRank * 1, rank 5 = DecorationsPerRank * 5
 DecorationsPerRank = 10
-TrainersPerRank = 5
-MissionTerminalsPerRank = 3
+TrainersPerRank = 10
+MissionTerminalsPerRank = 10
 
 -- Amount to discount city maintenance  float.  1 = 100%, .75 =75%, .5=50% etc
 maintenanceDiscount = 1
@@ -95,16 +95,16 @@ maintenanceDiscount = 1
 	The maximum amount of cities per rank is 255.
 --]]
 CitiesAllowed = {
-	{"corellia", {5, 5, 5, 5, 5}},
-	{"dantooine", {5, 5, 5, 5, 5}},
-	{"dathomir", {5, 5, 5, 5, 5}},
-	{"endor", {5, 5, 5, 5, 5}},
-	{"lok", {5, 5, 5, 5, 5}},
-	{"naboo", {5, 5, 5, 5, 5}},
-	{"rori", {5, 5, 5, 5, 5}},
-	{"talus", {5, 5, 5, 5, 5}},
-	{"tatooine", {5, 5, 5, 5, 5}},
-	{"yavin4", {5, 5, 5, 5, 5}},
+	{"corellia", {9, 9, 9, 9, 9}},
+	{"dantooine", {9, 9, 9, 9, 9}},
+	{"dathomir", {9, 9, 9, 9, 9}},
+	{"endor", {9, 9, 9, 9, 9}},
+	{"lok", {9, 9, 9, 9, 9}},
+	{"naboo", {9, 9, 9, 9, 9}},
+	{"rori", {9, 9, 9, 9, 9}},
+	{"talus", {9, 9, 9, 9, 9}},
+	{"tatooine", {9, 9, 9, 9, 9}},
+	{"yavin4", {9, 9, 9, 9, 9}},
 }
 
 
