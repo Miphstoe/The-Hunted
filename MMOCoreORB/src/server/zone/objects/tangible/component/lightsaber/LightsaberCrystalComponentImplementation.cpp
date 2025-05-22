@@ -293,20 +293,12 @@ float LightsaberCrystalComponentImplementation::getRandomizedStat(float min, flo
 void LightsaberCrystalComponentImplementation::fillAttributeList(AttributeListMessage* alm, CreatureObject* object) {
 	TangibleObjectImplementation::fillAttributeList(alm, object);
 
-	PlayerObject* player = object->getPlayerObject();
-	if (object->hasSkill("force_title_jedi_rank_02") || player->isPrivileged()) {
-		StringBuffer str3;
-		str3 << "@jedi_spam:saber_color_" << getColor();
-		alm->insertAttribute("color", str3);
-		alm->insertAttribute("mindamage", minimumDamage);
-		alm->insertAttribute("maxdamage", maximumDamage);
-		alm->insertAttribute("wpn_attack_speed", Math::getPrecision(attackSpeed, 2));
-		alm->insertAttribute("wpn_wound_chance", woundChance);
-		alm->insertAttribute("wpn_attack_cost_health", sacHealth);
-		alm->insertAttribute("wpn_attack_cost_action", sacAction);
-		alm->insertAttribute("wpn_attack_cost_mind", sacMind);
-        	alm->insertAttribute("forcecost", forceCost);
+	if (object == nullptr) {
+		return;
+	}
 
+	PlayerObject* player = object->getPlayerObject();
+	if (object->hasSkill("force_title_jedi_rank_01") || player->isPrivileged()) {
 		if (ownerID == 0) {
 			StringBuffer str;
 			str << "\\#pcontrast2 UNTUNED";
@@ -321,11 +313,8 @@ void LightsaberCrystalComponentImplementation::fillAttributeList(AttributeListMe
 			alm->insertAttribute("color", str3);
 		} else {
 			if (ownerID != 0 || player->isPrivileged()) {
-				StringBuffer str3;
-				str3 << "@jedi_spam:saber_color_" << getColor();
-				alm->insertAttribute("color", str3);
 				alm->insertAttribute("mindamage", damage);
-			alm->insertAttribute("maxdamage", damage);
+				alm->insertAttribute("maxdamage", damage);
 				alm->insertAttribute("wpn_attack_speed", attackSpeed);
 				alm->insertAttribute("wpn_wound_chance", woundChance);
 				alm->insertAttribute("wpn_attack_cost_health", sacHealth);
@@ -346,7 +335,6 @@ void LightsaberCrystalComponentImplementation::fillAttributeList(AttributeListMe
 				alm->insertAttribute("crystal_quality", str);
 			}
 		}
-
 	}
 }
 void LightsaberCrystalComponentImplementation::fillObjectMenuResponse(ObjectMenuResponse* menuResponse, CreatureObject* player) {
@@ -476,6 +464,7 @@ void LightsaberCrystalComponentImplementation::updateCrystal(int value){
 
 void LightsaberCrystalComponentImplementation::updateCraftingValues(CraftingValues* values, bool firstUpdate) {
 	int finalColor = values->getCurrentValue("color");//actual color now managed in lootmanagerimp.cpp
+	int colorMax = values->getMaxValue("color");
 
 	setColor(finalColor);//changes the description, not the visual
 	updateCrystal(finalColor);//seems like this updates the VISUAL color, without this all dark red
@@ -523,7 +512,7 @@ void LightsaberCrystalComponentImplementation::updateCraftingValues(CraftingValu
 	//attackSpeed = atts;
 
 
-	if (color != 31) {
+	if (colorMax != 31) {
 
 
 		int finalColor = System::random(6);// red,green,blue

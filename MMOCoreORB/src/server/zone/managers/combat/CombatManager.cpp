@@ -1121,8 +1121,8 @@ int CombatManager::getArmorObjectReduction(ArmorObject* armor, int damageType) c
 	if (resist > 80)
 		resist = 80;
 
-	if (damageType == 16)
-		resist = 100;
+	//if (damageType == 16)
+	//	resist = 100;
 
 	return Math::max(0, (int)resist);
 }
@@ -1181,8 +1181,8 @@ int CombatManager::getArmorNpcReduction(AiAgent* defender, int damageType) const
 	if (resist > 80)
 		resist = 80;
 
-	if (damageType == 16)
-		resist = 100;
+	//if (damageType == 16)
+	//	resist = 100;
 
 	return (int)resist;
 }
