@@ -50,8 +50,8 @@ ForceArmor1Command = {
 	buffClass = SINGLE_USE_BUFF,
 	frsDarkExtraForceCostModifier = -0.003,
 	frsLightExtraForceCostModifier = -0.003,
-	frsLightBuffModifier = 0.45,
-	frsDarkBuffModifier = 0.45,
+	frsLightBuffModifier = 0.25,
+	frsDarkBuffModifier = 0.25,
 }
 
 AddCommand(ForceArmor1Command)
