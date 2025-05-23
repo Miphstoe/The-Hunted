@@ -78,8 +78,6 @@ void CraftingValues::recalculateValues(bool initial, bool looted, int level) {
 	float percentage = 0.f, min = 0.f, max = 0.f, newValue = 0.f, oldValue = 0.f;
 	bool hidden = false;
 
-	info(true)<< " Inside of recalculateValues****  Subtitle Count: " << getSubtitleCount();
-
 	for (int i = 0; i < getSubtitleCount(); ++i) {
 		attributeName = getExperimentalPropertySubtitle(i);
 		experimentalPropTitle = getExperimentalPropertyTitle(attributeName);
@@ -107,8 +105,8 @@ void CraftingValues::recalculateValues(bool initial, bool looted, int level) {
 			newValue = max;
 		}
 
-		info(true)<< " experimentalPropTitle: " << experimentalPropTitle;
-		info(true)<< " attributeName: " << attributeName;
+		//info(true)<< " experimentalPropTitle: " << experimentalPropTitle;
+		//info(true)<< " attributeName: " << attributeName;
 
 		//NOTES The-Hunted
 		//SET THE PROTECTION FOR LOOTED ITEMS
@@ -120,15 +118,24 @@ void CraftingValues::recalculateValues(bool initial, bool looted, int level) {
 		{
 			if (level >= 300)
 			{
-				log(true) << " Loot attribute: " << attributeName << " Value: " << newValue;
+				if (newValue => 80)
+				{
+					newValue -= System::random(5);
+				}
 			}
 			else if (level >= 85 && level < 300)
 			{
-				log(true) << " Loot attribute: " << attributeName << " Value: " << newValue;
+				if (newValue => 80)
+				{
+					newValue -= System::random(15);
+				}
 			}
 			else if (level >= 1 && level < 85)
 			{
-				log(true) << " Loot attribute: " << attributeName << " Value: " << newValue;
+				if (newValue => 80)
+				{
+					newValue -= System::random(25);
+				}			
 			}
 		}
 
