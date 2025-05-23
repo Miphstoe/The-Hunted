@@ -118,21 +118,21 @@ void CraftingValues::recalculateValues(bool initial, bool looted, int level) {
 		{
 			if (level >= 300)
 			{
-				if (newValue => 80)
+				if (newValue >= 80)
 				{
 					newValue -= System::random(5);
 				}
 			}
 			else if (level >= 85 && level < 300)
 			{
-				if (newValue => 80)
+				if (newValue >= 80)
 				{
 					newValue -= System::random(15);
 				}
 			}
 			else if (level >= 1 && level < 85)
 			{
-				if (newValue => 80)
+				if (newValue >= 80)
 				{
 					newValue -= System::random(25);
 				}			
