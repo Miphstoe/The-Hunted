@@ -144,6 +144,8 @@ void LightsaberCrystalComponentImplementation::validateCrystalStats() {
 	int minStat = crystalData->getMinHitpoints();
 	int maxStat = crystalData->getMaxHitpoints();
 
+
+
 	if (getMaxCondition() > maxStat || getMaxCondition() < minStat)
 		setMaxCondition(getRandomizedStat(minStat, maxStat, itemLevel));
 
@@ -151,8 +153,14 @@ void LightsaberCrystalComponentImplementation::validateCrystalStats() {
 		minStat = crystalData->getMinDamage();
 		maxStat = crystalData->getMaxDamage();
 
-		if (damage > maxStat || damage < minStat)
+		//Notes The-Hunted
+		//logs for getting min and max damage points
+		//info(true) << " Min stat: " << minStat << " Max stat: " << maxStat; 
+
+		if (damage > maxStat || damage < minStat){
 			damage = getRandomizedStat(minStat, maxStat, itemLevel);
+			//info(true) << " Setting damage to: " << damage;
+		}
 
 		if (getCustomObjectName().toString().contains("(Exceptional)"))
 			damage *= 2.5;
@@ -198,6 +206,9 @@ void LightsaberCrystalComponentImplementation::validateCrystalStats() {
 }
 
 int LightsaberCrystalComponentImplementation::getCrystalQuality() {
+	//Notes The-Hunted
+	//Find out why the pearl is always set to poor
+	//info(true) << " Crystal item level: " << itemLevel;
 	if (itemLevel < 40)
 		return POOR;
 	else if (itemLevel < 70)

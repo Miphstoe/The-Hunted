@@ -314,12 +314,12 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 
 	//Notes The-Hunted
 	//find out if this is needed
-	// if (prototype->isLightsaberCrystalObject()) {
-	// 	LightsaberCrystalComponent* crystal = cast<LightsaberCrystalComponent*> (prototype.get());
+	if (prototype->isLightsaberCrystalObject()) {
+		LightsaberCrystalComponent* crystal = cast<LightsaberCrystalComponent*> (prototype.get());
 
-	// 	if (crystal != nullptr)
-	// 		crystal->setItemLevel(level);
-	// }
+		if (crystal != nullptr)
+			crystal->setItemLevel(level);
+	}
 
 	String subtitle;
 	bool yellow = false;

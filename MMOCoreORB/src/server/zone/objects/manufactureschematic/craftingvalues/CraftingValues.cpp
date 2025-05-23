@@ -105,6 +105,9 @@ void CraftingValues::recalculateValues(bool initial, bool looted, int level) {
 			newValue = max;
 		}
 
+		//info(true)<< " experimentalPropTitle: " << experimentalPropTitle;
+		//info(true)<< " attributeName: " << attributeName;
+
 		//NOTES The-Hunted
 		//SET THE PROTECTION FOR LOOTED ITEMS
 		//The attributes below correspond the the special protection values
@@ -115,15 +118,24 @@ void CraftingValues::recalculateValues(bool initial, bool looted, int level) {
 		{
 			if (level >= 300)
 			{
-				log(true) << " Loot attribute: " << attributeName << " Value: " << newValue;
+				if (newValue >= 80)
+				{
+					newValue -= System::random(5);
+				}
 			}
 			else if (level >= 85 && level < 300)
 			{
-				log(true) << " Loot attribute: " << attributeName << " Value: " << newValue;
+				if (newValue >= 80)
+				{
+					newValue -= System::random(15);
+				}
 			}
 			else if (level >= 1 && level < 85)
 			{
-				log(true) << " Loot attribute: " << attributeName << " Value: " << newValue;
+				if (newValue >= 80)
+				{
+					newValue -= System::random(25);
+				}			
 			}
 		}
 
