@@ -34,9 +34,9 @@ gondula_shaman = Creature:new {
 	lootGroups = {
 		{
 			groups = {
-				{group = "ewok", chance = 10000000}
+                {group = "ewok", chance = 5000000}, -- 50.00%
+                {group = "wearables_uncommon", chance = 5000000}, -- 50.00%	
 			},
-			lootChance = 1240000
 		}
 	},
 	weapons = {"ewok_weapons"},

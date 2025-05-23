@@ -1,4 +1,4 @@
--- Allows players to choose a mission level range, regardless of their own CL/Group Level
+--and this mission_level_choice.lua -- Allows players to choose a mission level range, regardless of their own CL/Group Level
 
 mission_level_choice = ScreenPlay:new {
 	numberOfActs = 1,

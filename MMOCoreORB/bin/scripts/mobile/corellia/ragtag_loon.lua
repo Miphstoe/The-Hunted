@@ -44,11 +44,11 @@ ragtag_loon = Creature:new {
 	lootGroups = {
 		{
 			groups = {
-				{group = "junk", chance = 4000000},
-				{group = "wearables_common", chance = 3000000},
-				{group = "loot_kit_parts", chance = 1500000},
-				{group = "power_crystals", chance = 500000},
-				{group = "tailor_components", chance = 1000000}
+                {group = "power_crystals", chance = 1500000}, -- 15.00%
+                {group = "wearables_common", chance = 2500000}, -- 25.00%
+                {group = "junk", chance = 2000000}, -- 20.00%
+                {group = "loot_kit_parts", chance = 2000000}, -- 20.00%
+                {group = "tailor_components", chance = 2000000}, -- 20.00%
 			}
 		}
 	},

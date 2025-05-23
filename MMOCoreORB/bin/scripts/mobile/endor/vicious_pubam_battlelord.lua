@@ -33,10 +33,9 @@ vicious_pubam_battlelord = Creature:new {
 	lootGroups = {
 		{
 			groups = {
-				{group = "ewok", chance = 9000000},
-				{group = "wearables_all", chance = 1000000},
+                {group = "ewok", chance = 5000000}, -- 50.00%
+                {group = "wearables_uncommon", chance = 5000000}, -- 50.00%
 			},
-			lootChance = 1700000
 		}
 	},
 	weapons = {},

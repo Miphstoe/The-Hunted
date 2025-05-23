@@ -35,11 +35,10 @@ gifted_jinda_shaman = Creature:new {
 	lootGroups = {
 		{
 			groups = {
-				{group = "ewok", chance = 9100000},
-				{group = "armor_attachments", chance = 450000},
-				{group = "clothing_attachments", chance = 450000}
+                {group = "ewok", chance = 7000000}, -- 70.00%
+                {group = "armor_attachments", chance = 1500000}, -- 15.00%
+                {group = "clothing_attachments", chance = 1500000}, -- 15.00%
 			},
-			lootChance = 1540000
 		}
 	},
 	weapons = {"ewok_weapons"},

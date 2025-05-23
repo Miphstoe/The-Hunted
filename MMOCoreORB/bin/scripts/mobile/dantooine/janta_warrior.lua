@@ -33,9 +33,9 @@ janta_warrior = Creature:new {
 	lootGroups = {
 		{
 			groups = {
-				{group = "junk", chance = 5500000},
-				{group = "janta_common", chance = 1500000},
-				{group = "loot_kit_parts", chance = 3000000}
+                {group = "junk", chance = 3333333}, -- 33.33%
+                {group = "janta_common", chance = 3333333}, -- 33.33%
+                {group = "loot_kit_parts", chance = 3333333}, -- 33.33%
 			}
 		}
 	},

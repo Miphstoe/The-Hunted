@@ -33,9 +33,9 @@ enraged_donkuwah = Creature:new {
 	lootGroups = {
 		{
 			groups = {
-				{group = "donkuwah_common", chance = 10000000}
+                {group = "donkuwah_common", chance = 5000000}, -- 50.00%
+                {group = "wearables_uncommon", chance = 5000000}, -- 50.00%
 			},
-			lootChance = 1680000
 		}
 	},
 	weapons = {"donkuwah_weapons"},

@@ -33,10 +33,11 @@ archaic_panshee_ritualist = Creature:new {
 	lootGroups = {
 		 {
 	        groups = {
-				{group = "ewok", chance = 9000000},
-				{group = "wearables_uncommon", chance = 1000000},
+                {group = "ewok", chance = 3500000}, -- 35.00%
+                {group = "wearables_uncommon", chance = 3500000}, -- 35.00%
+                {group = "armor_attachments", chance = 1500000}, -- 15.00%
+                {group = "clothing_attachments", chance = 1500000}, -- 15.00%
 			},
-			lootChance = 2200000
 		}
 	},
 	weapons = {"ewok_weapons"},

@@ -31,17 +31,17 @@ spiderclan_acolyte = Creature:new {
 	lootGroups = {
 		{
 			groups = {
-				{group = "junk", chance = 1500000},
-				{group = "power_crystals", chance = 500000},
-				{group = "color_crystals", chance = 500000},
-				{group = "armor_attachments", chance = 350000},
-				{group = "clothing_attachments", chance = 350000},
-				{group = "melee_weapons", chance = 2800000},
-				{group = "pistols", chance = 1000000},
-				{group = "rifles", chance = 1000000},
-				{group = "carbines", chance = 1000000},
-				{group = "wearables_common", chance = 500000},
-				{group = "wearables_uncommon", chance = 500000}
+                {group = "junk", chance = 2250000}, -- 22.50%
+                {group = "power_crystals", chance = 750000}, -- 7.50%
+                {group = "color_crystals", chance = 750000}, -- 7.50%
+                {group = "armor_attachments", chance = 750000}, -- 7.50%
+                {group = "clothing_attachments", chance = 750000}, -- 7.50%
+                {group = "melee_weapons", chance = 500000}, -- 5.00%
+                {group = "pistols", chance = 500000}, -- 5.00%
+                {group = "rifles", chance = 500000}, -- 5.00%
+                {group = "carbines", chance = 500000}, -- 5.00%
+                {group = "wearables_common", chance = 500000}, -- 5.00%
+                {group = "wearables_uncommon", chance = 2250000}, -- 22.50%
 			}
 		}
 	},

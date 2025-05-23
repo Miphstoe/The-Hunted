@@ -43,9 +43,9 @@ smashball_degenerate = Creature:new {
 	lootGroups = {
 		{
 			groups = {
-				{group = "junk", chance = 6000000},
-				{group = "loot_kit_parts", chance = 2500000},
-				{group = "tailor_components", chance = 1500000}
+                {group = "junk", chance = 3333334}, -- 33.33%
+                {group = "loot_kit_parts", chance = 3333333}, -- 33.33%
+                {group = "tailor_components", chance = 3333333}, -- 33.33%
 			}
 		}
 	},

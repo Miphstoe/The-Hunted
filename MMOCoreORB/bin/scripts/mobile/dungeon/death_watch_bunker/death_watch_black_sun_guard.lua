@@ -32,9 +32,12 @@ death_watch_black_sun_guard = Creature:new {
 	lootGroups = {
 		{
 			groups = {
-				{group = "death_watch_bunker_commoners", chance = 10000000}
+                {group = "death_watch_bunker_commoners", chance = 625000}, -- 6.25%
+                {group = "pistols", chance = 833333}, -- 8.33%
+                {group = "rifles", chance = 833333}, -- 8.33%
+                {group = "carbines", chance = 833333}, -- 8.33%
+                {group = "wearables_uncommon", chance = 6250001}, -- 62.50%			
 			},
-			lootChance = 1000000
 		}
 	},
 	weapons = {"pirate_weapons_heavy"},

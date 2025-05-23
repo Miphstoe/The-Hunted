@@ -31,9 +31,11 @@ donkuwah_battlelord = Creature:new {
 	lootGroups = {
 		{
 			groups = {
-				{group = "donkuwah_common", chance = 10000000}
+                {group = "donkuwah_common", chance = 3500000}, -- 35.00%
+                {group = "wearables_uncommon", chance = 3500000}, -- 35.00%
+                {group = "armor_attachments", chance = 1500000}, -- 15.00%
+                {group = "clothing_attachments", chance = 1500000}, -- 15.00%					
 			},
-			lootChance = 1520000
 		}
 	},
 	weapons = {"donkuwah_weapons"},

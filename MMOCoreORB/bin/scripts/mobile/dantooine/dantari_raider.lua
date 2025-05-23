@@ -33,11 +33,11 @@ dantari_raider = Creature:new {
 	lootGroups = {
 		{
 			groups = {
-				{group = "junk", chance = 4000000},
-				{group = "loot_kit_parts", chance = 3000000},
-				{group = "armor_attachments", chance = 500000},
-				{group = "clothing_attachments", chance = 500000},
-				{group = "wearables_common", chance = 2000000}
+                {group = "junk", chance = 2250000}, -- 22.50%
+                {group = "loot_kit_parts", chance = 2250000}, -- 22.50%
+                {group = "armor_attachments", chance = 1500000}, -- 15.00%
+                {group = "clothing_attachments", chance = 1500000}, -- 15.00%
+                {group = "wearables_common", chance = 2500000}, -- 25.00%
 			}
 		}
 	},

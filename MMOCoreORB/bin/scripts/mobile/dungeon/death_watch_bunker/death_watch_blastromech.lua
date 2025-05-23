@@ -26,20 +26,19 @@ death_watch_blastromech = Creature:new {
 	diet = HERBIVORE,
 
 	templates = {"object/mobile/blastromech.iff"},
-
 	lootGroups = {
 		{
 			groups = {
-				{group = "death_watch_bunker_commoners", chance = 10000000}
-			},
-			lootChance = 500000
+					{group = "death_watch_bunker_commoners", chance = 625000}, -- 6.25%
+					{group = "death_watch_bunker_lieutenants", chance = 625000}, -- 6.25%
+					{group = "pistols", chance = 833333}, -- 8.33%
+					{group = "rifles", chance = 833333}, -- 8.33%
+					{group = "carbines", chance = 833333}, -- 8.33%
+					{group = "wearables_uncommon", chance = 3250001}, -- 32.50%
+					{group = "clothing_attachments", chance = 1500000}, -- 15.00%
+					{group = "armor_attachments", chance = 1500000}, -- 15.00%
+			}
 		},
-		{
-			groups = {
-				{group = "clothing_attachments", chance = 1000000},
-				{group = "armor_attachments", chance = 1000000},
-			},
-		}
 	},
 	conversationTemplate = "",
 	defaultWeapon = "object/weapon/ranged/droid/droid_astromech_ranged.iff",

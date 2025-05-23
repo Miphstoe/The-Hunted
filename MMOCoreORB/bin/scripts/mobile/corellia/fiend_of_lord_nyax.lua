@@ -29,10 +29,10 @@ fiend_of_lord_nyax = Creature:new {
 	lootGroups = {
 		{
 			groups = {
-				{group = "junk", chance = 7000000},
-				{group = "pistols", chance = 1000000},
-				{group = "rifles", chance = 1000000},
-				{group = "carbines", chance = 1000000}
+                {group = "pistols", chance = 833333}, -- 8.33%
+                {group = "rifles", chance = 833333}, -- 8.33%
+                {group = "carbines", chance = 833333}, -- 8.33%
+                {group = "junk", chance = 7500001}, -- 75.00%
 			}
 		}
 	},

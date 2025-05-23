@@ -33,9 +33,9 @@ hardened_panshee_warrior = Creature:new {
 	lootGroups = {
 		{
 			groups = {
-				{group = "ewok", chance = 10000000}
+                {group = "ewok", chance = 5000000}, -- 50.00%
+                {group = "wearables_uncommon", chance = 5000000}, -- 50.00%	
 			},
-			lootChance = 1340000
 		}
 	},
 	weapons = {"ewok_weapons"},

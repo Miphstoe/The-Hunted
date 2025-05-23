@@ -55,11 +55,11 @@ selonian_thief = Creature:new {
 	lootGroups = {
 		{
 			groups = {
-				{group = "junk", chance = 3000000},
-				{group = "wearables_common", chance = 2000000},
-				{group = "melee_weapons", chance = 1000000},
-				{group = "loot_kit_parts", chance = 2500000},
-				{group = "tailor_components", chance = 1500000}
+                {group = "wearables_common", chance = 1250000}, -- 12.50%
+                {group = "melee_weapons", chance = 1250000}, -- 12.50%
+                {group = "junk", chance = 2500000}, -- 25.00%
+                {group = "loot_kit_parts", chance = 2500000}, -- 25.00%
+                {group = "tailor_components", chance = 2500000}, -- 25.00%
 			}
 		}
 	},

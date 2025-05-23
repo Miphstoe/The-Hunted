@@ -46,7 +46,7 @@ object_building_tatooine_bank_tatooine = object_building_tatooine_shared_bank_ta
 	childObjects = {
 			{templateFile = "object/tangible/terminal/terminal_bank.iff", x = 0, z = 0.5, y = 4.2, ox = 0, oy = 0, oz = 0, ow = 1, cellid = -1, containmentType = -1},
 			{templateFile = "object/tangible/terminal/terminal_bank.iff", x = 4.2, z = 0.5, y = 0, ox = 0, oy = 0.707107, oz = 0, ow = 0.707107, cellid = -1, containmentType = -1},
-			{templateFile = "object/tangible/terminal/terminal_bank.iff", x = 0, z = 0.5, y = -4.2, ox = 0, oy = 1, oz = 0, ow = 0, cellid = -1, containmentType = -1},
+			{templateFile = "object/tangible/terminal/terminal_bazaar.iff", x = 0, z = 0.5, y = -4.2, ox = 0, oy = 1, oz = 0, ow = 0, cellid = -1, containmentType = -1},
 			{templateFile = "object/tangible/terminal/terminal_bank.iff", x = -4.2, z = 0.5, y = 0, ox = 0, oy = -0.707107, oz = 0, ow = 0.707107, cellid = -1, containmentType = -1}
 	}
 }

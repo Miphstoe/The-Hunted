@@ -230,7 +230,7 @@ public:
 			if (member == nullptr || !member->isPlayerCreature())
 				continue;
 
-			if (member != player && member->isInRange(corpse, 128.f))
+			if (member != player && member->isInRange(corpse, 32.f))
 				return true;
 		}
 

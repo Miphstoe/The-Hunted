@@ -31,17 +31,17 @@ spiderclan_web_dancer = Creature:new {
 	lootGroups = {
 		{
 			groups = {
-				{group = "junk", chance = 1500000},
-				{group = "power_crystals", chance = 500000},
-				{group = "color_crystals", chance = 500000},
-				{group = "armor_attachments", chance = 400000},
-				{group = "clothing_attachments", chance = 400000},
-				{group = "melee_weapons", chance = 2700000},
-				{group = "pistols", chance = 1000000},
-				{group = "rifles", chance = 1000000},
-				{group = "carbines", chance = 1000000},
-				{group = "wearables_common", chance = 500000},
-				{group = "wearables_uncommon", chance = 500000}
+                {group = "junk", chance = 1500000}, -- 15.00%
+                {group = "power_crystals", chance = 750000}, -- 7.50%
+                {group = "color_crystals", chance = 750000}, -- 7.50%
+                {group = "armor_attachments", chance = 750000}, -- 7.50%
+                {group = "clothing_attachments", chance = 750000}, -- 7.50%
+                {group = "melee_weapons", chance = 625000}, -- 6.25%
+                {group = "pistols", chance = 625000}, -- 6.25%
+                {group = "rifles", chance = 625000}, -- 6.25%
+                {group = "carbines", chance = 625000}, -- 6.25%
+                {group = "wearables_common", chance = 1500000}, -- 15.00%
+                {group = "wearables_uncommon", chance = 1500000}, -- 15.00%
 			}
 		}
 	},

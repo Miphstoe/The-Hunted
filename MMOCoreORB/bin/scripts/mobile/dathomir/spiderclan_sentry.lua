@@ -31,16 +31,16 @@ spiderclan_sentry = Creature:new {
 	lootGroups = {
 		{
 			groups = {
-				{group = "junk", chance = 1500000},
-				{group = "power_crystals", chance = 500000},
-				{group = "color_crystals", chance = 500000},
-				{group = "armor_attachments", chance = 350000},
-				{group = "clothing_attachments", chance = 350000},
-				{group = "melee_weapons", chance = 2800000},
-				{group = "pistols", chance = 1000000},
-				{group = "rifles", chance = 1000000},
-				{group = "carbines", chance = 1000000},
-				{group = "wearables_common", chance = 1000000}
+                {group = "junk", chance = 2250000}, -- 22.50%
+                {group = "power_crystals", chance = 750000}, -- 7.50%
+                {group = "color_crystals", chance = 750000}, -- 7.50%
+                {group = "armor_attachments", chance = 750000}, -- 7.50%
+                {group = "clothing_attachments", chance = 750000}, -- 7.50%
+                {group = "melee_weapons", chance = 625000}, -- 6.25%
+                {group = "pistols", chance = 625000}, -- 6.25%
+                {group = "rifles", chance = 625000}, -- 6.25%
+                {group = "carbines", chance = 625000}, -- 6.25%
+                {group = "wearables_common", chance = 2250000}, -- 22.50%
 			}
 		}
 	},

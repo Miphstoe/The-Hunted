@@ -33,13 +33,13 @@ mokk_soothsayer = Creature:new {
 	lootGroups = {
 		{
 			groups = {
-				{group = "junk", chance = 3500000},
-				{group = "loot_kit_parts", chance = 3000000},
-				{group = "armor_attachments", chance = 500000},
-				{group = "clothing_attachments", chance = 500000},
-				{group = "wearables_common", chance = 1000000},
-				{group = "wearables_uncommon", chance = 1000000},
-				{group = "color_crystals", chance = 500000}
+                {group = "junk", chance = 2250000}, -- 22.50%
+                {group = "loot_kit_parts", chance = 2250000}, -- 22.50%
+                {group = "armor_attachments", chance = 1000000}, -- 10.00%
+                {group = "clothing_attachments", chance = 1000000}, -- 10.00%
+                {group = "wearables_common", chance = 1250000}, -- 12.50%
+                {group = "wearables_uncommon", chance = 1250000}, -- 12.50%
+                {group = "color_crystals", chance = 1000000}, -- 10.00%
 			}
 		}
 	},

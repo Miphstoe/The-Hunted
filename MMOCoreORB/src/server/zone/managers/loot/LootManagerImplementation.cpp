@@ -312,6 +312,8 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 
 	float adjustment = floor((float)(((level > 50) ? level : 50) - 50) / 10.f + 0.5);
 
+	//Notes The-Hunted
+	//find out if this is needed
 	if (prototype->isLightsaberCrystalObject()) {
 		LightsaberCrystalComponent* crystal = cast<LightsaberCrystalComponent*> (prototype.get());
 
@@ -428,7 +430,7 @@ TangibleObject* LootManagerImplementation::createLootObject(const LootItemTempla
 //	}
 
 	// Use percentages to recalculate the values
-	craftingValues->recalculateValues(false);
+	craftingValues->recalculateValues(false, true, level);
 
 	craftingValues->addExperimentalProperty("creatureLevel", "creatureLevel", level, level, 0, false, ValuesMap::LINEARCOMBINE);
 	//can i unhiude this? here or in object alm
@@ -629,11 +631,14 @@ bool LootManagerImplementation::createLoot(TransactionLog& trx, SceneObject* con
 bool LootManagerImplementation::createLootFromCollection(TransactionLog& trx, SceneObject* container, const LootGroupCollection* lootCollection, int level) {
 	for (int i = 0; i < lootCollection->count(); ++i) {
 		const LootGroupCollectionEntry* entry = lootCollection->get(i);
-		int lootChance = (entry->getLootChance() * 2.2);
+		int lootChance = (entry->getLootChance());
 
+		//NOTES The-Hunted
+		//Info here
+		//info(true)<< " Loot Chance createLootFromCollection " << lootChance;
 		int hroll = System::random(5000);
 
-		if (hroll == 10000)
+		if (hroll == 5000)
 			createLoot(trx, container, "holocron_nd", level);
 
 		if (lootChance <= 0)
@@ -657,26 +662,9 @@ bool LootManagerImplementation::createLootFromCollection(TransactionLog& trx, Sc
 
 			tempChance += entry->getLootChance();
 
-			//Is this entry lower than the roll? If yes, then we want to try the next entry.
-			if (tempChance < roll)
-				continue;
-
-			createLoot(trx, container, entry->getLootGroupName(), level);
-
-			break;
-		}
-
-		//Now we do the second roll to determine loot group.
-		roll = System::random(10000000);
-
-		if (roll > lootChance)
-			continue;
-
-		//Select the loot group to use.
-		for (int i = 0; i < lootGroups->count(); ++i) {
-			const LootGroupEntry* entry = lootGroups->get(i);
-
-			tempChance += entry->getLootChance();
+			// NOTES The-Hunted
+			// Info log here
+			//info(true)<< " LootGroup: " << entry->getLootGroupName() << " Chance: " << tempChance << " Roll against: " << roll;
 
 			//Is this entry lower than the roll? If yes, then we want to try the next entry.
 			if (tempChance < roll)
@@ -698,6 +686,35 @@ bool LootManagerImplementation::createLootFromCollection(TransactionLog& trx, Sc
 			const LootGroupEntry* entry = lootGroups->get(i);
 
 			tempChance += entry->getLootChance();
+
+			// NOTES The-Hunted
+			// Info log here
+			//info(true)<< " LootGroup: " << entry->getLootGroupName() << " Chance: " << tempChance << " Roll against: " << roll;
+
+			//Is this entry lower than the roll? If yes, then we want to try the next entry.
+			if (tempChance < roll)
+				continue;
+
+			createLoot(trx, container, entry->getLootGroupName(), level);
+
+			break;
+		}
+
+		//Now we do the second roll to determine loot group.
+		roll = System::random(10000000);
+
+		if (roll > lootChance)
+			continue;
+
+		//Select the loot group to use.
+		for (int i = 0; i < lootGroups->count(); ++i) {
+			const LootGroupEntry* entry = lootGroups->get(i);
+
+			tempChance += entry->getLootChance();
+
+			// NOTES The-Hunted
+			// Info log here
+			//info(true)<< " LootGroup: " << entry->getLootGroupName() << " Chance: " << tempChance << " Roll against: " << roll;
 
 			//Is this entry lower than the roll? If yes, then we want to try the next entry.
 			if (tempChance < roll)
