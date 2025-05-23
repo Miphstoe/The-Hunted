@@ -2,6 +2,8 @@
 				Copyright <SWGEmu>
 		See file COPYING for copying conditions.*/
 
+#include "server/zone/objects/player/PlayerObject.h"
+
 #ifndef FINDMYTRAINERCOMMAND_H_
 #define FINDMYTRAINERCOMMAND_H_
 
@@ -29,8 +31,11 @@ public:
 		if (ghost == nullptr)
 			return GENERALERROR;
 
-		if (ghost->getJediState() < 2 || !creature->hasSkill("force_title_jedi_rank_02"))
+		if (ghost->getJediState() < 2)
 			return GENERALERROR;
+
+		//removing the findmytrainer command
+		PlayerObject* player = creature->getPlayerObject();
 
 		String planet = ghost->getTrainerZoneName();
 
@@ -60,12 +65,19 @@ public:
 		obj->setPlanetCRC(planetCRC);
 		obj->setPosition(coords.getX(), 0, coords.getY());
 		obj->setCustomObjectName(name, false);
-//removing the findmytrainer command
-//		ghost->addWaypoint(obj, true, true);
 
-		creature->sendSystemMessage("Your Jedi trainer could be any starting profession trainer on any planet. Converse with starting profession trainers to find yours, may the force be with you.");
 
-		return SUCCESS;
+//		if (player->isPrivileged()) {
+
+			ghost->addWaypoint(obj, true, true);
+
+			creature->sendSystemMessage("A waypoint to your Jedi skill trainer has been added to your datapad.");
+
+			return SUCCESS;
+//		}
+//
+//		creature->sendSystemMessage("You must travel to planet " + planet + ". There you will find your Jedi skill trainer.");
+//		return SUCCESS;
 	}
 
 	static void setJediTrainer(PlayerObject* ghost) {
@@ -84,6 +96,7 @@ public:
 		trainerTypes.add("trainer_marksman");
 		trainerTypes.add("trainer_entertainer");
 		trainerTypes.add("trainer_medic");
+		//trainerTypes.add("trainer_2hsword");
 
 		// Trainer number. Pick a random trainer, there are at least 600 in the galaxy.
 		for (int i=0; i < zServ->getZoneCount(); ++i) {
