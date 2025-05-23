@@ -184,7 +184,7 @@ void AiAgentImplementation::loadTemplateData(CreatureTemplate* templateData) {
 		weapran = .5 + (System::random(30) * .01);
 	}
 
-	float elite = npcTemplate->getElite();//sets a custom elite lvl multiplier
+	float elite = npcTemplate->getBlast();//sets a custom elite lvl multiplier
 
 	if (elite > 1.0) {
 		//legendarynpc = true;
