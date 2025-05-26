@@ -35,12 +35,6 @@ enhanced_force_kliknik = Creature:new {
 			},
 			lootChance = 2880000
 		},
-		{
-			groups = {
-				{group = "clothing_attachments", chance = 1000000},
-				{group = "armor_attachments", chance = 1000000},
-			},
-		}
 	},
 	weapons = {"creature_spit_heavy_flame"},
 	conversationTemplate = "",

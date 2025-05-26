@@ -34,12 +34,6 @@ enhanced_kwi = Creature:new {
 			},
 			lootChance = 5000000
 		},
-		{
-			groups = {
-				{group = "clothing_attachments", chance = 1000000},
-				{group = "armor_attachments", chance = 1000000},
-			},
-		}
 	},
 	weapons = {},
 	conversationTemplate = "",
