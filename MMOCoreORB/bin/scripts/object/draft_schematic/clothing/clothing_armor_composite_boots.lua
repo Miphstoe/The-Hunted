@@ -50,7 +50,7 @@ object_draft_schematic_clothing_clothing_armor_composite_boots = object_draft_sc
    craftingToolTab = 2, -- (See DraftSchematicObjectTemplate.h)
    complexity = 45, 
    size = 4, 
-   factoryCrateSize = 1001 1000,
+   factoryCrateSize = 1000,
 
    xpType = "crafting_clothing_armor", 
    xp = 420, 
