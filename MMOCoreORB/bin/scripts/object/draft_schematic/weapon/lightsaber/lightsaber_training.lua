@@ -58,11 +58,7 @@ object_draft_schematic_weapon_lightsaber_lightsaber_training = object_draft_sche
    assemblySkill = "jedi_saber_assembly", 
    experimentingSkill = "jedi_saber_experimentation", 
    customizationSkill = "jedi_customization", 
-<<<<<<< HEAD
-   factoryCrateSize = 0,,   
-=======
-   factoryCrateSize = 0,   
->>>>>>> 0c93fcf2f9ddd12826ff6ff2bf56b7801b1b5b21
+   factoryCrateSize = 0,
 
    customizationOptions = {},
    customizationStringNames = {},
