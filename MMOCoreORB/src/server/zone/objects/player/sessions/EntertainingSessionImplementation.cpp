@@ -632,7 +632,7 @@ void EntertainingSessionImplementation::addEntertainerBuffDuration(CreatureObjec
 
 	buffDuration += duration;
 	
-		buffDuration = 180.0f; //3 hr
+		buffDuration = 300.0f; //3 hr
 
 	setEntertainerBuffDuration(creature, performanceType, buffDuration);
 }
