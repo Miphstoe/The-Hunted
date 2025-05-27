@@ -6,8 +6,8 @@ rifle_tenloss_dxr6_disruptor = {
 	customObjectName = "",
 	directObjectTemplate = "object/weapon/ranged/rifle/rifle_tenloss_dxr6_disruptor_loot.iff",
 	craftingValues = {
-		{"mindamage",40,150,0},
-		{"maxdamage",80,320,0},
+		{"mindamage",80,150,0},
+		{"maxdamage",160,320,0},
 		{"attackspeed",9.4,6.7,1},
 		{"woundchance",4.8,12.3,0},
 		{"hitpoints",750,750,0},
