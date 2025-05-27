@@ -6,10 +6,10 @@ projectile_feed_mechanism_advanced = {
 	customObjectName = "",
 	directObjectTemplate = "object/tangible/component/weapon/projectile_feed_mechanism_advanced.iff",
 	craftingValues = {
-		{"mindamage", 5,25,0},
-		{"maxdamage", 10,50,0},
+		{"mindamage", 10,50,0},
+		{"maxdamage", 20,100,0},
 		{"attackspeed",-0.1,-0.5,1},
-		{"hitpoints",20,100,0},
+		{"hitpoints",50,200,0},
 		{"useCount",3,11,0}
 	},
 	customizationStringName = {},

@@ -46,7 +46,7 @@ object_tangible_food_crafted_drink_blue_milk = object_tangible_food_crafted_shar
 
 	duration = 10,
 	filling = 10,
-	nutrition = 10,
+	nutrition = 200,
 
 	effectType = 6,
 
