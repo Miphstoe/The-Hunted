@@ -58,7 +58,7 @@ object_draft_schematic_weapon_lightsaber_lightsaber_one_hand_gen2 = object_draft
    assemblySkill = "jedi_saber_assembly", 
    experimentingSkill = "jedi_saber_experimentation", 
    customizationSkill = "jedi_customization", 
-   factoryCrateSize = 1001 0,
+   factoryCrateSize = 0,
 
    customizationOptions = {},
    customizationStringNames = {},
